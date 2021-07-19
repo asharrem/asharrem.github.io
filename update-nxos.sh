@@ -84,7 +84,7 @@ read -p "Install DS-WSELI Freeze workarounds (y/n)? [default=No]: " answer
 case ${answer:0:1} in
   y|Y )
     # sudo rm freeze_fix.sh
-    wget -q -N https://asharrem.github.io/freeze_fix.sh
+    wget "https://asharrem.github.io/freeze_fix.sh" -q -P ~/Downloads
     chmod +x freeze_fix.sh
     . freeze_fix.sh
     ;;
