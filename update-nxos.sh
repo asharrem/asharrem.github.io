@@ -37,6 +37,17 @@ cd ~/Downloads
 read -p "Download & Install Nx Software (y/n)? [default=No]: " answer
 case ${answer:0:1} in
   y|Y )
+    # Google Chrome
+    file_name="google-chrome-stable_current_amd64.deb"
+    if [ ! -f "$file_name" ]; then
+      echo -e "\n Downloading ${file_name}... \n"
+      wget "https://dl.google.com/linux/direct/$file_name" -q -P ~/Downloads
+      echo -e "\n Installing Google Chrome ... \n"
+      sudo gdebi -n google-chrome-stable_current_amd64.deb
+      echo -e "\n Google Chrome Installed ... \n"
+      echo -e "\n You can now use Cockpit or Diskmanager"
+      echo -e " to mount storage before Nx Server Loads ... \n"
+    fi
     # Nx server
     file_name="nxwitness-server-${NxVer}-linux64.deb"
     if [ ! -f "$file_name" ]; then
@@ -49,25 +60,16 @@ case ${answer:0:1} in
       echo -e "\n Downloading ${file_name}... \n"
       wget "https://updates.networkoptix.com/default/$NxBuild/linux/$file_name" -q -P ~/Downloads
     fi
-    # Google Chrome
-    file_name="google-chrome-stable_current_amd64.deb"
-    if [ ! -f "$file_name" ]; then
-      echo -e "\n Downloading ${file_name}... \n"
-      wget "https://dl.google.com/linux/direct/$file_name" -q -P ~/Downloads
-    fi
-    # use ./ instead of ~/Downloads as google would not install?
+    # Install NX Client
+    echo -e "\n Installing Nx Client ... \n"
+    sudo gdebi -n nxwitness-client-$NxVer-linux64.deb
     # Install NX Server
     echo -e "\n Installing Nx Server ... \n"
     sudo gdebi -n nxwitness-server-$NxVer-linux64.deb
     # Configure Nx Server to enumerate removeable Storage then restart service
     #sudo sed -i "$ a allowRemovableStorages=1" /opt/networkoptix/mediaserver/etc/mediaserver.conf
     #sudo service networkoptix-mediaserver restart
-    # Install NX Client
-    echo -e "\n Installing Nx Client ... \n"
-    sudo gdebi -n nxwitness-client-$NxVer-linux64.deb
     #Install Google Chrome
-    echo -e "\n Installing Google Chrome ... \n"
-    sudo gdebi -n google-chrome-stable_current_amd64.deb
     # ToDo: do I need some sort of wait command for interactive gdebi?
     #
     echo -e "\n Done Installing Nx software \n"
@@ -82,7 +84,7 @@ read -p "Install DS-WSELI Freeze workarounds (y/n)? [default=No]: " answer
 case ${answer:0:1} in
   y|Y )
     # sudo rm freeze_fix.sh
-    wget -q -N http://support.nfs.co.nz/downloads/freeze_fix.sh
+    wget -q -N https://asharrem.github.io/freeze_fix.sh
     chmod +x freeze_fix.sh
     . freeze_fix.sh
     ;;
@@ -98,7 +100,7 @@ case ${answer:0:1} in
     # Install Workstation PoE Drivers
     file_name="ds-wseli-poe.deb"
     if [ ! -f "$file_name" ]; then
-      wget "http://support.nfs.co.nz/downloads/$file_name" -q -P ~/Downloads
+      wget "https://asharrem.github.io/$file_name" -q -P ~/Downloads
     fi
     sudo gdebi -n ds-wseli-poe.deb
     echo -e "\n *** Reboot Required *** \n"
