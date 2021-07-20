@@ -6,16 +6,21 @@
 NxVer="4.2.0.32840"
 NxBuild="32840"
 ServerName="NxOS-20LTS"
+macaddy="0000"
 ############################################
 
-# Set Machine Hostname to Last 4 digits of enp1s0
-if [[ -e /sys/class/net/enp1s0/address ]]; then
-  macaddy=$(cat /sys/class/net/enp1s0/address | tr -d ':' | grep -o '....$')
-elif [[ -e /sys/class/net/enp2s0/address ]]; then
-  macaddy=$(cat /sys/class/net/enp2s0/address | tr -d ':' | grep -o '....$')
-else
-    macaddy="0000"
+# Set Machine Hostname to Last 4 digits of first eth found
+unset first_eth
+first_eth=$(ls /sys/class/net | grep -m1 ^e)
+if [[ ! -z "$first_eth" ]]; then
+  macaddy=$(cat /sys/class/net/$first_eth/address | tr -d ':' | grep -o '....$')
 fi
+# for i in {1..4}; do
+#   if [[ -e /sys/class/net/enp${i}s0/address ]]; then
+#     macaddy=$(cat /sys/class/net/enp${i}s0/address | tr -d ':' | grep -o '....$')
+#     break
+#   fi
+# done
 ServerName="${ServerName}-${macaddy}"
 echo -e "\n Hostname = ${ServerName} ... \n"
 sudo hostnamectl set-hostname $ServerName
