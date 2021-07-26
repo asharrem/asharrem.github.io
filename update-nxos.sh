@@ -24,7 +24,7 @@ fi
 ServerName="${ServerName}-${macaddy}"
 echo -e "\n Hostname = ${ServerName} ... \n"
 sudo hostnamectl set-hostname $ServerName
-sudo sed -i "s/127.0.1.1	ubuntu/127.0.1.1	\$ServerName/g" /etc/hosts
+sudo sed -i "s/127.0.1.1	ubuntu/127.0.1.1	$ServerName/g" /etc/hosts
 echo -e "\n /etc/hosts updated ... \n"
 
 # ToDo: Update icon theme - not working yet
