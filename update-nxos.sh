@@ -91,7 +91,7 @@ read -p "Enable Crash Dump / HDMI ON / cstate = 1 as default (y/n)? [default=No]
 case ${answer:0:1} in
   y|Y )
     # sudo rm freeze_fix.sh
-    wget "https://asharrem.github.io/freeze_fix.sh" -q -P ~/Downloads
+    wget -O freeze_fix.sh "https://asharrem.github.io/freeze_fix.sh" -q
     chmod +x freeze_fix.sh
     . freeze_fix.sh
     ;;
