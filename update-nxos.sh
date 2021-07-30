@@ -87,7 +87,7 @@ case ${answer:0:1} in
 esac
 
 #Query user to Install DS-WSELI intel grub hacks
-read -p "Enable HDMI ON / cstate =1 as default (y/n)? [default=No]: " answer
+read -p "Enable Crash Dump / HDMI ON / cstate = 1 as default (y/n)? [default=No]: " answer
 case ${answer:0:1} in
   y|Y )
     # sudo rm freeze_fix.sh

@@ -16,5 +16,6 @@ sudo tee /etc/default/grub.d/60_nxos_hdmi.cfg > /dev/null << EOF
 GRUB_CMDLINE_LINUX="$GRUB_CMDLINE_LINUX video=HDMI-A-1:1920x1080@60:D"
 EOF
 sudo update-grub
+sudo apt install linux-crashdump
 echo -e "\n *** Reboot Required *** \n"
 sleep 1
