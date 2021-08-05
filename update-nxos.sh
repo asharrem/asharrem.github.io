@@ -1,4 +1,5 @@
 #!/bin/bash
+
 ############################################
 # This script is for post install of NxOS
 # Called manually by /opt/nxos/intsall.sh
@@ -86,6 +87,21 @@ case ${answer:0:1} in
     echo -e "\n Done Installing Nx software \n"
     ;;
 
+    # Enable AnalyticsDbStoragePermissions
+    echo -e "\n Implementing Nx Server AnalyticsDbStoragePermissions \n"
+    /opt/google/chrome/google-chrome \
+    https://admin:admin@127.0.0.1:7001/api/systemSettings?forceAnalyticsDbStoragePermissions=true \
+    --incognito \
+    --noerrdialogs \
+    --disable-translate \
+    --no-first-run \
+    --fast \
+    --fast-start \
+    --disable-infobars \
+    --disable-features=TranslateUI \
+    --disk-cache-dir=/dev/null \
+    --password-store=basic
+
   # No was selected
   * )
     echo -e "\n Skipping Nx Software \n"
@@ -129,6 +145,7 @@ case ${answer:0:1} in
     echo -e "\n Skipping DS-WSELI PoE Drivers \n"
     ;;
 esac
+
 
 # Do system updates & cleanup
 sudo apt -y upgrade
