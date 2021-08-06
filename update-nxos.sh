@@ -39,7 +39,7 @@ echo -e "\n Changing to ~/Downloads ... \n"
 cd ~/Downloads
 
 # Download the latest NxOS Applications
-read -p "Download & Install Nx Software (y/n)? [default=No]: " answer
+read -p "Download & Install Nx Software (y/N)? [default=No]: " answer
 case ${answer:0:1} in
   y|Y )
 
@@ -90,6 +90,7 @@ case ${answer:0:1} in
     # Enable AnalyticsDbStoragePermissions
     echo -e "\n Implementing Nx Server AnalyticsDbStoragePermissions \n"
     /opt/google/chrome/google-chrome "http://admin:admin@127.0.0.1:7001/api/systemSettings?forceAnalyticsDbStoragePermissions=true" --incognito --noerrdialogs --disable-translate --no-first-run --fast --fast-start --disable-infobars --disable-features=TranslateUI --disk-cache-dir=/dev/null --password-store=basic
+    clear
     ;;
 
   # No was selected
@@ -99,7 +100,7 @@ case ${answer:0:1} in
 esac
 
 #Query user to Install DS-WSELI workarounds
-read -p "Enable Crash Dump / HDMI ON / cstate = 1 as default (y/n)? [default=No]: " answer
+read -p "Enable DS-WSELI workarounds (y/N)? [default=No]: " answer
 case ${answer:0:1} in
   y|Y )
 
@@ -111,12 +112,12 @@ case ${answer:0:1} in
 
   # No was selected
   * )
-    echo -e "\n Skipping DS-WSELI Freeze workarounds \n"
+    echo -e "\n Skipping DS-WSELI workarounds \n"
     ;;
 esac
 
 # Load DS-WSELI PoE Drivers?
-read -p "Install DS-WSELI PoE Drivers (y/n)? [default=No]: " answer
+read -p "Install DS-WSELI PoE Drivers (y/N)? [default=No]: " answer
 case ${answer:0:1} in
   y|Y )
 

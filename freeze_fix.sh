@@ -19,7 +19,7 @@ fi
 sudo rm /etc/default/grub.d/*nxos*.cfg
 
 # Turn Off C-States
-read -p "Disable C-States (y/n)? [default=No]: " answer
+read -p "Disable C-States (y/N)? [default=No]: " answer
 case ${answer:0:1} in
   y|Y )
   sudo tee /etc/default/grub.d/50_nxos_cstate.cfg > /dev/null << EOF
@@ -32,7 +32,7 @@ EOF
 esac
 
 # Force HDMI
-read -p "Force HDMI @ 1080p (y/n)? [default=No]: " answer
+read -p "Force HDMI @ 1080p (y/N)? [default=No]: " answer
 case ${answer:0:1} in
   y|Y )
   sudo tee /etc/default/grub.d/60_nxos_hdmi.cfg > /dev/null << EOF
@@ -46,7 +46,7 @@ EOF
 esac
 
 # Nomodeset
-read -p "Use nomodeset (y/n)? [default=No]: " answer
+read -p "Use nomodeset (y/N)? [default=No]: " answer
 case ${answer:0:1} in
   y|Y )
   sudo tee /etc/default/grub.d/70_nxos_nomodeset.cfg > /dev/null << EOF
@@ -61,7 +61,7 @@ esac
 sudo update-grub
 
 # Install kdump system
-read -p "Install kdump (y/n)? [default=No]: " answer
+read -p "Install kdump (y/N)? [default=No]: " answer
 case ${answer:0:1} in
   y|Y )
   sudo apt install -y linux-crashdump
