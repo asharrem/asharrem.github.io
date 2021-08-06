@@ -89,17 +89,7 @@ case ${answer:0:1} in
 
     # Enable AnalyticsDbStoragePermissions
     echo -e "\n Implementing Nx Server AnalyticsDbStoragePermissions \n"
-    /opt/google/chrome/google-chrome "https://admin:admin@127.0.0.1:7001/api/systemSettings?forceAnalyticsDbStoragePermissions=true" \
-    --incognito \
-    --noerrdialogs \
-    --disable-translate \
-    --no-first-run \
-    --fast \
-    --fast-start \
-    --disable-infobars \
-    --disable-features=TranslateUI \
-    --disk-cache-dir=/dev/null \
-    --password-store=basic
+    /opt/google/chrome/google-chrome "http://admin:admin@127.0.0.1:7001/api/systemSettings?forceAnalyticsDbStoragePermissions=true" --incognito --noerrdialogs --disable-translate --no-first-run --fast --fast-start --disable-infobars --disable-features=TranslateUI --disk-cache-dir=/dev/null --password-store=basic
     ;;
 
   # No was selected
