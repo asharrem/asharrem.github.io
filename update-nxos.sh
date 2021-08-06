@@ -86,7 +86,6 @@ case ${answer:0:1} in
 
     #
     echo -e "\n Done Installing Nx software \n"
-    ;;
 
     # Enable AnalyticsDbStoragePermissions
     echo -e "\n Implementing Nx Server AnalyticsDbStoragePermissions \n"
@@ -102,6 +101,7 @@ case ${answer:0:1} in
     --disable-features=TranslateUI \
     --disk-cache-dir=/dev/null \
     --password-store=basic
+    ;;
 
   # No was selected
   * )
