@@ -25,6 +25,7 @@ case ${answer:0:1} in
   sudo tee /etc/default/grub.d/50_nxos_cstate.cfg > /dev/null << EOF
 GRUB_CMDLINE_LINUX="$GRUB_CMDLINE_LINUX intel_idle.max_cstate=0"
 EOF
+  ;;
   # [default=No]
   * )
     echo -e "\n Skipping C-State workarounds \n"
@@ -38,6 +39,7 @@ case ${answer:0:1} in
   sudo tee /etc/default/grub.d/60_nxos_hdmi.cfg > /dev/null << EOF
 GRUB_CMDLINE_LINUX="$GRUB_CMDLINE_LINUX video=HDMI-A-1:1920x1080@60:D"
 EOF
+  ;;
 
   # [default=No]
   * )
@@ -52,6 +54,8 @@ case ${answer:0:1} in
   sudo tee /etc/default/grub.d/70_nxos_nomodeset.cfg > /dev/null << EOF
 GRUB_CMDLINE_LINUX="$GRUB_CMDLINE_LINUX nomodeset"
 EOF
+  ;;
+
   # [default=No]
   * )
   echo -e "\n Skipping nomodeset workarounds \n"
@@ -65,6 +69,7 @@ read -p "Install kdump (y/N)? [default=No]: " answer
 case ${answer:0:1} in
   y|Y )
   sudo apt install -y linux-crashdump
+  ;;
 
   # [default=No]
   * )
