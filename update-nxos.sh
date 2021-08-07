@@ -43,8 +43,8 @@ read -p "Download & Install Nx Software (y/N)? [default=No]: " answer
 case ${answer:0:1} in
   y|Y )
 
-    # Install OpenSSH Server
-    sudo apt install -y openssh-server
+    # Install curl
+    sudo apt install -y curl
 
     # Google Chrome - download & install if not downloaded
     file_name="google-chrome-stable_current_amd64.deb"
