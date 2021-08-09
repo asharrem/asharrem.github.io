@@ -91,6 +91,23 @@ case ${answer:0:1} in
     echo -e "\n Implementing Nx Server AnalyticsDbStoragePermissions \n"
     curl "http://admin:admin@127.0.0.1:7001/api/systemSettings?forceAnalyticsDbStoragePermissions=true"
     echo -e "\n"
+
+    # Create Chrome Managed Policy
+    echo -e "\n Disabling Chrome Passwords & Background Mode \n"
+    cat <<EOF > /etc/opt/chrome/policies/managed/nxos.json
+{
+  "distribution": {
+    "suppress_first_run_bubble": true,
+    "make_chrome_default": true,
+    "make_chrome_default_for_user": true,
+    "suppress_first_run_default_browser_prompt": true,
+  },
+  "PasswordManagerEnabled": false,
+  "BackgroundModeEnabled": false,
+}
+EOF
+    echo -e "\n"
+
     # /opt/google/chrome/google-chrome "http://admin:admin@127.0.0.1:7001/api/systemSettings?forceAnalyticsDbStoragePermissions=true" --incognito --noerrdialogs --disable-translate --no-first-run --fast --fast-start --disable-infobars --disable-features=TranslateUI --disk-cache-dir=/dev/null --password-store=basic >/dev/null
     ;;
 
