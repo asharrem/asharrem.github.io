@@ -55,7 +55,7 @@ case ${answer:0:1} in
       sudo gdebi -n google-chrome-stable_current_amd64.deb
       # Create Chrome Managed Policy
       echo -e "\n Disabling Chrome Passwords & Background Mode \n"
-      sudo cat <<EOF > /etc/opt/chrome/policies/managed/nxos.json
+      sudo tee /etc/opt/chrome/policies/managed/nxos.json >/dev/null <<EOF
 {
   "distribution": {
     "suppress_first_run_bubble": true,
