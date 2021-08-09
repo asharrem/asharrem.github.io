@@ -94,7 +94,7 @@ case ${answer:0:1} in
 
     # Create Chrome Managed Policy
     echo -e "\n Disabling Chrome Passwords & Background Mode \n"
-    cat <<EOF > /etc/opt/chrome/policies/managed/nxos.json
+    sudo cat <<EOF > /etc/opt/chrome/policies/managed/nxos.json
 {
   "distribution": {
     "suppress_first_run_bubble": true,
