@@ -91,8 +91,8 @@ EOF
     # NX Client - Install
     echo -e "\n Installing Nx Client ... \n"
     # ugly hack - use --force-overwrite becuase of vms icon
-    sudo dpkg --force-overwrite -i nxwitness-client-$NxVer-linux64.deb
-    # sudo gdebi -n nxwitness-client-$NxVer-linux64.deb
+    # sudo dpkg --force-overwrite -i nxwitness-client-$NxVer-linux64.deb
+    sudo gdebi -n nxwitness-client-$NxVer-linux64.deb
 
     # NX Server Install
     echo -e "\n Installing Nx Server ... \n"
@@ -107,10 +107,11 @@ EOF
 
     # Enable AnalyticsDbStoragePermissions
     echo -e "\n Implementing Nx Server AnalyticsDbStoragePermissions \n"
+    # use curl instead of chrome
     curl "http://admin:admin@127.0.0.1:7001/api/systemSettings?forceAnalyticsDbStoragePermissions=true"
-    echo -e "\n"
-
+    # use chrome instead of curl
     # /opt/google/chrome/google-chrome "http://admin:admin@127.0.0.1:7001/api/systemSettings?forceAnalyticsDbStoragePermissions=true" --incognito --noerrdialogs --disable-translate --no-first-run --fast --fast-start --disable-infobars --disable-features=TranslateUI --disk-cache-dir=/dev/null --password-store=basic >/dev/null
+    echo -e "\n"
     ;;
 
   # No was selected
