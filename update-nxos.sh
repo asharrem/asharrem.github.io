@@ -53,6 +53,22 @@ case ${answer:0:1} in
       wget "https://dl.google.com/linux/direct/$file_name" -q -P ~/Downloads
       echo -e "\n Installing Google Chrome ... \n"
       sudo gdebi -n google-chrome-stable_current_amd64.deb
+      # Create Chrome Managed Policy
+      echo -e "\n Disabling Chrome Passwords & Background Mode \n"
+      sudo cat <<EOF > /etc/opt/chrome/policies/managed/nxos.json
+{
+  "distribution": {
+    "suppress_first_run_bubble": true,
+    "make_chrome_default": true,
+    "make_chrome_default_for_user": true,
+    "suppress_first_run_default_browser_prompt": true,
+  },
+  "PasswordManagerEnabled": false,
+  "BackgroundModeEnabled": false,
+}
+EOF
+      echo -e "\n"
+
       echo -e "\n Google Chrome Installed ... \n"
       echo -e "\n You can now use Cockpit or Diskmanager"
       echo -e " to mount storage before Nx Server Loads ... \n"
@@ -74,7 +90,9 @@ case ${answer:0:1} in
 
     # NX Client - Install
     echo -e "\n Installing Nx Client ... \n"
-    sudo gdebi -n nxwitness-client-$NxVer-linux64.deb
+    # ugly hack - use --force-overwrite becuase of vms icon
+    sudo dpkg --force-overwrite -i nxwitness-client-$NxVer-linux64.deb
+    # sudo gdebi -n nxwitness-client-$NxVer-linux64.deb
 
     # NX Server Install
     echo -e "\n Installing Nx Server ... \n"
@@ -90,22 +108,6 @@ case ${answer:0:1} in
     # Enable AnalyticsDbStoragePermissions
     echo -e "\n Implementing Nx Server AnalyticsDbStoragePermissions \n"
     curl "http://admin:admin@127.0.0.1:7001/api/systemSettings?forceAnalyticsDbStoragePermissions=true"
-    echo -e "\n"
-
-    # Create Chrome Managed Policy
-    echo -e "\n Disabling Chrome Passwords & Background Mode \n"
-    sudo cat <<EOF > /etc/opt/chrome/policies/managed/nxos.json
-{
-  "distribution": {
-    "suppress_first_run_bubble": true,
-    "make_chrome_default": true,
-    "make_chrome_default_for_user": true,
-    "suppress_first_run_default_browser_prompt": true,
-  },
-  "PasswordManagerEnabled": false,
-  "BackgroundModeEnabled": false,
-}
-EOF
     echo -e "\n"
 
     # /opt/google/chrome/google-chrome "http://admin:admin@127.0.0.1:7001/api/systemSettings?forceAnalyticsDbStoragePermissions=true" --incognito --noerrdialogs --disable-translate --no-first-run --fast --fast-start --disable-infobars --disable-features=TranslateUI --disk-cache-dir=/dev/null --password-store=basic >/dev/null
