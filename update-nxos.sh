@@ -9,11 +9,11 @@ NxVer="4.2.0"
 NxBuild="32840"
 ServerName="NxOS-20LTS"
 macaddy="0000"
-NxVer="$NxVer.$NxBuild"
 
 ############################################
 
 # Set Machine Hostname to Last 4 digits of first eth found
+NxVer="$NxVer.$NxBuild"
 unset first_eth
 first_eth=$(ls /sys/class/net | grep -m1 ^e)
 if [[ ! -z "$first_eth" ]]; then
