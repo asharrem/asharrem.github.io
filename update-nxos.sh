@@ -14,6 +14,7 @@ macaddy="0000"
 
 # Set Machine Hostname to Last 4 digits of first eth found
 NxVer="$NxVer.$NxBuild"
+# reset so we can test for null
 unset first_eth
 first_eth=$(ls /sys/class/net | grep -m1 ^e)
 if [[ ! -z "$first_eth" ]]; then
@@ -24,14 +25,10 @@ echo -e "\n Hostname = ${ServerName} ... \n"
 sudo hostnamectl set-hostname $ServerName
 
 # udpdate hosts with new ServerName
+# To Do: overwrite any existing hostname
+# ie. not hardcoded to ubuntu
 sudo sed -i 's/127.0.1.1	ubuntu/127.0.1.1	'"${ServerName}"'/g' /etc/hosts
 echo -e "\n /etc/hosts updated ... \n"
-
-# ToDo: Update icon theme - not working yet
-#
-# gsettings set org.gnome.desktop.interface icon-theme "gnome"
-# google chrome passwords & background
-#
 
 # prepare apt & download dir
 sudo apt update
@@ -39,21 +36,21 @@ echo -e "\n Changing to ~/Downloads ... \n"
 cd ~/Downloads
 
 # Download the latest NxOS Applications
-read -p "Download & Install Nx Software (y/N)? [default=No]: " answer
+read -p "Download & Install Nx & Google Software (y/N)? [default=No]: " answer
 case ${answer:0:1} in
   y|Y )
 
-    # Install curl
+    # Install curl. Needed to update nx advanced flags later
     sudo apt install -y curl
 
-    # Google Chrome - download & install if not downloaded
+    # Google Chrome - download & install if not already downloaded
     file_name="google-chrome-stable_current_amd64.deb"
     if [ ! -f "$file_name" ]; then
       echo -e "\n Downloading ${file_name}... \n"
       wget "https://dl.google.com/linux/direct/$file_name" -q -P ~/Downloads
       echo -e "\n Installing Google Chrome ... \n"
       sudo gdebi -n google-chrome-stable_current_amd64.deb
-      # Create Chrome Managed Policy
+      # WIP:Create Chrome Managed Policy
       echo -e "\n Disabling Chrome Passwords & Background Mode \n"
       sudo tee /etc/opt/chrome/policies/managed/nxos.json >/dev/null <<EOF
 {
@@ -90,8 +87,6 @@ EOF
 
     # NX Client - Install
     echo -e "\n Installing Nx Client ... \n"
-    # ugly hack - use --force-overwrite becuase of vms icon
-    # sudo dpkg --force-overwrite -i nxwitness-client-$NxVer-linux64.deb
     sudo gdebi -n nxwitness-client-$NxVer-linux64.deb
 
     # NX Server Install
@@ -106,7 +101,7 @@ EOF
     echo -e "\n Done Installing Nx software \n"
 
     # Enable AnalyticsDbStoragePermissions
-    echo -e "\n Implementing Nx Server AnalyticsDbStoragePermissions \n"
+    echo -e "\n Implementing Nx Server AnalyticsDbStoragePermissions fix \n"
     # use curl instead of chrome
     curl "http://admin:admin@127.0.0.1:7001/api/systemSettings?forceAnalyticsDbStoragePermissions=true"
     # use chrome instead of curl
@@ -148,8 +143,6 @@ case ${answer:0:1} in
       wget "$WebHostFiles/$file_name" -q -P ~/Downloads
     fi
     sudo gdebi -n ds-wseli-poe.deb
-    echo -e "\n *** Reboot Required *** \n"
-    sleep 1
     ;;
 
     # No was selected
@@ -158,8 +151,8 @@ case ${answer:0:1} in
     ;;
 esac
 
-
 # Do system updates & cleanup
 sudo apt -y upgrade
 sudo apt autoremove
 echo -e "\n *** Finished *** \n"
+echo -e "\n *** Reboot Required *** \n"
