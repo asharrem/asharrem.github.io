@@ -53,9 +53,10 @@ case ${answer:0:1} in
       # WIP:Create Chrome Managed Policy
       echo -e "\n Disabling Chrome Passwords & Background Mode \n"
       # create file first because tee will not
-      sudo touch /etc/opt/chrome/policies/managed/nxos.json
-      # use tee to write to file because sudo cat is BAD.
-      sudo tee /etc/opt/chrome/policies/managed/nxos.json >/dev/null <<EOF
+      file_name="/etc/opt/chrome/policies/managed/nxos.json"
+      mkdir -p "${file_name%/*}"
+      # use tee to write to file because sudo cat <<EOF is BAD.
+      sudo tee $file_name >/dev/null <<EOF
 {
   "distribution": {
     "suppress_first_run_bubble": true,
