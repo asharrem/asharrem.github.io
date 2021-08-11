@@ -54,7 +54,7 @@ case ${answer:0:1} in
       echo -e "\n Disabling Chrome Passwords & Background Mode \n"
       # create file first because tee will not
       file_name="/etc/opt/chrome/policies/managed/nxos.json"
-      mkdir -p "${file_name%/*}"
+      sudo mkdir -p "${file_name%/*}"
       # use tee to write to file because sudo cat <<EOF is BAD.
       sudo tee $file_name >/dev/null <<EOF
 {
