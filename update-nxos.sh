@@ -49,7 +49,7 @@ case ${answer:0:1} in
       echo -e "\n Downloading ${file_name}... \n"
       wget "https://dl.google.com/linux/direct/$file_name" -q -P ~/Downloads
       echo -e "\n Installing Google Chrome ... \n"
-      sudo gdebi -n google-chrome-stable_current_amd64.deb
+      sudo gdebi -n $file_name
       # WIP:Create Chrome Managed Policy
       echo -e "\n Disabling Chrome Passwords & Background Mode \n"
       # create file first because tee will not
@@ -73,6 +73,18 @@ EOF
       echo -e "\n Google Chrome Installed ... \n"
       echo -e "\n You can now use Cockpit or Diskmanager"
       echo -e " to mount storage before Nx Server Loads ... \n"
+
+    fi
+
+    # Install Chrome Remote Desktop
+    file_name="chrome-remote-desktop_current_amd64.deb"
+    if [ ! -f "$file_name" ]; then
+      echo -e "\n Downloading ${file_name}... \n"
+      wget "https://dl.google.com/linux/direct/$file_name" -q -P ~/Downloads
+      echo -e "\n Installing Google Chrome Remote Desktop... \n"
+      sudo gdebi -n $file_name
+      sudo usermod -a -G chrome-remote-desktop $USER
+      echo -e "\n Google Chrome Remote Desktop Installed... \n"
     fi
 
     # Nx server - download
