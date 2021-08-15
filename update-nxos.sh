@@ -36,9 +36,16 @@ echo -e "\n Changing to ~/Downloads ... \n"
 cd ~/Downloads
 
 # Download the latest NxOS Applications
-read -p "Download & Install Nx & Google Software (y/N)? [default=No]: " answer
+read -p "Download & Install Nx & Google Software (Y/n)? [default=Yes]: " answer
 case ${answer:0:1} in
-  y|Y )
+
+    # No was selected
+    n|N )
+      echo -e "\n Skipping Nx Software \n"
+      ;;
+
+    # Yes (Enter) was selected
+    * )
 
     # Install curl. Needed to update nx advanced flags later
     sudo apt install -y curl
@@ -123,11 +130,6 @@ EOF
     # use chrome instead of curl
     # /opt/google/chrome/google-chrome "http://admin:admin@127.0.0.1:7001/api/systemSettings?forceAnalyticsDbStoragePermissions=true" --incognito --noerrdialogs --disable-translate --no-first-run --fast --fast-start --disable-infobars --disable-features=TranslateUI --disk-cache-dir=/dev/null --password-store=basic >/dev/null
     echo -e "\n"
-    ;;
-
-  # No was selected
-  * )
-    echo -e "\n Skipping Nx Software \n"
     ;;
 esac
 
