@@ -169,6 +169,34 @@ case ${answer:0:1} in
     ;;
 esac
 
+# Install Cockpit Advanced File Management & Sharing?
+read -p "Install Cockpit Advanced File Management & Sharing? [default=Yes]: " answer
+case ${answer:0:1} in
+
+# No was selected
+  n|N )
+    echo -e "\n Skipping Cockpit Advanced \n"
+    ;;
+
+  * )
+# Download & Install Cockpit Advanced
+
+# Needs GPG to add repos
+    sudo apt -y install gpg
+#    file_name="cockpit-navigator_0.5.5-2focal_all.deb"
+#    if [ ! -f "$file_name" ]; then
+#      wget https://github.com/45Drives/cockpit-navigator/releases/download/v0.5.5/cockpit-navigator_0.5.5-2focal_all.deb -q -P ~/Downloads
+#    fi
+#    sudo gdebi -n $file_name
+    curl -sSL https://repo.45drives.com/setup | sudo bash
+    sudo apt -y install crudini cockpit-file-sharing cockpit-navigator cockpit cockpit-bridge cockpit-networkmanager cockpit-packagekit cockpit-storaged cockpit-system cockpit-ws
+    conf=/etc/samba/smb.conf
+    sudo sed -i.bak 's/^[ \t]*//' $conf
+    sudo crudini --set /etc/samba/smb.conf global include registry
+    ;;
+
+esac
+
 # Do system updates & cleanup
 sudo apt -y upgrade
 sudo apt autoremove
