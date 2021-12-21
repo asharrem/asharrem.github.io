@@ -19,11 +19,11 @@ fi
 sudo rm /etc/default/grub.d/*nxos*.cfg
 
 # Turn Off C-States
-read -p "Disable C-States (y/N)? [default=No]: " answer
+read -p "Disable i915 powersave (y/N)? [default=No]: " answer
 case ${answer:0:1} in
   y|Y )
   sudo tee /etc/default/grub.d/50_nxos_cstate.cfg > /dev/null << EOF
-GRUB_CMDLINE_LINUX="$GRUB_CMDLINE_LINUX intel_idle.max_cstate=0"
+GRUB_CMDLINE_LINUX="$GRUB_CMDLINE_LINUX i915.enable_rc6=0"
 EOF
   ;;
   # [default=No]
