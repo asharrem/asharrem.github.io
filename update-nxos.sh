@@ -179,7 +179,20 @@ case ${answer:0:1} in
     sudo apt -y install gpg
     # advanced file support by 45drives
     curl -sSL https://repo.45drives.com/setup | sudo bash
-    sudo apt -y install crudini cockpit-file-sharing cockpit-navigator cockpit cockpit-bridge cockpit-networkmanager cockpit-packagekit cockpit-storaged cockpit-system cockpit-ws
+    sudo apt -y install \
+    crudini \
+    cockpit-file-sharing \
+    cockpit-navigator \
+    cockpit \
+    cockpit-bridge \
+    cockpit-networkmanager \
+    cockpit-packagekit \
+    cockpit-storaged \
+    cockpit-system \
+    cockpit-ws \
+    gvfs-backends \
+    gvfs-fuse
+
     conf=/etc/samba/smb.conf
     # remove leading spaces & tabs so crudini does not fail
     sudo sed -i.bak 's/^[ \t]*//' $conf
