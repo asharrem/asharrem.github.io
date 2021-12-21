@@ -28,7 +28,7 @@ EOF
   ;;
   # [default=No]
   * )
-    echo -e "\n Skipping C-State workarounds \n"
+    echo -e "\n Skipping i915 workarounds \n"
     ;;
 esac
 
