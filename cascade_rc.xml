@@ -1,0 +1,70 @@
+<!-- Cascade Openbox Windows -->
+<!-- Courtesy of asharrem@gmail.com -->
+<keybind key="W-KP_0">
+  <!-- Place Focused Window to TopLeft to start the cascade & stay at Top Layer -->
+  <action name="If">
+    <query>
+      <focused>yes</focused>
+      <iconified>no</iconified>
+      <monitor>2</monitor>
+      <!-- Ignore Desktop & Dialog Windows-->
+      <type>normal</type>
+    </query>
+    <then>
+      <action name="Lower"/>
+      <action name="UnmaximizeFull"/>
+      <action name="MoveResizeTo">
+        <x>0</x>
+        <y>0</y>
+        <height>1/2</height>
+        <width>1/2</width>
+      </action>
+    </then>
+  </action>
+  <!-- Sequentially move each window (except focused one) to top TopLeft & Nudge -->
+  <action name="ForEach">
+    <query>
+      <iconified>no</iconified>
+      <monitor>2</monitor>
+      <type>normal</type>
+    </query>
+    <then>
+      <!-- Do not action the Focused Window as we did it first-->
+      <action name="If">
+        <query>
+          <focused>no</focused>
+          <iconified>no</iconified>
+          <monitor>2</monitor>
+          <type>normal</type>
+        </query>
+        <then>
+          <!-- Begin Nested ForEach Nudging Iteration -->
+          <action name="ForEach">
+            <query>
+              <iconified>no</iconified>
+              <monitor>2</monitor>
+              <type>normal</type>
+            </query>
+            <then>
+              <!-- Nudge -->
+              <action name="MoveRelative">
+                <x>5%</x>
+                <y>5%</y>
+              </action>
+            </then>
+          </action>
+          <!-- End Nested ForEach Nudging Iteration -->
+          <!-- Move Window to Top Left -->
+          <action name="Lower"/>
+          <action name="UnmaximizeFull"/>
+          <action name="MoveResizeTo">
+            <x>0</x>
+            <y>0</y>
+            <height>1/2</height>
+            <width>1/2</width>
+          </action>
+        </then>
+      </action>
+    </then>
+  </action>
+</keybind>
