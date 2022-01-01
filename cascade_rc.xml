@@ -1,4 +1,5 @@
 <!-- Cascade Openbox Linux -->
+<!-- Cascading Openbox Client Windows -->
 <!-- Courtesy of asharrem@gmail.com -->
 <keybind key="W-KP_0">
   <!-- Place Focused Window to TopLeft to start the cascade & stay at Top Layer -->
