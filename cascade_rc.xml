@@ -1,19 +1,36 @@
-<!-- Cascade Openbox Linux -->
-<!-- Cascading Openbox Client Windows -->
-<!-- Courtesy of asharrem @ gmail.com -->
-<keybind key="W-KP_0">
-  <!-- Place Focused Window to TopLeft to start the cascade & stay at Top Layer -->
-  <action name="If">
+<!--  Cascading Openbox Client Windows  -->
+<!--  Cascade Openbox Linux  -->
+<!--  Courtesy of asharrem @ gmail.com  -->
+
+<!-- Cascade Monitor 1-->
+<keybind key="W-C-KP_1">
+  <!-- Un-Iconify all Windows first-->
+  <action name="ForEach">
     <query>
-      <focused>yes</focused>
-      <iconified>no</iconified>
-      <monitor>2</monitor>
-      <!-- Ignore Desktop & Dialog Windows-->
+      <iconified>yes</iconified>
+      <monitor>1</monitor>
+      <desktop>current</desktop>
       <type>normal</type>
     </query>
     <then>
+      <!-- <action name="Lower"/> -->
+      <action name="Focus"/>
+      <action name="FocusToBottom"/>
+      <action name="Unfocus"/>
+    </then>
+  </action>
+  <!-- Place Focused Window to TopLeft to start the cascade & stay at Top Layer -->
+  <action name="If">
+    <query>
+      <monitor>1</monitor>
+      <desktop>current</desktop>
+      <focused>yes</focused>
+      <type>normal</type>
+      <iconified>no</iconified>
+    </query>
+    <then>
       <action name="Lower"/>
-      <action name="UnmaximizeFull"/>
+      <action name="Unmaximize"/>
       <action name="MoveResizeTo">
         <x>0</x>
         <y>0</y>
@@ -25,26 +42,29 @@
   <!-- Sequentially move each window (except focused one) to top TopLeft & Nudge -->
   <action name="ForEach">
     <query>
-      <iconified>no</iconified>
-      <monitor>2</monitor>
+      <monitor>1</monitor>
+      <desktop>current</desktop>
       <type>normal</type>
+      <iconified>no</iconified>
     </query>
     <then>
       <!-- Do not action the Focused Window as we did it first-->
       <action name="If">
         <query>
+          <monitor>1</monitor>
+          <desktop>current</desktop>
           <focused>no</focused>
-          <iconified>no</iconified>
-          <monitor>2</monitor>
           <type>normal</type>
+          <iconified>no</iconified>
         </query>
         <then>
           <!-- Begin Nested ForEach Nudging Iteration -->
           <action name="ForEach">
             <query>
-              <iconified>no</iconified>
-              <monitor>2</monitor>
+              <monitor>1</monitor>
+              <desktop>current</desktop>
               <type>normal</type>
+              <iconified>no</iconified>
             </query>
             <then>
               <!-- Nudge -->
@@ -57,7 +77,7 @@
           <!-- End Nested ForEach Nudging Iteration -->
           <!-- Move Window to Top Left -->
           <action name="Lower"/>
-          <action name="UnmaximizeFull"/>
+          <action name="Unmaximize"/>
           <action name="MoveResizeTo">
             <x>0</x>
             <y>0</y>
