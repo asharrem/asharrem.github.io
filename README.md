@@ -12,6 +12,7 @@ My personal favourite is [cascade_rc.xml](https://asharrem.github.io/cascade_rc.
   For a number of years I've been searching how I might "Cascade" windows, with most every reference saying it can't be done with openbox alone, and to use a "Tiling" application. Well...using a looping action/condition we can achieve a "cascade per monitor" keybind.
 
 The nested loop structure is;
+<<<<<<< HEAD
 ```
 ForEach
   Move each Window to Top Left
@@ -21,6 +22,16 @@ ForEach
   End ForEach
 End ForEach
 ```
+=======
+- ForEach
+ - Move each Window to Top Left
+ - Lower
+  - ForEach
+   - Nudge All Windows
+  - End ForEach
+- End ForEach
+
+>>>>>>> 6c03dd72e9ceacb9c3c1f56f4540265b6aa42d21
 The result is a bit like the first action of a "Card Shuffle", and the nested loops will "Cascade" client windows.
 
 With a few other "actions" we are able to maintain "Focus" or include "minimized/iconified" client windows. Un-iconifying or maximizing minimized windows requires the iconified windows get "Focus", so currently I am unable to maintain focus of the original window in this instance.
