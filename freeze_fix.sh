@@ -37,7 +37,7 @@ read -p "Force HDMI @ 1080p (y/N)? [default=No]: " answer
 case ${answer:0:1} in
   y|Y )
   sudo tee /etc/default/grub.d/60_nxos_hdmi.cfg > /dev/null << EOF
-GRUB_CMDLINE_LINUX="$GRUB_CMDLINE_LINUX video=HDMI-A-1:1920x1080@60:e"
+GRUB_CMDLINE_LINUX="$GRUB_CMDLINE_LINUX video=HDMI-A-1:1920x1080@60:D"
 EOF
   ;;
 
