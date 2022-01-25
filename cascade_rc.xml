@@ -13,7 +13,6 @@
       <type>normal</type>
     </query>
     <then>
-      <!-- <action name="Lower"/> -->
       <action name="Focus"/>
       <action name="FocusToBottom"/>
       <action name="Unfocus"/>
