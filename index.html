@@ -14,13 +14,14 @@
     <p dir="auto"><a href="http://openbox.org/" rel="nofollow">Openbox</a>&nbsp;is a stacking &amp; tiling Window Manager. Tiling is generally achevied by Keybindings.&nbsp;<a href="https://asharrem.github.io/cascade_rc.xml" rel="nofollow">cascade_rc.xml</a>&nbsp;is a keybind I wrote that cascades openbox client windows (per monitor). For a number of years I've been searching how I might "Cascade" windows, with most every reference saying it can't be done with openbox alone, and to use a "Tiling" application. Well...using a looping action/condition we can achieve a "cascade per monitor" keybind.</p>
     <p dir="auto">The nested loop structure is;</p>
     <div>
-    <pre><code>ForEach
-    Move each Window to Top Left
-    Lower
+    <pre><code>
+ForEach
+  Move Window to Top Left
+  Lower
     ForEach
-    Nudge All Windows
+      Nudge All Windows
     End ForEach
-    End ForEach
+End ForEach
     </code></pre>
     </div>
     <p dir="auto">The result is a bit like the first action of a "Card Shuffle", and the nested loops will "Cascade" client windows.</p>
