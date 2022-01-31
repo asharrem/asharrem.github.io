@@ -2,7 +2,7 @@
 #
 # check for internet connectivity while displaying progress bar (uses Whiptail)
 # Return IPv4_connected 1 false || 0 true - follows exit status sytax (>0 is error)
-# uses PING method and supports FQDN (recommended)
+# uses PING method and supports FQDN (recommended to confirm DNS working)
 #
 function check_internet () {
     local counter=0
