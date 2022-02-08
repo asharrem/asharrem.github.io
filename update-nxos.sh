@@ -2,38 +2,171 @@
 
 ############################################
 # This script is for post install of NxOS
-# Called manually by /opt/nxos/intsall.sh
-# set current Nx version
-WebHostFiles="https://asharrem.github.io"
-NxVer="4.2.0"
+# Automatically run at fist boot or
+# manually by /opt/nxos/intsall.sh
+############################################
+WebAddress="asharrem.github.io"
+WebHostFiles="https://$WebAddress"
+TITLE="NxOS Installation Wizard"
+# set current Nx version & Hostname Prefix
+NxMajVer="4.2.0"
 NxBuild="32840"
+NxFulVer="$NxMajVer.$NxBuild"
 ServerName="NxOS-20LTS"
 macaddy="0000"
-
+SU_PASS="nxw1tness"
 ############################################
 
-# Set Machine Hostname to Last 4 digits of first eth found
-NxVer="$NxVer.$NxBuild"
-# reset so we can test for null
-unset first_eth
-first_eth=$(ls /sys/class/net | grep -m1 ^e)
-if [[ ! -z "$first_eth" ]]; then
-  macaddy=$(cat /sys/class/net/$first_eth/address | tr -d ':' | grep -o '....$')
-fi
-ServerName="${ServerName}-${macaddy}"
-echo -e "\n Hostname = ${ServerName} ... \n"
-sudo hostnamectl set-hostname $ServerName
+# run apt update
+do
+  TERM=ansi whiptail --title $TITLE --infobox "\n Running apt update..." 8 68
+  sudo -S <<< $SU_PASS apt -qq update
+  if [ $? != 0 ]; then
+    # Ask password if default failed
+    SU_PASS=$(whiptail --title $TITLE --passwordbox "\n Please enter password for $USER:" 8 68 3>&1 1>&2 2>&3)
+    if [ $? != 0 ]; then
+      # Exit on Cancel
+      TERM=ansi whiptail --title $TITLE --infobox "\n apt update failed!" 8 68
+      sleep 3
+      exit 1
+    fi
+  else
+    # Break loop on success
+    break
+  fi
+done
 
-# udpdate hosts with new ServerName
-# To Do: overwrite any existing hostname
-# ie. not hardcoded to ubuntu
-sudo sed -i 's/127.0.1.1	ubuntu/127.0.1.1	'"${ServerName}"'/g' /etc/hosts
-echo -e "\n /etc/hosts updated ... \n"
+# Install curl. Needed to update nx advanced flags later
+sudo -S <<< $SU_PASS apt -qq install -y curl
 
-# prepare apt & download dir
-sudo apt update
-echo -e "\n Changing to ~/Downloads ... \n"
+# change working directory
+TERM=ansi whiptail --title $TITLE --infobox "\n Changing Working Dir to ~/Downloads..." 8 68
 cd ~/Downloads
+sleep 0.5
+
+# Display Checklist (whiptail)
+CHOICES=$(whiptail --title $TITLE --separate-output --checklist "Choose options" 20 68 12 \
+  "1" "Update Hostname to MAC address syntax" ON \
+  "2" "Purge Nx & Google .deb's from Downloads Folder" ON \
+  "3" "Download & Install Nx Chrome Browser" ON \
+  "4" "Download & Install Nx Client" ON \
+  "5" "Download & Install Nx Server" ON \
+  "6" "Install Cockpit Advanced File Sharing (NAS)" OFF \
+  "7" "Debug - Follow Boot process" OFF \
+  "8" "Debug - use nomodeset" OFF \
+  "9" "Install DS-WSELI-T2/8p PoE Drivers" OFF 3>&1 1>&2 2>&3)
+
+if [ -z "$CHOICE" ]; then
+  # user hit Cancel or unselected all options
+  clear
+  exit 1
+else
+  for CHOICE in $CHOICES; do
+    case "$CHOICE" in
+    "1")
+      # Update Hostname
+      TERM=ansi whiptail --title $TITLE --infobox "\n Updating Hostname to MAC address syntax..." 8 68
+      sleep 0.5
+      # Set Machine Hostname to Last 4 digits of first eth found
+      # reset so we can test for null
+      unset first_eth
+      first_eth=$(ls /sys/class/net | grep -m1 ^e)
+      if [[ ! -z "$first_eth" ]]; then
+        macaddy=$(cat /sys/class/net/$first_eth/address | tr -d ':' | grep -o '....$')
+      fi
+      ServerName="${ServerName}-${macaddy}"
+      sudo hostnamectl set-hostname $ServerName
+      TERM=ansi whiptail --title $TITLE --infobox "\n Hostname = ${ServerName}" 8 68
+      sleep 0.5
+
+      # udpdate hosts file with new ServerName
+      # To Do: overwrite any existing ServerName
+      # ie. not hardcoded to ubuntu
+      sudo sed -i 's/127.0.1.1	ubuntu/127.0.1.1	'"${ServerName}"'/g' /etc/hosts
+      TERM=ansi whiptail --title $TITLE --infobox "\n DNS Updated" 8 68
+      sleep 0.5
+      ;;
+    "3")
+      # Google Chrome - download & install if not already downloaded
+      TERM=ansi whiptail --title $TITLE --infobox "\n Installing Google Chrome & Remote Desktop..." 8 68
+      sleep 0.5
+      file_name="google-chrome-stable_current_amd64.deb"
+      if [ ! -f "$file_name" ]; then
+        wget "https://dl.google.com/linux/direct/$file_name" -q -P ~/Downloads
+        if [ $? != 0 ]; then
+          # Download failed
+          TERM=ansi whiptail --title $TITLE --infobox "\n Downloading $file_name failed!" 8 68
+          sleep 3
+          exit 1
+        fi
+        sudo -S <<< $SU_PASS gdebi -n $file_name
+        if [ $? != 0 ]; then
+          # Install failed
+          TERM=ansi whiptail --title $TITLE --infobox "\n Installing $file_name failed!" 8 68
+          sleep 3
+          exit 1
+        fi
+
+        # WIP:Create Chrome Managed Policy
+        TERM=ansi whiptail --title $TITLE --infobox "\n Changing Chrome Browser Policy..." 8 68
+        sleep 0.5
+        # create file first because tee will not
+        file_name="/etc/opt/chrome/policies/managed/nxos.json"
+        sudo mkdir -p "${file_name%/*}"
+        # use tee to write to file because sudo cat <<EOF is BAD.
+        sudo tee $file_name >/dev/null <<EOF
+{
+  "distribution": {
+    "suppress_first_run_bubble": true,
+    "make_chrome_default": true,
+    "make_chrome_default_for_user": true,
+    "suppress_first_run_default_browser_prompt": true,
+  },
+  "PasswordManagerEnabled": false,
+  "BackgroundModeEnabled": false,
+}
+EOF
+        TERM=ansi whiptail --title $TITLE --infobox "\n Chrome Browser Installed!" 8 68
+        sleep 0.5
+      else
+        # google-chrome-stable_current_amd64.deb already in ~/Downloads
+        TERM=ansi whiptail --title $TITLE --infobox "\n Assuming Chrome Browser Installed Already!" 8 68
+        sleep 0.5
+      fi
+
+## YOU ARE HERE ##
+
+      # Install Chrome Remote Desktop
+      file_name="chrome-remote-desktop_current_amd64.deb"
+      if [ ! -f "$file_name" ]; then
+
+        wget "https://dl.google.com/linux/direct/$file_name" -q -P ~/Downloads
+
+        sudo gdebi -n $file_name
+
+        sudo usermod -a -G chrome-remote-desktop $USER
+
+      fi
+
+      ;;
+    "3")
+      echo "Option 3 was selected"
+      ;;
+    "4")
+      echo "Option 4 was selected"
+      ;;
+    *)
+      echo "Unsupported item $CHOICE!" >&2
+      exit 1
+      ;;
+    esac
+  done
+fi
+
+exit 0
+
+
+
 
 # Download the latest NxOS Applications
 read -p "Download & Install Nx & Google Software (Y/n)? [default=Yes]: " answer
@@ -47,62 +180,17 @@ case ${answer:0:1} in
     # Yes (Enter) was selected
     * )
 
-    # Install curl. Needed to update nx advanced flags later
-    sudo apt install -y curl
 
-    # Google Chrome - download & install if not already downloaded
-    file_name="google-chrome-stable_current_amd64.deb"
-    if [ ! -f "$file_name" ]; then
-      echo -e "\n Downloading ${file_name}... \n"
-      wget "https://dl.google.com/linux/direct/$file_name" -q -P ~/Downloads
-      echo -e "\n Installing Google Chrome ... \n"
-      sudo gdebi -n $file_name
-      # WIP:Create Chrome Managed Policy
-      echo -e "\n Disabling Chrome Passwords & Background Mode \n"
-      # create file first because tee will not
-      file_name="/etc/opt/chrome/policies/managed/nxos.json"
-      sudo mkdir -p "${file_name%/*}"
-      # use tee to write to file because sudo cat <<EOF is BAD.
-      sudo tee $file_name >/dev/null <<EOF
-{
-  "distribution": {
-    "suppress_first_run_bubble": true,
-    "make_chrome_default": true,
-    "make_chrome_default_for_user": true,
-    "suppress_first_run_default_browser_prompt": true,
-  },
-  "PasswordManagerEnabled": false,
-  "BackgroundModeEnabled": false,
-}
-EOF
-      echo -e "\n"
-
-      echo -e "\n Google Chrome Installed ... \n"
-      echo -e "\n You can now use Cockpit or Diskmanager"
-      echo -e " to mount storage before Nx Server Loads ... \n"
-
-    fi
-
-    # Install Chrome Remote Desktop
-    file_name="chrome-remote-desktop_current_amd64.deb"
-    if [ ! -f "$file_name" ]; then
-      echo -e "\n Downloading ${file_name}... \n"
-      wget "https://dl.google.com/linux/direct/$file_name" -q -P ~/Downloads
-      echo -e "\n Installing Google Chrome Remote Desktop... \n"
-      sudo gdebi -n $file_name
-      sudo usermod -a -G chrome-remote-desktop $USER
-      echo -e "\n Google Chrome Remote Desktop Installed... \n"
-    fi
 
     # Nx server - download
-    file_name="nxwitness-server-${NxVer}-linux64.deb"
+    file_name="nxwitness-server-${NxMajVer}-linux64.deb"
     if [ ! -f "$file_name" ]; then
       echo -e "\n Downloading ${file_name}... \n"
       wget "https://updates.networkoptix.com/default/$NxBuild/linux/$file_name" -q -P ~/Downloads
     fi
 
     # Nx client - download
-    file_name="nxwitness-client-${NxVer}-linux64.deb"
+    file_name="nxwitness-client-${NxMajVer}-linux64.deb"
     if [ ! -f "$file_name" ]; then
       echo -e "\n Downloading ${file_name}... \n"
       wget "https://updates.networkoptix.com/default/$NxBuild/linux/$file_name" -q -P ~/Downloads
@@ -110,11 +198,11 @@ EOF
 
     # NX Client - Install
     echo -e "\n Installing Nx Client ... \n"
-    sudo gdebi -n nxwitness-client-$NxVer-linux64.deb
+    sudo gdebi -n nxwitness-client-$NxMajVer-linux64.deb
 
     # NX Server Install
     echo -e "\n Installing Nx Server ... \n"
-    sudo gdebi -n nxwitness-server-$NxVer-linux64.deb
+    sudo gdebi -n nxwitness-server-$NxMajVer-linux64.deb
 
     # Configure Nx Server to enumerate removeable Storage then restart service
     #sudo sed -i "$ a allowRemovableStorages=1" /opt/networkoptix/mediaserver/etc/mediaserver.conf
