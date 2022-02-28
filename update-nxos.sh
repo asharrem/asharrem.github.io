@@ -38,7 +38,7 @@ function install_deb {
   file_name="$(basename -- "$1")"
   TERM=ansi whiptail --title "$TITLE" --infobox "\n Installing $file_name..." 8 68
   # Install non-interactive & quiet
-  if ! sudo -S <<< $SU_PASS gdebi --n --q "$file_name"; then
+  if ! sudo gdebi --n --q "$file_name"; then
     # Install failed
     TERM=ansi whiptail --title "$TITLE" --infobox "\n Installing $file_name failed!" 8 68
     sleep 3
@@ -53,7 +53,7 @@ function install_deb {
 while true
 do
   TERM=ansi whiptail --title "$TITLE" --infobox "\n Running apt update..." 8 68
-  if ! sudo -S <<< $SU_PASS apt -yq update; then
+  if ! sudo -S <<< "$SU_PASS" apt -yq update; then
     # Ask password if default failed
     SU_PASS=$(whiptail --title "$TITLE" --passwordbox "\n Please enter password for $USER:" 8 68 3>&1 1>&2 2>&3)
     if ! $?; then
@@ -70,7 +70,7 @@ done
 
 # Install curl. Needed to update nx advanced flags later
 TERM=ansi whiptail --title "$TITLE" --infobox "\n Installing Curl..." 8 68
-sudo -S <<< "$SU_PASS" apt -yq install -y curl
+sudo apt -yq install -y curl
 
 # change working directory
 TERM=ansi whiptail --title "$TITLE" --infobox "\n Changing Working Dir to ~/Downloads..." 8 68
@@ -79,15 +79,16 @@ sleep 0.5
 
 # Display Checklist (whiptail)
 CHOICES=$(whiptail --title "$TITLE" --separate-output --checklist "Choose options" 20 68 12 \
-  "01" "Update Hostname to MAC address syntax" ON \
-  "02" "Purge Nx & Google .deb's from Downloads Folder" OFF \
-  "03" "Download & Install Nx Chrome Browser" ON \
-  "04" "Download & Install Nx Client" ON \
-  "05" "Download & Install Nx Server" ON \
-  "06" "Install Cockpit Advanced File Sharing (NAS)" OFF \
-  "07" "Debug - Follow Boot process" OFF \
-  "08" "Debug - use nomodeset" OFF \
-  "09" "Install DS-WSELI-T2/8p PoE Drivers" OFF 3>&1 1>&2 2>&3)
+  "01" "Install DS-WSELI-T2/8p PoE Drivers" OFF \
+  "02" "Update Hostname to MAC address syntax" ON \
+  "03" "Purge Nx & Google .deb's from Downloads Folder" OFF \
+  "04" "Download & Install Nx Chrome Browser" ON \
+  "05" "Download & Install Nx Client" ON \
+  "06" "Download & Install Nx Server" ON \
+  "07" "Install Cockpit Advanced File Sharing (NAS)" OFF \
+  "08" "Debug - Follow Boot process" OFF \
+  "09" "Debug - Freeze Fix" OFF \
+  "10" "Update NxOS Defaults (Resets First Boot Flag)" OFF 3>&1 1>&2 2>&3)
 
 if [ -z "$CHOICES" ]; then
   # user hit Cancel or unselected all options
@@ -97,6 +98,16 @@ else
   for CHOICE in $CHOICES; do
     case $CHOICE in
     "01")
+      # Download & Install Workstation PoE Drivers
+      file_name="ds-wseli-poe.deb"
+      if ! download "$WebHostFiles/$file_name"; then
+        continue
+      fi
+      if ! install_deb "$file_name"; then
+        continue
+      fi
+    ;;
+    "02")
       # Update Hostname
       TERM=ansi whiptail --title "$TITLE" --infobox "\n Updating Hostname to MAC address syntax..." 8 68
       sleep 0.5
@@ -119,7 +130,7 @@ else
       TERM=ansi whiptail --title "$TITLE" --infobox "\n DNS Updated" 8 68
       sleep 0.5
     ;;
-    "02")
+    "03")
       file_name_list="chrome-remote-desktop_current_amd64.deb google-chrome-stable_current_amd64.deb nxwitness-*.deb"
       for file_name in $file_name_list
       do
@@ -128,7 +139,7 @@ else
         rm "$file_name" > /dev/null 2>&1
       done
     ;;
-    "03")
+    "04")
       # Download Chrome files if they don't exist, then install them
       file_name_list="google-chrome-stable_current_amd64.deb chrome-remote-desktop_current_amd64.deb"
       for file_name in $file_name_list
@@ -145,7 +156,7 @@ else
       # Add user to Chrome Remote Desktop user Group
       TERM=ansi whiptail --title "$TITLE" --infobox "\n Adding $USER to Chrome Remote Desktop Group..." 8 68
       sleep 0.5
-      sudo -S <<< "$SU_PASS" usermod -a -G chrome-remote-desktop "$USER"
+      sudo usermod -a -G chrome-remote-desktop "$USER"
 
       # WIP:Create Chrome Browser Managed Policy
       file_name="/etc/opt/chrome/policies/managed/nxos.json"
@@ -153,7 +164,7 @@ else
         TERM=ansi whiptail --title "$TITLE" --infobox "\n Setting Chrome Browser Policy..." 8 68
         sleep 0.5
         # create file first because tee will not
-        sudo -S <<< "$SU_PASS" mkdir -p "${file_name%/*}"
+        sudo mkdir -p "${file_name%/*}"
         # use tee to write to file because sudo cat <<EOF is BAD.
         sudo tee $file_name >/dev/null <<EOF
 {
@@ -169,7 +180,7 @@ else
 EOF
       fi
     ;;
-    "04")
+    "05")
       # Download & Install Nx Client
       file_name="nxwitness-client-${NxFulVer}-linux64.deb"
       if ! download "https://updates.networkoptix.com/default/$NxBuild/linux/$file_name"; then
@@ -179,7 +190,7 @@ EOF
         continue
       fi
     ;;
-    "05")
+    "06")
       # Download & Install Nx Server
       file_name="nxwitness-server-${NxFulVer}-linux64.deb"
       if ! download "https://updates.networkoptix.com/default/$NxBuild/linux/$file_name"; then
@@ -196,15 +207,15 @@ EOF
         sleep 3
       fi
     ;;
-    "06")
+    "07")
       # Download & Install Cockpit Advanced
       TERM=ansi whiptail --title "$TITLE" --infobox "\n Installing 45drives sharing scripts..." 8 68
       # sleep 0.5
       # Needs GPG to add repos
-      sudo -S <<< "$SU_PASS" apt -yq install gpg
+      sudo apt -yq install gpg
       # advanced file support by 45drives
       curl -sSL https://repo.45drives.com/setup | sudo bash
-      sudo -S <<< "$SU_PASS" apt -yq install \
+      sudo apt -yq install \
       crudini \
       cockpit-file-sharing \
       cockpit-navigator \
@@ -221,57 +232,56 @@ EOF
       TERM=ansi whiptail --title "$TITLE" --infobox "\n Setting up smb.conf..." 8 68
       file_name=/etc/samba/smb.conf
       # remove leading spaces & tabs so crudini does not fail
-      sudo -S <<< "$SU_PASS" sed -i.bak 's/^[ \t]*//' $file_name
+      sudo sed -i.bak 's/^[ \t]*//' $file_name
       # add key pair to samba
-      sudo -S <<< "$SU_PASS" crudini --set $file_name global include registry
+      sudo crudini --set $file_name global include registry
     ;;
-    "07")
+    "08")
       TERM=ansi whiptail --title "$TITLE" --infobox "\n Updating Grub..." 8 68
-      sudo -S <<< "$SU_PASS" sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=\"quiet\ splash\"/GRUB_CMDLINE_LINUX_DEFAULT=\"\"/g" /etc/default/grub
-      sudo -S <<< "$SU_PASS" update-grub
+      sudo sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=\"quiet\ splash\"/GRUB_CMDLINE_LINUX_DEFAULT=\"\"/g" /etc/default/grub
+      sudo update-grub
       TERM=ansi whiptail --title "$TITLE" --infobox "\n Boot Splash turned OFF" 8 68
       sleep 0.5
     ;;
-    "08")
+    "09")
       TERM=ansi whiptail --title "$TITLE" --infobox "\n Applying current freeze fixes..." 8 68
       sleep 0.5
       # Create grub.d folder
       if [ ! -e /etc/default/grub.d ]; then
-        sudo -S <<< "$SU_PASS" mkdir /etc/default/grub.d
+        sudo mkdir /etc/default/grub.d
       fi
       # Remove any existing NxOS grub settings
       # Don't care if does not exist
-      sudo -S <<< "$SU_PASS" rm /etc/default/grub.d/*nxos*.cfg
+      sudo rm /etc/default/grub.d/*nxos*.cfg
       sudo tee /etc/default/grub.d/50_nxos_cstate.cfg > /dev/null << EOF
 GRUB_CMDLINE_LINUX="$GRUB_CMDLINE_LINUX i915.enable_rc6=0"
 EOF
       TERM=ansi whiptail --title "$TITLE" --infobox "\n Updating Grub..." 8 68
-      sudo -S <<< "$SU_PASS" update-grub
+      sudo update-grub
     ;;
-    "09")
-      # Download & Install Workstation PoE Drivers
-      file_name="ds-wseli-poe.deb"
+    "10")
+      # Download nxos-default-settings.deb
+      file_name="nxos-default-settings.deb"
       if ! download "$WebHostFiles/$file_name"; then
         continue
       fi
       if ! install_deb "$file_name"; then
         continue
       fi
-      ;;
+    ;;
     *)
-      ## YOU ARE HERE ##
       echo "Unsupported item $CHOICE!" >&2
       exit 1
-      ;;
+    ;;
     esac
   done
 fi
 TERM=ansi whiptail --title "$TITLE" --infobox "\n Applying System Updates..." 8 68
 sleep 0.5
-sudo -S <<< "$SU_PASS" apt -yq upgrade
+sudo apt -yq upgrade
 TERM=ansi whiptail --title "$TITLE" --infobox "\n Cleaning System..." 8 68
 sleep 0.5
-sudo -S <<< "$SU_PASS" apt -yq autoremove
+sudo apt -yq autoremove
 TERM=ansi whiptail --title "$TITLE" --infobox "\n Finished !" 8 68
 sleep 3
 
