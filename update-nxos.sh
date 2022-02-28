@@ -21,7 +21,7 @@ NxFulVer="$NxMajVer.$NxBuild"
 function download {
   # download url
   # url = $1
-  file_name="$(basename -- $1)"
+  file_name="$(basename -- "$1")"
   TERM=ansi whiptail --title "$TITLE" --infobox "\n Downloading $file_name..." 8 68
   sleep 0.5
   # only download & overwrite newer file - quietly
@@ -35,10 +35,10 @@ function download {
 }
 
 function install_deb {
-  file_name="$(basename -- $1)"
+  file_name="$(basename -- "$1")"
   TERM=ansi whiptail --title "$TITLE" --infobox "\n Installing $file_name..." 8 68
   # Install non-interactive & quiet
-  if ! sudo -S <<< $SU_PASS gdebi --n --q $file_name; then
+  if ! sudo -S <<< $SU_PASS gdebi --n --q "$file_name"; then
     # Install failed
     TERM=ansi whiptail --title "$TITLE" --infobox "\n Installing $file_name failed!" 8 68
     sleep 3
@@ -53,7 +53,7 @@ function install_deb {
 while true
 do
   TERM=ansi whiptail --title "$TITLE" --infobox "\n Running apt update..." 8 68
-  if ! sudo -S <<< $SU_PASS apt -qq update; then
+  if ! sudo -S <<< $SU_PASS apt -yq update; then
     # Ask password if default failed
     SU_PASS=$(whiptail --title "$TITLE" --passwordbox "\n Please enter password for $USER:" 8 68 3>&1 1>&2 2>&3)
     if ! $?; then
@@ -70,11 +70,11 @@ done
 
 # Install curl. Needed to update nx advanced flags later
 TERM=ansi whiptail --title "$TITLE" --infobox "\n Installing Curl..." 8 68
-sudo -S <<< $SU_PASS apt -qq install -y curl
+sudo -S <<< "$SU_PASS" apt -yq install -y curl
 
 # change working directory
 TERM=ansi whiptail --title "$TITLE" --infobox "\n Changing Working Dir to ~/Downloads..." 8 68
-cd ~/Downloads
+cd ~/Downloads || exit
 sleep 0.5
 
 # Display Checklist (whiptail)
@@ -104,11 +104,11 @@ else
       # reset so we can test for null
       unset first_eth
       first_eth=$(ls /sys/class/net | grep -m1 ^e)
-      if [[ ! -z "$first_eth" ]]; then
-        macaddy=$(cat /sys/class/net/$first_eth/address | tr -d ':' | grep -o '....$')
+      if [[ -n "$first_eth" ]]; then
+        macaddy=$(cat /sys/class/net/"$first_eth"/address | tr -d ':' | grep -o '....$')
       fi
       ServerName="${ServerName}-${macaddy}"
-      sudo hostnamectl set-hostname $ServerName
+      sudo hostnamectl set-hostname "$ServerName"
       TERM=ansi whiptail --title "$TITLE" --infobox "\n Hostname = ${ServerName}" 8 68
       sleep 0.5
 
@@ -120,12 +120,12 @@ else
       sleep 0.5
     ;;
     "02")
-      file_name_list="chrome-remote-desktop_current_amd64.deb google-chrome-stable_current_amd64.deb networkoptix-*.deb"
+      file_name_list="chrome-remote-desktop_current_amd64.deb google-chrome-stable_current_amd64.deb nxwitness-*.deb"
       for file_name in $file_name_list
       do
         TERM=ansi whiptail --title "$TITLE" --infobox "\n Removing $file_name ..." 8 68
         sleep 0.5
-        rm $file_name > /dev/null 2>&1
+        rm "$file_name" > /dev/null 2>&1
       done
     ;;
     "03")
@@ -145,7 +145,7 @@ else
       # Add user to Chrome Remote Desktop user Group
       TERM=ansi whiptail --title "$TITLE" --infobox "\n Adding $USER to Chrome Remote Desktop Group..." 8 68
       sleep 0.5
-      sudo -S <<< $SU_PASS usermod -a -G chrome-remote-desktop $USER
+      sudo -S <<< "$SU_PASS" usermod -a -G chrome-remote-desktop "$USER"
 
       # WIP:Create Chrome Browser Managed Policy
       file_name="/etc/opt/chrome/policies/managed/nxos.json"
@@ -153,9 +153,9 @@ else
         TERM=ansi whiptail --title "$TITLE" --infobox "\n Setting Chrome Browser Policy..." 8 68
         sleep 0.5
         # create file first because tee will not
-        sudo -S <<< $SU_PASS mkdir -p "${file_name%/*}"
+        sudo -S <<< "$SU_PASS" mkdir -p "${file_name%/*}"
         # use tee to write to file because sudo cat <<EOF is BAD.
-        sudo -S <<< $SU_PASS tee $file_name >/dev/null <<EOF
+        sudo tee $file_name >/dev/null <<EOF
 {
   "distribution": {
     "suppress_first_run_bubble": true,
@@ -196,15 +196,15 @@ EOF
         sleep 3
       fi
     ;;
-    6)
+    "06")
       # Download & Install Cockpit Advanced
       TERM=ansi whiptail --title "$TITLE" --infobox "\n Installing 45drives sharing scripts..." 8 68
       # sleep 0.5
       # Needs GPG to add repos
-      sudo -S <<< $SU_PASS apt -y -qq install gpg
+      sudo -S <<< "$SU_PASS" apt -yq install gpg
       # advanced file support by 45drives
-      curl -sSL https://repo.45drives.com/setup | sudo -S <<< $SU_PASS bash
-      sudo -S <<< $SU_PASS apt -y -qq install \
+      curl -sSL https://repo.45drives.com/setup | sudo bash
+      sudo -S <<< "$SU_PASS" apt -yq install \
       crudini \
       cockpit-file-sharing \
       cockpit-navigator \
@@ -221,12 +221,14 @@ EOF
       TERM=ansi whiptail --title "$TITLE" --infobox "\n Setting up smb.conf..." 8 68
       file_name=/etc/samba/smb.conf
       # remove leading spaces & tabs so crudini does not fail
-      sudo -S <<< $SU_PASS sed -i.bak 's/^[ \t]*//' $file_name
+      sudo -S <<< "$SU_PASS" sed -i.bak 's/^[ \t]*//' $file_name
       # add key pair to samba
-      sudo -S <<< $SU_PASS crudini --set $file_name global include registry
+      sudo -S <<< "$SU_PASS" crudini --set $file_name global include registry
     ;;
     "07")
-      sudo -S <<< $SU_PASS sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=\"quiet\ splash\"/GRUB_CMDLINE_LINUX_DEFAULT=\"\"/g" /etc/default/grub
+      TERM=ansi whiptail --title "$TITLE" --infobox "\n Updating Grub..." 8 68
+      sudo -S <<< "$SU_PASS" sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=\"quiet\ splash\"/GRUB_CMDLINE_LINUX_DEFAULT=\"\"/g" /etc/default/grub
+      sudo -S <<< "$SU_PASS" update-grub
       TERM=ansi whiptail --title "$TITLE" --infobox "\n Boot Splash turned OFF" 8 68
       sleep 0.5
     ;;
@@ -235,14 +237,16 @@ EOF
       sleep 0.5
       # Create grub.d folder
       if [ ! -e /etc/default/grub.d ]; then
-        sudo -S <<< $SU_PASS mkdir /etc/default/grub.d
+        sudo -S <<< "$SU_PASS" mkdir /etc/default/grub.d
       fi
       # Remove any existing NxOS grub settings
       # Don't care if does not exist
-      sudo -S <<< $SU_PASS rm /etc/default/grub.d/*nxos*.cfg
-      sudo -S <<< $SU_PASS tee /etc/default/grub.d/50_nxos_cstate.cfg > /dev/null << EOF
+      sudo -S <<< "$SU_PASS" rm /etc/default/grub.d/*nxos*.cfg
+      sudo tee /etc/default/grub.d/50_nxos_cstate.cfg > /dev/null << EOF
 GRUB_CMDLINE_LINUX="$GRUB_CMDLINE_LINUX i915.enable_rc6=0"
 EOF
+      TERM=ansi whiptail --title "$TITLE" --infobox "\n Updating Grub..." 8 68
+      sudo -S <<< "$SU_PASS" update-grub
     ;;
     "09")
       # Download & Install Workstation PoE Drivers
@@ -264,10 +268,10 @@ EOF
 fi
 TERM=ansi whiptail --title "$TITLE" --infobox "\n Applying System Updates..." 8 68
 sleep 0.5
-sudo -S <<< $SU_PASS apt -y -qq upgrade
+sudo -S <<< "$SU_PASS" apt -yq upgrade
 TERM=ansi whiptail --title "$TITLE" --infobox "\n Cleaning System..." 8 68
 sleep 0.5
-sudo -S <<< $SU_PASS apt -y -qq autoremove
+sudo -S <<< "$SU_PASS" apt -yq autoremove
 TERM=ansi whiptail --title "$TITLE" --infobox "\n Finished !" 8 68
 sleep 3
 
