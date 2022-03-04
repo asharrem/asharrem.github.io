@@ -275,12 +275,12 @@
     <!-- Keybindings for moving windows to Monitors -->
     <keybind key="W-Right">
       <action name="MoveResizeTo">
-        <monitor>next</monitor>
+        <monitor>prev</monitor>
       </action>
     </keybind>
     <keybind key="W-Left">
       <action name="MoveResizeTo">
-        <monitor>prev</monitor>
+        <monitor>next</monitor>
       </action>
     </keybind>
 
