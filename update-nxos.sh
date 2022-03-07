@@ -114,8 +114,10 @@ else
       # Set Machine Hostname to Last 4 digits of first eth found
       # reset so we can test for null
       unset first_eth
+        # shellcheck disable=SC2010
       first_eth=$(ls /sys/class/net | grep -m1 ^e)
       if [[ -n "$first_eth" ]]; then
+        # shellcheck disable=SC2002
         macaddy=$(cat /sys/class/net/"$first_eth"/address | tr -d ':' | grep -o '....$')
       fi
       ServerName="${ServerName}-${macaddy}"
