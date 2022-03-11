@@ -14,6 +14,7 @@ NxBuild="32840"
 ServerName="NxOS-20LTS"
 macaddy="0000"
 SU_PASS="nxw1tness"
+Working_Dir="$HOME/Downloads"
 ############################################
 
 NxFulVer="$NxMajVer.$NxBuild"
@@ -73,8 +74,8 @@ TERM=ansi whiptail --title "$TITLE" --infobox "\n Installing Curl..." 8 68
 sudo apt -yq install -y curl
 
 # change working directory
-TERM=ansi whiptail --title "$TITLE" --infobox "\n Changing Working Dir to ~/Downloads..." 8 68
-cd ~/Downloads || exit
+TERM=ansi whiptail --title "$TITLE" --infobox "\n Changing Working Dir to $Working_Dir..." 8 68
+cd "$Working_Dir" || exit 1
 sleep 0.5
 
 # Display Checklist (whiptail)
@@ -126,9 +127,7 @@ else
       sleep 0.5
 
       # udpdate hosts file with new ServerName
-      # To Do: overwrite any existing ServerName
-      # ie. not hardcoded to ubuntu
-      sudo sed -i 's/127.0.1.1	ubuntu/127.0.1.1	'"${ServerName}"'/g' /etc/hosts
+      sudo sed -i 's/127.0.1.1	'"${HOSTNAME}"'/127.0.1.1	'"${ServerName}"'/g' /etc/hosts
       TERM=ansi whiptail --title "$TITLE" --infobox "\n DNS Updated" 8 68
       sleep 0.5
     ;;
@@ -155,12 +154,12 @@ else
       done
       #Do Post Install actions
       #
-      # Add user to Chrome Remote Desktop user Group
-      TERM=ansi whiptail --title "$TITLE" --infobox "\n Adding $USER to Chrome Remote Desktop Group..." 8 68
-      sleep 0.5
-      sudo usermod -a -G chrome-remote-desktop "$USER"
+      # No Longer needed?? - Add user to Chrome Remote Desktop user Group
+      # TERM=ansi whiptail --title "$TITLE" --infobox "\n Adding $USER to Chrome Remote Desktop Group..." 8 68
+      # sleep 0.5
+      # sudo usermod -a -G chrome-remote-desktop "$USER"
 
-      # WIP:Create Chrome Browser Managed Policy
+      # Create Chrome Browser Managed Policy
       file_name="/etc/opt/chrome/policies/managed/nxos.json"
       if [ ! -f "$file_name" ]; then
         TERM=ansi whiptail --title "$TITLE" --infobox "\n Setting Chrome Browser Policy..." 8 68
@@ -201,11 +200,11 @@ EOF
       if ! install_deb "$file_name"; then
         continue
       fi
-      TERM=ansi whiptail --title "$TITLE" --infobox "\n Applying Nx Stoarge permissions Fix..." 8 68
+      TERM=ansi whiptail --title "$TITLE" --infobox "\n Applying Nx Storage permissions Fix..." 8 68
       sleep 0.5
       # Enable Nx AnalyticsDbStoragePermissions
       if ! curl "http://admin:admin@127.0.0.1:7001/api/systemSettings?forceAnalyticsDbStoragePermissions=true"; then
-        TERM=ansi whiptail --title "$TITLE" --infobox "\n Failed to apply Nx Stoarge permissions Fix!" 8 68
+        TERM=ansi whiptail --title "$TITLE" --infobox "\n Failed to apply Nx Storage permissions Fix!" 8 68
         sleep 3
       fi
     ;;
@@ -221,13 +220,6 @@ EOF
       crudini \
       cockpit-file-sharing \
       cockpit-navigator \
-      cockpit \
-      cockpit-bridge \
-      cockpit-networkmanager \
-      cockpit-packagekit \
-      cockpit-storaged \
-      cockpit-system \
-      cockpit-ws \
       gvfs-backends \
       gvfs-fuse
       
