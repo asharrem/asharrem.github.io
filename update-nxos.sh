@@ -322,5 +322,3 @@ sudo apt -y -qq upgrade
 TERM=ansi whiptail --title "$TITLE" --infobox "\n Cleaning System..." 22 68
 sleep 0.5
 sudo apt -y -qq autoremove
-TERM=ansi whiptail --title "$TITLE" --infobox "\n Finished !" 22 68
-sleep 3
