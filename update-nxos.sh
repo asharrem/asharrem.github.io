@@ -39,7 +39,7 @@ function install_deb {
   file_name="$(basename -- "$1")"
   TERM=ansi whiptail --title "$TITLE" --infobox "\n Installing $file_name..." 8 68
   # Install non-interactive & quiet
-  if ! sudo gdebi --n --q "$file_name"; then
+  if ! sudo gdebi --n --option=-qq "$file_name"; then
     # Install failed
     TERM=ansi whiptail --title "$TITLE" --infobox "\n Installing $file_name failed!" 8 68
     sleep 3
@@ -54,7 +54,7 @@ function install_deb {
 while true
 do
   TERM=ansi whiptail --title "$TITLE" --infobox "\n Running apt update..." 8 68
-  if ! sudo -S <<< "$SU_PASS" apt -yq update; then
+  if ! sudo -S <<< "$SU_PASS" apt -y -qq update; then
     # Ask password if default failed
     SU_PASS=$(whiptail --title "$TITLE" --passwordbox "\n Please enter password for $USER:" 8 68 3>&1 1>&2 2>&3)
     if ! $?; then
@@ -71,7 +71,7 @@ done
 
 # Install curl. Needed to update nx advanced flags later
 TERM=ansi whiptail --title "$TITLE" --infobox "\n Installing Curl..." 8 68
-sudo apt -yq install -y curl
+sudo apt -y -qq install curl
 
 # change working directory
 TERM=ansi whiptail --title "$TITLE" --infobox "\n Changing Working Dir to $Working_Dir..." 8 68
@@ -213,10 +213,10 @@ EOF
       TERM=ansi whiptail --title "$TITLE" --infobox "\n Installing 45drives sharing scripts..." 8 68
       # sleep 0.5
       # Needs GPG to add repos
-      sudo apt -yq install gpg
+      sudo apt -y -qq install gpg
       # advanced file support by 45drives
       curl -sSL https://repo.45drives.com/setup | sudo bash
-      sudo apt -yq install \
+      sudo apt -y -qq install \
       crudini \
       cockpit-file-sharing \
       cockpit-navigator \
@@ -272,10 +272,10 @@ EOF
 fi
 TERM=ansi whiptail --title "$TITLE" --infobox "\n Applying System Updates..." 8 68
 sleep 0.5
-sudo apt -yq upgrade
+sudo apt -y -qq upgrade
 TERM=ansi whiptail --title "$TITLE" --infobox "\n Cleaning System..." 8 68
 sleep 0.5
-sudo apt -yq autoremove
+sudo apt -y -qq autoremove
 TERM=ansi whiptail --title "$TITLE" --infobox "\n Finished !" 8 68
 sleep 3
 
