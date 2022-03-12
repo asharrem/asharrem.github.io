@@ -265,6 +265,8 @@ EOF
       if ! install_deb "$file_name"; then
         continue
       fi
+      # remove live cd autologin
+      sudo rm /etc/lightdm/lightdm.conf
     ;;
     "11")
       # Uninstall Nx Server & Client
