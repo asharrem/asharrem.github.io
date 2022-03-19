@@ -37,7 +37,9 @@ function download {
 function install_deb {
   file_name="$(basename -- "$1")"
   TERM=ansi whiptail --clear --title "$TITLE" --infobox "\n Installing $file_name..." 19 68
+  sleep 0.5
   # Install non-interactive & quiet
+  clear
   if ! sudo gdebi -n -q -o quiet=2 -o dpkg::progress-fancy="1" "$file_name"; then
     # Install failed
     TERM=ansi whiptail --clear --title "$TITLE" --infobox "\n Installing $file_name failed!" 19 68
