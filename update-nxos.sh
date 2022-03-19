@@ -22,12 +22,12 @@ NxFulVer="$NxMajVer.$NxBuild"
 function download {
   # wget url($1)
   file_name="$(basename -- "$1")"
-  TERM=ansi whiptail --title "$TITLE" --infobox "\n Downloading $file_name..." 20 68
+  TERM=ansi whiptail --title "$TITLE" --infobox "\n Downloading $file_name..." 19 68
   sleep 0.5
   # only download & overwrite newer file - quietly
   if ! wget -N -q --show-progress "$1"; then
     # Download failed
-    TERM=ansi whiptail --title "$TITLE" --infobox "\n Downloading $file_name failed!" 20 68
+    TERM=ansi whiptail --title "$TITLE" --infobox "\n Downloading $file_name failed!" 19 68
     sleep 3
     return 1
   fi
@@ -36,15 +36,15 @@ function download {
 
 function install_deb {
   file_name="$(basename -- "$1")"
-  TERM=ansi whiptail --title "$TITLE" --infobox "\n Installing $file_name..." 20 68
+  TERM=ansi whiptail --title "$TITLE" --infobox "\n Installing $file_name..." 19 68
   # Install non-interactive & quiet
   if ! sudo gdebi -n -q -o quiet=2 -o dpkg::progress-fancy=1 "$file_name"; then
     # Install failed
-    TERM=ansi whiptail --title "$TITLE" --infobox "\n Installing $file_name failed!" 20 68
+    TERM=ansi whiptail --title "$TITLE" --infobox "\n Installing $file_name failed!" 19 68
     sleep 3
     return 1
   fi
-  TERM=ansi whiptail --title "$TITLE" --infobox "\n ...Installed $file_name" 20 68
+  TERM=ansi whiptail --title "$TITLE" --infobox "\n ...Installed $file_name" 19 68
   sleep 0.5
   return 0
 }
@@ -52,12 +52,12 @@ function install_deb {
 # run apt update
 while true
 do
-  TERM=ansi whiptail --title "$TITLE" --infobox "\n Running apt update..." 20 68
+  TERM=ansi whiptail --title "$TITLE" --infobox "\n Running apt update..." 19 68
   if ! sudo -S <<< "$SU_PASS" apt -y -qq -o=dpkg::progress-fancy=1 update; then
     # Ask password if default failed
-    if ! SU_PASS=$(whiptail --title "$TITLE" --passwordbox "\n Please enter password for $USER:" 20 68 3>&1 1>&2 2>&3); then
+    if ! SU_PASS=$(whiptail --title "$TITLE" --passwordbox "\n Please enter password for $USER:" 19 68 3>&1 1>&2 2>&3); then
       # Exit on Cancel
-      TERM=ansi whiptail --title "$TITLE" --infobox "\n apt update failed!" 20 68
+      TERM=ansi whiptail --title "$TITLE" --infobox "\n apt update failed!" 19 68
       sleep 3
       exit 1
     fi
@@ -68,16 +68,16 @@ do
 done
 
 # Install curl. Needed to update nx advanced flags later
-TERM=ansi whiptail --title "$TITLE" --infobox "\n Installing Curl..." 20 68
+TERM=ansi whiptail --title "$TITLE" --infobox "\n Installing Curl..." 19 68
 sudo apt -y -qq -o=dpkg::progress-fancy=1 install curl
 
 # change working directory
-TERM=ansi whiptail --title "$TITLE" --infobox "\n Changing Working Dir to $Working_Dir..." 20 68
+TERM=ansi whiptail --title "$TITLE" --infobox "\n Changing Working Dir to $Working_Dir..." 19 68
 cd "$Working_Dir" || exit 1
 sleep 0.5
 
 # Display Checklist (whiptail)
-CHOICES=$(whiptail --title "$TITLE" --separate-output --checklist "Choose options" 20 68 15 \
+CHOICES=$(whiptail --title "$TITLE" --separate-output --checklist "Choose options" 19 68 15 \
   "01" "Install DS-WSELI-T2/8p PoE Drivers" OFF \
   "02" "Update Hostname to MAC address syntax" ON \
   "03" "Purge Nx & Google .deb's from Downloads Folder" OFF \
@@ -106,7 +106,7 @@ for CHOICE in $CHOICES; do
   ;;
   "02")
     # Update Hostname
-    TERM=ansi whiptail --title "$TITLE" --infobox "\n Updating Hostname to MAC address syntax..." 20 68
+    TERM=ansi whiptail --title "$TITLE" --infobox "\n Updating Hostname to MAC address syntax..." 19 68
     sleep 0.5
     # Set Machine Hostname to Last 4 digits of first eth found
     # reset so we can test for null
@@ -119,19 +119,19 @@ for CHOICE in $CHOICES; do
     fi
     ServerName="${ServerName}-${macaddy}"
     sudo hostnamectl set-hostname "$ServerName"
-    TERM=ansi whiptail --title "$TITLE" --infobox "\n Hostname = ${ServerName}" 20 68
+    TERM=ansi whiptail --title "$TITLE" --infobox "\n Hostname = ${ServerName}" 19 68
     sleep 0.5
 
     # udpdate hosts file with new ServerName
     sudo sed -i 's/127.0.1.1	'"${HOSTNAME}"'/127.0.1.1	'"${ServerName}"'/g' /etc/hosts
-    TERM=ansi whiptail --title "$TITLE" --infobox "\n DNS Updated" 20 68
+    TERM=ansi whiptail --title "$TITLE" --infobox "\n DNS Updated" 19 68
     sleep 0.5
   ;;
   "03")
     file_name_list="chrome-remote-desktop_current_amd64.deb google-chrome-stable_current_amd64.deb nxwitness-*.deb"
     for file_name in $file_name_list
     do
-      TERM=ansi whiptail --title "$TITLE" --infobox "\n Removing $file_name ..." 20 68
+      TERM=ansi whiptail --title "$TITLE" --infobox "\n Removing $file_name ..." 19 68
       sleep 0.5
       rm "$file_name" > /dev/null 2>&1
     done
@@ -151,14 +151,14 @@ for CHOICE in $CHOICES; do
     #Do Post Install actions
     #
     # No Longer needed?? - Add user to Chrome Remote Desktop user Group
-    # TERM=ansi whiptail --title "$TITLE" --infobox "\n Adding $USER to Chrome Remote Desktop Group..." 20 68
+    # TERM=ansi whiptail --title "$TITLE" --infobox "\n Adding $USER to Chrome Remote Desktop Group..." 19 68
     # sleep 0.5
     # sudo usermod -a -G chrome-remote-desktop "$USER"
 
     # Create Chrome Browser Managed Policy
     file_name="/etc/opt/chrome/policies/managed/nxos.json"
     if [ ! -f "$file_name" ]; then
-      TERM=ansi whiptail --title "$TITLE" --infobox "\n Setting Chrome Browser Policy..." 20 68
+      TERM=ansi whiptail --title "$TITLE" --infobox "\n Setting Chrome Browser Policy..." 19 68
       sleep 0.5
       # create file first because tee will not
       sudo mkdir -p "${file_name%/*}"
@@ -196,17 +196,17 @@ EOF
     if ! install_deb "$file_name"; then
       continue
     fi
-    TERM=ansi whiptail --title "$TITLE" --infobox "\n Applying Nx Storage permissions Fix..." 20 68
+    TERM=ansi whiptail --title "$TITLE" --infobox "\n Applying Nx Storage permissions Fix..." 19 68
     sleep 0.5
     # Enable Nx AnalyticsDbStoragePermissions
     if ! curl "http://admin:admin@127.0.0.1:7001/api/systemSettings?forceAnalyticsDbStoragePermissions=true"; then
-      TERM=ansi whiptail --title "$TITLE" --infobox "\n Failed to apply Nx Storage permissions Fix!" 20 68
+      TERM=ansi whiptail --title "$TITLE" --infobox "\n Failed to apply Nx Storage permissions Fix!" 19 68
       sleep 3
     fi
   ;;
   "07")
     # Download & Install Cockpit Advanced
-    TERM=ansi whiptail --title "$TITLE" --infobox "\n Installing 45drives sharing scripts..." 20 68
+    TERM=ansi whiptail --title "$TITLE" --infobox "\n Installing 45drives sharing scripts..." 19 68
     # sleep 0.5
     # Needs GPG to add repos
     sudo apt -y -qq -o=dpkg::progress-fancy=1 install gpg
@@ -219,7 +219,7 @@ EOF
     gvfs-backends \
     gvfs-fuse
     
-    TERM=ansi whiptail --title "$TITLE" --infobox "\n Setting up smb.conf..." 20 68
+    TERM=ansi whiptail --title "$TITLE" --infobox "\n Setting up smb.conf..." 19 68
     file_name=/etc/samba/smb.conf
     # remove leading spaces & tabs so crudini does not fail
     sudo sed -i.bak 's/^[ \t]*//' $file_name
@@ -227,14 +227,14 @@ EOF
     sudo crudini --set $file_name global include registry
   ;;
   "08")
-    TERM=ansi whiptail --title "$TITLE" --infobox "\n Updating Grub..." 20 68
+    TERM=ansi whiptail --title "$TITLE" --infobox "\n Updating Grub..." 19 68
     sudo sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=\"quiet\ splash\"/GRUB_CMDLINE_LINUX_DEFAULT=\"\"/g" /etc/default/grub
     sudo update-grub
-    TERM=ansi whiptail --title "$TITLE" --infobox "\n Boot Splash turned OFF" 20 68
+    TERM=ansi whiptail --title "$TITLE" --infobox "\n Boot Splash turned OFF" 19 68
     sleep 0.5
   ;;
   "09")
-    TERM=ansi whiptail --title "$TITLE" --infobox "\n Applying current freeze fixes..." 20 68
+    TERM=ansi whiptail --title "$TITLE" --infobox "\n Applying current freeze fixes..." 19 68
     sleep 0.5
     # Create grub.d folder
     if [ ! -e /etc/default/grub.d ]; then
@@ -246,7 +246,7 @@ EOF
     sudo tee /etc/default/grub.d/50_nxos_cstate.cfg > /dev/null << EOF
 GRUB_CMDLINE_LINUX="$GRUB_CMDLINE_LINUX i915.enable_rc6=0"
 EOF
-    TERM=ansi whiptail --title "$TITLE" --infobox "\n Updating Grub..." 20 68
+    TERM=ansi whiptail --title "$TITLE" --infobox "\n Updating Grub..." 19 68
     sudo update-grub
   ;;
   "10")
@@ -273,8 +273,8 @@ EOF
   ;;
   "12")
     # Download & Install Specific Nx Client
-    NxMajVer=$(TERM=ansi whiptail --title "$TITLE" --inputbox "\n Install Nx Witness Client\nEnter Nx Major Version eg. 4.2.0" 20 68 3>&1 1>&2 2>&3)      
-    NxBuild=$(TERM=ansi whiptail --title "$TITLE" --inputbox "\n Enter Nx Build Number eg. 32840" 20 68 3>&1 1>&2 2>&3)
+    NxMajVer=$(TERM=ansi whiptail --title "$TITLE" --inputbox "\n Install Nx Witness Client\nEnter Nx Major Version eg. 4.2.0" 19 68 3>&1 1>&2 2>&3)      
+    NxBuild=$(TERM=ansi whiptail --title "$TITLE" --inputbox "\n Enter Nx Build Number eg. 32840" 19 68 3>&1 1>&2 2>&3)
     NxFulVer="$NxMajVer.$NxBuild"
     file_name="nxwitness-client-${NxFulVer}-linux64.deb"
     if ! download "https://updates.networkoptix.com/default/$NxBuild/linux/$file_name"; then
@@ -286,8 +286,8 @@ EOF
   ;;
   "13")
     # Download & Install Specific Nx Server
-    NxMajVer=$(TERM=ansi whiptail --title "$TITLE" --inputbox "\n Install Nx Witness Server\nEnter Nx Major Version eg. 4.2.0" 20 68 3>&1 1>&2 2>&3)      
-    NxBuild=$(TERM=ansi whiptail --title "$TITLE" --inputbox "\n Enter Nx Build Number eg. 32840" 20 68 3>&1 1>&2 2>&3)
+    NxMajVer=$(TERM=ansi whiptail --title "$TITLE" --inputbox "\n Install Nx Witness Server\nEnter Nx Major Version eg. 4.2.0" 19 68 3>&1 1>&2 2>&3)      
+    NxBuild=$(TERM=ansi whiptail --title "$TITLE" --inputbox "\n Enter Nx Build Number eg. 32840" 19 68 3>&1 1>&2 2>&3)
     NxFulVer="$NxMajVer.$NxBuild"
     file_name="nxwitness-server-${NxFulVer}-linux64.deb"
     if ! download "https://updates.networkoptix.com/default/$NxBuild/linux/$file_name"; then
@@ -296,11 +296,11 @@ EOF
     if ! install_deb "$file_name"; then
       continue
     fi
-    TERM=ansi whiptail --title "$TITLE" --infobox "\n Applying Nx Storage permissions Fix..." 20 68
+    TERM=ansi whiptail --title "$TITLE" --infobox "\n Applying Nx Storage permissions Fix..." 19 68
     sleep 0.5
     # Enable Nx AnalyticsDbStoragePermissions
     if ! curl "http://admin:admin@127.0.0.1:7001/api/systemSettings?forceAnalyticsDbStoragePermissions=true"; then
-      TERM=ansi whiptail --title "$TITLE" --infobox "\n Failed to apply Nx Storage permissions Fix!" 20 68
+      TERM=ansi whiptail --title "$TITLE" --infobox "\n Failed to apply Nx Storage permissions Fix!" 19 68
       sleep 3
     fi
   ;;
@@ -310,9 +310,9 @@ EOF
   ;;
   esac
 done
-TERM=ansi whiptail --title "$TITLE" --infobox "\n Applying System Updates..." 20 68
+TERM=ansi whiptail --title "$TITLE" --infobox "\n Applying System Updates..." 19 68
 sleep 0.5
 sudo apt -y -qq -o=dpkg::progress-fancy=1 upgrade
-TERM=ansi whiptail --title "$TITLE" --infobox "\n Cleaning System..." 20 68
+TERM=ansi whiptail --title "$TITLE" --infobox "\n Cleaning System..." 19 68
 sleep 0.5
 sudo apt -y -qq -o=dpkg::progress-fancy=1 autoremove
