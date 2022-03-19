@@ -53,7 +53,7 @@ function install_deb {
 while true
 do
   TERM=ansi whiptail --title "$TITLE" --infobox "\n Running apt update..." 22 68
-  if ! sudo -S <<< "$SU_PASS" apt -y -qq -o=Dpkg::Use-Pty=0 update; then
+  if ! sudo -S <<< "$SU_PASS" apt -y -qq -o=Dpkg::Use-Pty=0 Dpkg::Progress-Fancy=1 update; then
     # Ask password if default failed
     if ! SU_PASS=$(whiptail --title "$TITLE" --passwordbox "\n Please enter password for $USER:" 22 68 3>&1 1>&2 2>&3); then
       # Exit on Cancel
@@ -69,7 +69,7 @@ done
 
 # Install curl. Needed to update nx advanced flags later
 TERM=ansi whiptail --title "$TITLE" --infobox "\n Installing Curl..." 22 68
-sudo apt -y -qq -o=Dpkg::Use-Pty=0 install curl
+sudo apt -y -qq -o=Dpkg::Use-Pty=0 Dpkg::Progress-Fancy=1 install curl
 
 # change working directory
 TERM=ansi whiptail --title "$TITLE" --infobox "\n Changing Working Dir to $Working_Dir..." 22 68
@@ -209,10 +209,10 @@ EOF
     TERM=ansi whiptail --title "$TITLE" --infobox "\n Installing 45drives sharing scripts..." 22 68
     # sleep 0.5
     # Needs GPG to add repos
-    sudo apt -y -qq -o=Dpkg::Use-Pty=0 install gpg
+    sudo apt -y -qq -o=Dpkg::Use-Pty=0 Dpkg::Progress-Fancy=1 install gpg
     # advanced file support by 45drives
     curl -sSL https://repo.45drives.com/setup | sudo bash
-    sudo apt -y -qq -o=Dpkg::Use-Pty=0 install \
+    sudo apt -y -qq -o=Dpkg::Use-Pty=0 Dpkg::Progress-Fancy=1 install \
     crudini \
     cockpit-file-sharing \
     cockpit-navigator \
@@ -312,7 +312,7 @@ EOF
 done
 TERM=ansi whiptail --title "$TITLE" --infobox "\n Applying System Updates..." 22 68
 sleep 0.5
-sudo apt -y -qq -o=Dpkg::Use-Pty=0 upgrade
+sudo apt -y -qq -o=Dpkg::Use-Pty=0 Dpkg::Progress-Fancy=1 upgrade
 TERM=ansi whiptail --title "$TITLE" --infobox "\n Cleaning System..." 22 68
 sleep 0.5
-sudo apt -y -qq -o=Dpkg::Use-Pty=0 autoremove
+sudo apt -y -qq -o=Dpkg::Use-Pty=0 Dpkg::Progress-Fancy=1 autoremove
