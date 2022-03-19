@@ -36,11 +36,11 @@ function download {
 
 function install_deb {
   file_name="$(basename -- "$1")"
-  TERM=ansi whiptail --title "$TITLE" --infobox "\n Installing $file_name..." 19 68
+  TERM=ansi whiptail --clear --title "$TITLE" --infobox "\n Installing $file_name..." 19 68
   # Install non-interactive & quiet
   if ! sudo gdebi -n -q -o quiet=2 -o dpkg::progress-fancy="1" "$file_name"; then
     # Install failed
-    TERM=ansi whiptail --title "$TITLE" --infobox "\n Installing $file_name failed!" 19 68
+    TERM=ansi whiptail --clear --title "$TITLE" --infobox "\n Installing $file_name failed!" 19 68
     sleep 3
     return 1
   fi
@@ -266,6 +266,8 @@ EOF
     file_name_list="networkoptix-mediaserver networkoptix-client"
     for file_name in $file_name_list
     do
+      TERM=ansi whiptail --title "$TITLE" --infobox "\n Removing $file_name..." 19 68
+      sleep 0.5
       if ! sudo dpkg -r "$file_name"; then
         continue
       fi
@@ -310,9 +312,9 @@ EOF
   ;;
   esac
 done
-TERM=ansi whiptail --title "$TITLE" --infobox "\n Applying System Updates..." 19 68
+TERM=ansi whiptail --clear --title "$TITLE" --infobox "\n Applying System Updates..." 19 68
 sleep 0.5
 sudo apt -y -qq -o=dpkg::progress-fancy="1" upgrade
-TERM=ansi whiptail --title "$TITLE" --infobox "\n Cleaning System..." 19 68
+TERM=ansi whiptail --clear --title "$TITLE" --infobox "\n Cleaning System..." 19 68
 sleep 0.5
 sudo apt -y -qq -o=dpkg::progress-fancy="1" autoremove
