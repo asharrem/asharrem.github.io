@@ -77,7 +77,7 @@ cd "$Working_Dir" || exit 1
 sleep 0.5
 
 # Display Checklist (whiptail)
-CHOICES=$(whiptail --title "$TITLE" --separate-output --checklist "Choose options" 19 68 15 \
+CHOICES=$(whiptail --title "$TITLE" --separate-output --checklist "Choose options" 19 68 13 \
   "01" "Install DS-WSELI-T2/8p PoE Drivers" OFF \
   "02" "Update Hostname to MAC address syntax" ON \
   "03" "Purge Nx & Google .deb's from Downloads Folder" OFF \
