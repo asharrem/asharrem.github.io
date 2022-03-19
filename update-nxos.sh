@@ -38,7 +38,7 @@ function install_deb {
   file_name="$(basename -- "$1")"
   TERM=ansi whiptail --title "$TITLE" --infobox "\n Installing $file_name..." 22 68
   # Install non-interactive & quiet
-  if ! sudo gdebi -n -q -o quiet=2 -o Dpkg::Use-Pty=0 "$file_name"; then
+  if ! sudo gdebi -n -q -o quiet=2 -o Dpkg::Options::="--status-fd 3" "$file_name"; then
     # Install failed
     TERM=ansi whiptail --title "$TITLE" --infobox "\n Installing $file_name failed!" 22 68
     sleep 3
