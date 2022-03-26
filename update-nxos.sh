@@ -40,7 +40,7 @@ function install_deb {
   sleep 0.5
   # Install non-interactive & quiet
   clear
-  if ! sudo gdebi -n -q -o quiet=2 -o dpkg::progress-fancy="1" "$file_name"; then
+  if ! sudo gdebi -n -q -o quiet=1 -o dpkg::progress-fancy="1" "$file_name"; then
     # Install failed
     TERM=ansi whiptail --clear --title "$TITLE" --infobox "\n Installing $file_name failed!" 19 68
     sleep 3
@@ -55,7 +55,7 @@ function install_deb {
 while true
 do
   TERM=ansi whiptail --title "$TITLE" --infobox "\n Running apt update..." 19 68
-  if ! sudo -S <<< "$SU_PASS" apt -y -qq -o=dpkg::progress-fancy="1" update; then
+  if ! sudo -S <<< "$SU_PASS" apt -y -q -o=dpkg::progress-fancy="1" update; then
     # Ask password if default failed
     if ! SU_PASS=$(whiptail --title "$TITLE" --passwordbox "\n Please enter password for $USER:" 19 68 3>&1 1>&2 2>&3); then
       # Exit on Cancel
@@ -71,7 +71,7 @@ done
 
 # Install curl. Needed to update nx advanced flags later
 TERM=ansi whiptail --title "$TITLE" --infobox "\n Installing Curl..." 19 68
-sudo apt -y -qq -o=dpkg::progress-fancy="1" install curl
+sudo apt -y -q -o=dpkg::progress-fancy="1" install curl
 
 # change working directory
 TERM=ansi whiptail --title "$TITLE" --infobox "\n Changing Working Dir to $Working_Dir..." 19 68
@@ -211,10 +211,10 @@ EOF
     TERM=ansi whiptail --title "$TITLE" --infobox "\n Installing 45drives sharing scripts..." 19 68
     # sleep 0.5
     # Needs GPG to add repos
-    sudo apt -y -qq -o=dpkg::progress-fancy="1" install gpg
+    sudo apt -y -q -o=dpkg::progress-fancy="1" install gpg
     # advanced file support by 45drives
     curl -sSL https://repo.45drives.com/setup | sudo bash
-    sudo apt -y -qq -o=dpkg::progress-fancy="1" install \
+    sudo apt -y -q -o=dpkg::progress-fancy="1" install \
     crudini \
     cockpit-file-sharing \
     cockpit-navigator \
@@ -316,7 +316,7 @@ EOF
 done
 TERM=ansi whiptail --clear --title "$TITLE" --infobox "\n Applying System Updates..." 19 68
 sleep 0.5
-sudo apt -y -qq -o=dpkg::progress-fancy="1" upgrade
+sudo apt -y -q -o=dpkg::progress-fancy="1" upgrade
 TERM=ansi whiptail --clear --title "$TITLE" --infobox "\n Cleaning System..." 19 68
 sleep 0.5
-sudo apt -y -qq -o=dpkg::progress-fancy="1" autoremove
+sudo apt -y -q -o=dpkg::progress-fancy="1" autoremove
