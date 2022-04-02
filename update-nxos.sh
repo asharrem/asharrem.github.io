@@ -91,8 +91,7 @@ CHOICES=$(whiptail --title "$TITLE" --separate-output --checklist "Choose option
   "09" "Debug - Freeze Fix" OFF \
   "10" "Update NxOS Defaults (Resets First Boot Flag)" OFF \
   "11" "Un-Install Nx Witness Server & Client" OFF \
-  "12" "Install a specific Nx Witness Client Build" OFF \
-  "13" "Install a specific Nx Witness Server Build" OFF 3>&1 1>&2 2>&3)
+  "12" "Install a specific Nx Witness Client Build" OFF 3>&1 1>&2 2>&3)
 
 for CHOICE in $CHOICES; do
   case $CHOICE in
