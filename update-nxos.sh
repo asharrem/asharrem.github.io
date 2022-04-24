@@ -258,7 +258,7 @@ EOF
     if ! download "$WebHostFiles/$file_name"; then
       continue
     fi
-    if ! dpkg --force-overwrite -i "$file_name"; then
+    if ! sudo dpkg --force-overwrite -i "$file_name"; then
       continue
     fi
     # remove live cd autologin
