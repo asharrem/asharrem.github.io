@@ -91,7 +91,8 @@ CHOICES=$(whiptail --title "$TITLE" --separate-output --checklist "Choose option
   "09" "Debug - Freeze Fix" OFF \
   "10" "Update NxOS Defaults (Resets First Boot Flag)" OFF \
   "11" "Un-Install Nx Witness Server & Client" OFF \
-  "12" "Install a specific Nx Witness Client Build" OFF 3>&1 1>&2 2>&3)
+  "12" "Install a specific Nx Witness Client Build" OFF \
+  "13" "Run Upadtes" ON 3>&1 1>&2 2>&3)
 
 for CHOICE in $CHOICES; do
   case $CHOICE in
@@ -317,15 +318,18 @@ EOF
       esac
     done
   ;;
+  "13")
+    # Run updates
+    TERM=ansi whiptail --clear --title "$TITLE" --infobox "\n Applying System Updates..." 19 68
+    sleep 0.5
+    sudo apt -y -q -o=dpkg::progress-fancy="1" upgrade
+    TERM=ansi whiptail --clear --title "$TITLE" --infobox "\n Cleaning System..." 19 68
+    sleep 0.5
+    sudo apt -y -q -o=dpkg::progress-fancy="1" autoremove
+  ;;
   *)
     echo "Unsupported item $CHOICE!" >&2
     break
   ;;
   esac
 done
-TERM=ansi whiptail --clear --title "$TITLE" --infobox "\n Applying System Updates..." 19 68
-sleep 0.5
-sudo apt -y -q -o=dpkg::progress-fancy="1" upgrade
-TERM=ansi whiptail --clear --title "$TITLE" --infobox "\n Cleaning System..." 19 68
-sleep 0.5
-sudo apt -y -q -o=dpkg::progress-fancy="1" autoremove
