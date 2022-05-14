@@ -20,13 +20,13 @@
     various projects I work on. My personal favourite is&nbsp;<a href="https://asharrem.github.io/cascade_rc.xml"
       rel="nofollow">cascade_rc.xml</a>.</p>
   <h2 dir="auto">Cascading Windows on Openbox WM</h2>
-  <p dir="auto"><a href="http://openbox.org/">Openbox</a>&nbsp;is a stacking &amp; tiling Window Manager. Tiling is
+  <p dir="auto"><a href="http://openbox.org/">Openbox</a>&nbsp;is a stacking Window Manager. Tiling is
     generally achevied by Keybindings.&nbsp;<a href="https://asharrem.github.io/cascade_rc.xml"
       rel="nofollow">cascade_rc.xml</a>&nbsp;is a keybind I wrote that cascades openbox client windows (per monitor).
     For a number of years I've been searching how I might "Cascade" windows, with most every reference saying it can't
-    be done with openbox alone, and to use a "Tiling" application. Well...using a looping action/condition we can
+    be done with openbox alone, and to use a "Tiling" application. Well...using the built-in looping action/condition we can
     achieve a "cascade per monitor" keybind.</p>
-  <p dir="auto">The nested loop structure is;</p>
+  <p dir="auto">The basic nested loop structure is;</p>
   <div>
     <pre><code>
 ForEach
