@@ -92,7 +92,7 @@ CHOICES=$(whiptail --title "$TITLE" --separate-output --checklist "Choose option
   "10" "Update NxOS Defaults (Resets First Boot Flag)" OFF \
   "11" "Un-Install Nx Witness Server & Client" OFF \
   "12" "Install a specific Nx Witness Client Build" OFF \
-  "13" "Install a specific Nx Witness Server Build" OFF 3>&1 1>&2 2>&3)
+  "13" "Run Upadtes" ON 3>&1 1>&2 2>&3)
 
 for CHOICE in $CHOICES; do
   case $CHOICE in
@@ -229,6 +229,7 @@ EOF
     sudo crudini --set $file_name global include registry
   ;;
   "08")
+    # remove statup Splash 
     TERM=ansi whiptail --title "$TITLE" --infobox "\n Updating Grub..." 19 68
     sudo sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=\"quiet\ splash\"/GRUB_CMDLINE_LINUX_DEFAULT=\"\"/g" /etc/default/grub
     sudo update-grub
@@ -236,6 +237,7 @@ EOF
     sleep 0.5
   ;;
   "09")
+    # Implement Kernal Grub cmds
     TERM=ansi whiptail --title "$TITLE" --infobox "\n Applying current freeze fixes..." 19 68
     sleep 0.5
     # Create grub.d folder
@@ -257,7 +259,7 @@ EOF
     if ! download "$WebHostFiles/$file_name"; then
       continue
     fi
-    if ! install_deb "$file_name"; then
+    if ! sudo dpkg --force-overwrite -i "$file_name"; then
       continue
     fi
     # remove live cd autologin
@@ -280,33 +282,50 @@ EOF
     NxMajVer=$(TERM=ansi whiptail --title "$TITLE" --inputbox "\n Install Nx Witness Client\nEnter Nx Major Version eg. 4.2.0" 19 68 3>&1 1>&2 2>&3)      
     NxBuild=$(TERM=ansi whiptail --title "$TITLE" --inputbox "\n Enter Nx Build Number eg. 32840" 19 68 3>&1 1>&2 2>&3)
     NxFulVer="$NxMajVer.$NxBuild"
-    file_name="nxwitness-client-${NxFulVer}-linux64.deb"
-    if ! download "https://updates.networkoptix.com/default/$NxBuild/linux/$file_name"; then
-        continue
-    fi
-    if ! install_deb "$file_name"; then
-      continue
-    fi
+    # Display Checklist (whiptail)
+    NX_CHOICES=$(whiptail --title "$TITLE" --separate-output --checklist "Choose options" 19 68 13 \
+      "01" "Install specific Nx Client" ON \
+      "02" "Install specific Nx Server" ON 3>&1 1>&2 2>&3)
+    for NX_CHOICE in $NX_CHOICES; do
+      case $NX_CHOICE in
+      "01")
+        # Install Nx Client - specific version
+        file_name="nxwitness-client-${NxFulVer}-linux64.deb"
+        if ! download "https://updates.networkoptix.com/default/$NxBuild/linux/$file_name"; then
+            continue
+        fi
+        if ! install_deb "$file_name"; then
+          continue
+        fi
+      ;;
+      "02")
+        # Install Nx Server - specific version
+        file_name="nxwitness-server-${NxFulVer}-linux64.deb"
+        if ! download "https://updates.networkoptix.com/default/$NxBuild/linux/$file_name"; then
+            continue
+        fi
+        if ! install_deb "$file_name"; then
+          continue
+        fi
+        TERM=ansi whiptail --title "$TITLE" --infobox "\n Applying Nx Storage permissions Fix..." 19 68
+        sleep 0.5
+        # Enable Nx AnalyticsDbStoragePermissions
+        if ! curl "http://admin:admin@127.0.0.1:7001/api/systemSettings?forceAnalyticsDbStoragePermissions=true"; then
+          TERM=ansi whiptail --title "$TITLE" --infobox "\n Failed to apply Nx Storage permissions Fix!" 19 68
+          sleep 3
+        fi
+        ;;
+      esac
+    done
   ;;
   "13")
-    # Download & Install Specific Nx Server
-    NxMajVer=$(TERM=ansi whiptail --title "$TITLE" --inputbox "\n Install Nx Witness Server\nEnter Nx Major Version eg. 4.2.0" 19 68 3>&1 1>&2 2>&3)      
-    NxBuild=$(TERM=ansi whiptail --title "$TITLE" --inputbox "\n Enter Nx Build Number eg. 32840" 19 68 3>&1 1>&2 2>&3)
-    NxFulVer="$NxMajVer.$NxBuild"
-    file_name="nxwitness-server-${NxFulVer}-linux64.deb"
-    if ! download "https://updates.networkoptix.com/default/$NxBuild/linux/$file_name"; then
-        continue
-    fi
-    if ! install_deb "$file_name"; then
-      continue
-    fi
-    TERM=ansi whiptail --title "$TITLE" --infobox "\n Applying Nx Storage permissions Fix..." 19 68
+    # Run updates
+    TERM=ansi whiptail --clear --title "$TITLE" --infobox "\n Applying System Updates..." 19 68
     sleep 0.5
-    # Enable Nx AnalyticsDbStoragePermissions
-    if ! curl "http://admin:admin@127.0.0.1:7001/api/systemSettings?forceAnalyticsDbStoragePermissions=true"; then
-      TERM=ansi whiptail --title "$TITLE" --infobox "\n Failed to apply Nx Storage permissions Fix!" 19 68
-      sleep 3
-    fi
+    sudo apt -y -q -o=dpkg::progress-fancy="1" upgrade
+    TERM=ansi whiptail --clear --title "$TITLE" --infobox "\n Cleaning System..." 19 68
+    sleep 0.5
+    sudo apt -y -q -o=dpkg::progress-fancy="1" autoremove
   ;;
   *)
     echo "Unsupported item $CHOICE!" >&2
@@ -314,9 +333,3 @@ EOF
   ;;
   esac
 done
-TERM=ansi whiptail --clear --title "$TITLE" --infobox "\n Applying System Updates..." 19 68
-sleep 0.5
-sudo apt -y -q -o=dpkg::progress-fancy="1" upgrade
-TERM=ansi whiptail --clear --title "$TITLE" --infobox "\n Cleaning System..." 19 68
-sleep 0.5
-sudo apt -y -q -o=dpkg::progress-fancy="1" autoremove
