@@ -181,7 +181,7 @@ EOF
   ;;
   "05")
     # Download & Install Nx Client
-    file_name="nxwitness-client-${NxFulVer}-linux_x64.deb"
+    file_name="nxwitness-client-${NxFulVer}-linux64.deb"
     if ! download "https://updates.networkoptix.com/default/$NxBuild/linux/$file_name"; then
         continue
     fi
@@ -191,7 +191,7 @@ EOF
   ;;
   "06")
     # Download & Install Nx Server
-    file_name="nxwitness-server-${NxFulVer}-linux_x64.deb"
+    file_name="nxwitness-server-${NxFulVer}-linux64.deb"
     if ! download "https://updates.networkoptix.com/default/$NxBuild/linux/$file_name"; then
         continue
     fi
@@ -290,7 +290,7 @@ EOF
       case $NX_CHOICE in
       "01")
         # Install Nx Client - specific version
-        file_name="nxwitness-client-${NxFulVer}-linux_x64.deb"
+        file_name="nxwitness-client-${NxFulVer}-linux64.deb"
         if ! download "https://updates.networkoptix.com/default/$NxBuild/linux/$file_name"; then
             continue
         fi
@@ -300,7 +300,7 @@ EOF
       ;;
       "02")
         # Install Nx Server - specific version
-        file_name="nxwitness-server-${NxFulVer}-linux_x64.deb"
+        file_name="nxwitness-server-${NxFulVer}-linux64.deb"
         if ! download "https://updates.networkoptix.com/default/$NxBuild/linux/$file_name"; then
             continue
         fi
