@@ -183,7 +183,11 @@ EOF
     # Download & Install Nx Client
     file_name="nxwitness-client-${NxFulVer}-linux64.deb"
     if ! download "https://updates.networkoptix.com/default/$NxBuild/linux/$file_name"; then
+      # Retry with alternate syntax
+      file_name="nxwitness-client-${NxFulVer}-linux_x64.deb"
+      if ! download "https://updates.networkoptix.com/default/$NxBuild/linux/$file_name"; then
         continue
+      fi
     fi
     if ! install_deb "$file_name"; then
       continue
@@ -193,7 +197,11 @@ EOF
     # Download & Install Nx Server
     file_name="nxwitness-server-${NxFulVer}-linux64.deb"
     if ! download "https://updates.networkoptix.com/default/$NxBuild/linux/$file_name"; then
+      # Retry with alternate syntax
+      file_name="nxwitness-server-${NxFulVer}-linux_x64.deb"
+      if ! download "https://updates.networkoptix.com/default/$NxBuild/linux/$file_name"; then
         continue
+      fi
     fi
     if ! install_deb "$file_name"; then
       continue
@@ -292,7 +300,11 @@ EOF
         # Install Nx Client - specific version
         file_name="nxwitness-client-${NxFulVer}-linux64.deb"
         if ! download "https://updates.networkoptix.com/default/$NxBuild/linux/$file_name"; then
+          # Retry with alternate syntax
+          file_name="nxwitness-client-${NxFulVer}-linux_x64.deb"
+          if ! download "https://updates.networkoptix.com/default/$NxBuild/linux/$file_name"; then
             continue
+          fi
         fi
         if ! install_deb "$file_name"; then
           continue
@@ -302,7 +314,11 @@ EOF
         # Install Nx Server - specific version
         file_name="nxwitness-server-${NxFulVer}-linux64.deb"
         if ! download "https://updates.networkoptix.com/default/$NxBuild/linux/$file_name"; then
+          # Retry with alternate syntax
+          file_name="nxwitness-server-${NxFulVer}-linux_x64.deb"
+          if ! download "https://updates.networkoptix.com/default/$NxBuild/linux/$file_name"; then
             continue
+          fi
         fi
         if ! install_deb "$file_name"; then
           continue
