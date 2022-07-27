@@ -54,6 +54,7 @@ function install_deb {
 # 
 while true
 do
+  TERM=ansi whiptail --title "$TITLE" --infobox "\n Testing sudo...please wait for next screen" 19 68
   if ! sudo -v <<< "$SU_PASS"; then
     # Ask password if default failed
     if ! SU_PASS=$(whiptail --title "$TITLE" --passwordbox "\n Please enter password for $USER:" 19 68 3>&1 1>&2 2>&3); then
