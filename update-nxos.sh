@@ -51,15 +51,14 @@ function install_deb {
   return 0
 }
 
-# run apt update
+# 
 while true
 do
-  TERM=ansi whiptail --title "$TITLE" --infobox "\n Running apt update..." 19 68
-  if ! sudo -S <<< "$SU_PASS" apt -y -q -o=dpkg::progress-fancy="1" update; then
+  if ! sudo -v <<< "$SU_PASS"; then
     # Ask password if default failed
     if ! SU_PASS=$(whiptail --title "$TITLE" --passwordbox "\n Please enter password for $USER:" 19 68 3>&1 1>&2 2>&3); then
       # Exit on Cancel
-      TERM=ansi whiptail --title "$TITLE" --infobox "\n apt update failed!" 19 68
+      TERM=ansi whiptail --title "$TITLE" --infobox "\n Exiting Wizard!" 19 68
       sleep 3
       exit 1
     fi
@@ -68,6 +67,10 @@ do
     break
   fi
 done
+
+# run apt update
+TERM=ansi whiptail --title "$TITLE" --infobox "\n Running apt update..." 19 68
+sudo apt -y -q -o=dpkg::progress-fancy="1" update
 
 # Install curl. Needed to update nx advanced flags later
 TERM=ansi whiptail --title "$TITLE" --infobox "\n Installing Curl..." 19 68
