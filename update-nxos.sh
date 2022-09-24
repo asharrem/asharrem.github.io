@@ -93,15 +93,15 @@ CHOICES=$(whiptail --title "$TITLE" --separate-output --checklist "Choose option
   "07" "Install Cockpit Advanced File Sharing (NAS)" OFF \
   "08" "Debug - Follow Boot process" OFF \
   "09" "Debug - Freeze Fix" OFF \
-  "10" "Update NxOS Defaults (Resets First Boot Flag)" OFF \
+  "10" "Update NxOS Defaults (Resets First Boot Flag)" ON \
   "11" "Un-Install Nx Witness Server & Client" OFF \
   "12" "Install a specific Nx Witness Client Build" OFF \
-  "13" "Run Upadtes" ON 3>&1 1>&2 2>&3)
+  "13" "Run Updates" ON 3>&1 1>&2 2>&3)
 
 for CHOICE in $CHOICES; do
   case $CHOICE in
   "01")
-    # Download & Install Workstation PoE Drivers
+    # Install DS-WSELI Workstation PoE Drivers
     file_name="ds-wseli-poe.deb"
     if ! download "$WebHostFiles/$file_name"; then
       continue
