@@ -7,9 +7,9 @@ Developer & Curator of [NxOS](https://support.nfs.co.nz/menu/nxwitness/nxos-vers
 This public github hosts various files & scripts specific to NxOS, as well as some code that aids various projects I work on.
 My personal favourite is [cascade_rc.xml](https://asharrem.github.io/cascade_rc.xml).
 ## Cascading Windows on Openbox WM
-[Openbox](http://openbox.org/) is a stacking & tiling Window Manager. Tiling is generally achevied by Keybindings.
+[Openbox](http://openbox.org/) is a stacking Window Manager. Tiling is generally achevied by Keybindings.
   [cascade_rc.xml](https://asharrem.github.io/cascade_rc.xml) is a keybind I wrote that cascades openbox client windows (per monitor).
-  For a number of years I've been searching how I might "Cascade" windows, with most every reference saying it can't be done with openbox alone, and to use a "Tiling" application. Well...using a looping action/condition we can achieve a "cascade per monitor" keybind.
+  For a number of years I've been searching how I might "Cascade" windows, with most every reference saying it can't be done with openbox alone, and to use a "Tiling" application. Well...using a looping action/condition of openbox rc.xml we can achieve a "cascade per monitor" keybind.
 
 The nested loop structure is;
 ```
