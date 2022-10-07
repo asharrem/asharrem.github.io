@@ -51,7 +51,16 @@ function install_deb {
   return 0
 }
 
-# 
+function nx_install_post_cmd {
+  TERM=ansi whiptail --title "$TITLE" --infobox "\n Applying Nx Storage permissions Fix..." 19 68
+  sleep 0.5
+  # Enable Nx AnalyticsDbStoragePermissions
+  if ! curl -k -L --max-redirs 1 -u admin:admin "http://127.0.0.1:7001/api/systemSettings?forceAnalyticsDbStoragePermissions=true"; then
+    TERM=ansi whiptail --title "$TITLE" --infobox "\n Failed to apply Nx Storage permissions Fix!" 19 68
+    sleep 3
+  fi
+}
+
 while true
 do
   TERM=ansi whiptail --title "$TITLE" --infobox "\n Testing sudo...please wait for next screen" 19 68
@@ -210,13 +219,7 @@ EOF
     if ! install_deb "$file_name"; then
       continue
     fi
-    TERM=ansi whiptail --title "$TITLE" --infobox "\n Applying Nx Storage permissions Fix..." 19 68
-    sleep 0.5
-    # Enable Nx AnalyticsDbStoragePermissions
-    if ! curl "http://admin:admin@127.0.0.1:7001/api/systemSettings?forceAnalyticsDbStoragePermissions=true"; then
-      TERM=ansi whiptail --title "$TITLE" --infobox "\n Failed to apply Nx Storage permissions Fix!" 19 68
-      sleep 3
-    fi
+    nx_install_post_cmd
   ;;
   "07")
     # Download & Install Cockpit Advanced
@@ -327,13 +330,7 @@ EOF
         if ! install_deb "$file_name"; then
           continue
         fi
-        TERM=ansi whiptail --title "$TITLE" --infobox "\n Applying Nx Storage permissions Fix..." 19 68
-        sleep 0.5
-        # Enable Nx AnalyticsDbStoragePermissions
-        if ! curl "http://admin:admin@127.0.0.1:7001/api/systemSettings?forceAnalyticsDbStoragePermissions=true"; then
-          TERM=ansi whiptail --title "$TITLE" --infobox "\n Failed to apply Nx Storage permissions Fix!" 19 68
-          sleep 3
-        fi
+        nx_install_post_cmd
         ;;
       esac
     done
@@ -353,3 +350,5 @@ EOF
   ;;
   esac
 done
+TERM=ansi whiptail --title "$TITLE" --infobox "\n Finished!!!" 8 68
+sleep 3
