@@ -6,23 +6,28 @@
 # manually by /opt/nxos/intsall.sh
 ############################################
 
+# get current OS details
 # shellcheck source=/dev/null
 . /etc/os-release
+
+# set host location of additional install files
 WebAddress="asharrem.github.io"
 WebHostFiles="https://$WebAddress"
+
+# set tile of whiptail TUI
 TITLE="NxOS Installation Wizard"
-# set current Nx version & Hostname Prefix
+
+# set Nx defaults & Hostname Prefix
+SU_PASS="nxw1tness"
 NxMajVer="5.0.0"
 NxBuild="35270"
 OsMajorVer="$(echo $VERSION_ID | awk -F. '{print $1}')"
 OsMinorVer="$(echo $VERSION_ID | awk -F. '{print $2}')"
 ServerName="NxOS-${OsMajorVer}-${OsMinorVer}"
 macaddy="0000"
-SU_PASS="nxw1tness"
-Working_Dir="$HOME/Downloads"
-############################################
-
 NxFulVer="$NxMajVer.$NxBuild"
+
+############################################
 
 function download {
   # wget url($1)
@@ -63,9 +68,13 @@ function nxserver_install_post_cmd {
   if ! curl -k -L --max-redirs 1 -u admin:admin "http://127.0.0.1:7001/api/systemSettings?forceAnalyticsDbStoragePermissions=true"; then
     TERM=ansi whiptail --title "$TITLE" --infobox "\n Failed to apply Nx Storage permissions Fix!" 19 68
     sleep 3
+    return 1
   fi
 }
 
+# =============   main  ================
+
+# Get sudo password
 while true
 do
   TERM=ansi whiptail --title "$TITLE" --infobox "\n Testing sudo...please wait for next screen" 19 68
@@ -89,12 +98,26 @@ sudo apt -y -q -o=dpkg::progress-fancy="1" update
 
 # Install curl. Needed to update nx advanced flags later
 TERM=ansi whiptail --title "$TITLE" --infobox "\n Installing Curl..." 19 68
-sudo apt -y -q -o=dpkg::progress-fancy="1" install curl
+if ! command -v curl &> /dev/null; then
+  sleep 3
+  sudo apt -y -q -o=dpkg::progress-fancy="1" install curl
+fi
 
-# change working directory
-TERM=ansi whiptail --title "$TITLE" --infobox "\n Changing Working Dir to $Working_Dir..." 19 68
+# set working dir to $HOME/Downloads or ram drive
+if [[ -d $HOME/Downloads ]]; then
+  Working_Dir="$HOME/Downloads"
+else
+  if [[ -d /dev/shm ]]; then
+    Working_Dir="/dev/shm"
+  else
+    TERM=ansi whiptail --title "$TITLE" --infobox "\n Unable to set Working Dir...Aborting" 8 68
+    sleep 3
+    exit 1
+  fi  
+fi
+TERM=ansi whiptail --title "$TITLE" --infobox "\n Working Dir is: ${Working_Dir}..." 8 68
 cd "$Working_Dir" || exit 1
-sleep 0.5
+sleep 3
 
 # Display Checklist (whiptail)
 CHOICES=$(whiptail --title "$TITLE" --separate-output --checklist "Choose options" 19 68 13 \
@@ -107,7 +130,7 @@ CHOICES=$(whiptail --title "$TITLE" --separate-output --checklist "Choose option
   "07" "Install Cockpit Advanced File Sharing (NAS)" OFF \
   "08" "Debug - Follow Boot process" OFF \
   "09" "Debug - Freeze Fix" OFF \
-  "10" "Update NxOS Defaults (Resets First Boot Flag)" ON \
+  "10" "Update NxOS Defaults" ON \
   "11" "Un-Install Nx Witness Server & Client" OFF \
   "12" "Install a specific Nx Witness Client Build" OFF \
   "13" "Run Updates" ON 3>&1 1>&2 2>&3)
@@ -175,14 +198,14 @@ for CHOICE in $CHOICES; do
     # sleep 0.5
     # sudo usermod -a -G chrome-remote-desktop "$USER"
 
-    # Create Chrome Browser Managed Policy
+    # Create Chrome Browser Managed Policy - (Parts no longer work ?)
     file_name="/etc/opt/chrome/policies/managed/nxos.json"
     if [ ! -f "$file_name" ]; then
       TERM=ansi whiptail --title "$TITLE" --infobox "\n Setting Chrome Browser Policy..." 19 68
       sleep 0.5
       # create file first because tee will not
       sudo mkdir -p "${file_name%/*}"
-      # use tee to write to file because sudo cat <<EOF is BAD.
+      # use tee to write to file because sudo cat <<EOF is BAD in this context.
       sudo tee $file_name >/dev/null <<EOF
 {
 "distribution": {
@@ -356,4 +379,4 @@ EOF
   esac
 done
 TERM=ansi whiptail --title "$TITLE" --infobox "\n Finished!!!" 8 68
-sleep 3
+sleep 1
