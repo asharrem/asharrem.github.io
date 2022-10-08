@@ -5,13 +5,18 @@
 # Automatically run at fist boot or
 # manually by /opt/nxos/intsall.sh
 ############################################
+
+# shellcheck source=/dev/null
+. /etc/os-release
 WebAddress="asharrem.github.io"
 WebHostFiles="https://$WebAddress"
 TITLE="NxOS Installation Wizard"
 # set current Nx version & Hostname Prefix
 NxMajVer="5.0.0"
 NxBuild="35270"
-ServerName="NxOS-20LTS"
+OsMajorVer="$(echo $VERSION_ID | awk -F. '{print $1}')"
+OsMinorVer="$(echo $VERSION_ID | awk -F. '{print $2}')"
+ServerName="NxOS-${OsMajorVer}-${OsMinorVer}"
 macaddy="0000"
 SU_PASS="nxw1tness"
 Working_Dir="$HOME/Downloads"
@@ -51,7 +56,7 @@ function install_deb {
   return 0
 }
 
-function nx_install_post_cmd {
+function nxserver_install_post_cmd {
   TERM=ansi whiptail --title "$TITLE" --infobox "\n Applying Nx Storage permissions Fix..." 19 68
   sleep 0.5
   # Enable Nx AnalyticsDbStoragePermissions
@@ -139,8 +144,8 @@ for CHOICE in $CHOICES; do
 
     # udpdate hosts file with new ServerName
     sudo sed -i 's/127.0.1.1	'"${HOSTNAME}"'/127.0.1.1	'"${ServerName}"'/g' /etc/hosts
-    TERM=ansi whiptail --title "$TITLE" --infobox "\n DNS Updated" 19 68
-    sleep 0.5
+    TERM=ansi whiptail --title "$TITLE" --infobox "\n DNS Updated - Reboot required" 19 68
+    sleep 3
   ;;
   "03")
     file_name_list="chrome-remote-desktop_current_amd64.deb google-chrome-stable_current_amd64.deb nxwitness-*.deb"
@@ -219,7 +224,7 @@ EOF
     if ! install_deb "$file_name"; then
       continue
     fi
-    nx_install_post_cmd
+    nxserver_install_post_cmd
   ;;
   "07")
     # Download & Install Cockpit Advanced
@@ -330,7 +335,7 @@ EOF
         if ! install_deb "$file_name"; then
           continue
         fi
-        nx_install_post_cmd
+        nxserver_install_post_cmd
         ;;
       esac
     done
