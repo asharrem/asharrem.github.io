@@ -49,7 +49,7 @@ function install_deb {
   TERM=ansi whiptail --clear --title "$TITLE" --infobox "\n Installing $file_name..." 19 68
   sleep 0.5
   # Install non-interactive & quiet
-  clear
+  # clear
   if ! sudo gdebi -n -q -o quiet=1 -o dpkg::progress-fancy="1" "$file_name"; then
     # Install failed
     TERM=ansi whiptail --clear --title "$TITLE" --infobox "\n Installing $file_name failed!" 19 68
@@ -69,6 +69,40 @@ function nxserver_install_post_cmd {
     TERM=ansi whiptail --title "$TITLE" --infobox "\n Failed to apply Nx Storage permissions Fix!" 19 68
     sleep 3
     return 1
+  fi
+}
+
+function install_nx_client {
+  # Download & Install Nx Client
+  file_name="nxwitness-client-${NxFulVer}-linux64.deb"
+  if ! download "https://updates.networkoptix.com/default/$NxBuild/linux/$file_name"; then
+    # Retry with alternate syntax
+    file_name="nxwitness-client-${NxFulVer}-linux_x64.deb"
+    if ! download "https://updates.networkoptix.com/default/$NxBuild/linux/$file_name"; then
+      return 1
+    fi
+  fi
+  if ! install_deb "$file_name"; then
+    return 1
+  else
+    return 0
+  fi
+}
+
+function install_nx_server {
+  # Download & Install Nx Server
+  file_name="nxwitness-server-${NxFulVer}-linux64.deb"
+  if ! download "https://updates.networkoptix.com/default/$NxBuild/linux/$file_name"; then
+    # Retry with alternate syntax
+    file_name="nxwitness-server-${NxFulVer}-linux_x64.deb"
+    if ! download "https://updates.networkoptix.com/default/$NxBuild/linux/$file_name"; then
+      return 1
+    fi
+  fi
+  if ! install_deb "$file_name"; then
+    return 1
+  else
+    return 0
   fi
 }
 
@@ -221,32 +255,10 @@ EOF
     fi
   ;;
   "05")
-    # Download & Install Nx Client
-    file_name="nxwitness-client-${NxFulVer}-linux64.deb"
-    if ! download "https://updates.networkoptix.com/default/$NxBuild/linux/$file_name"; then
-      # Retry with alternate syntax
-      file_name="nxwitness-client-${NxFulVer}-linux_x64.deb"
-      if ! download "https://updates.networkoptix.com/default/$NxBuild/linux/$file_name"; then
-        continue
-      fi
-    fi
-    if ! install_deb "$file_name"; then
-      continue
-    fi
+    install_nx_client
   ;;
   "06")
-    # Download & Install Nx Server
-    file_name="nxwitness-server-${NxFulVer}-linux64.deb"
-    if ! download "https://updates.networkoptix.com/default/$NxBuild/linux/$file_name"; then
-      # Retry with alternate syntax
-      file_name="nxwitness-server-${NxFulVer}-linux_x64.deb"
-      if ! download "https://updates.networkoptix.com/default/$NxBuild/linux/$file_name"; then
-        continue
-      fi
-    fi
-    if ! install_deb "$file_name"; then
-      continue
-    fi
+    install_nx_server
     nxserver_install_post_cmd
   ;;
   "07")
@@ -333,31 +345,11 @@ EOF
       case $NX_CHOICE in
       "01")
         # Install Nx Client - specific version
-        file_name="nxwitness-client-${NxFulVer}-linux64.deb"
-        if ! download "https://updates.networkoptix.com/default/$NxBuild/linux/$file_name"; then
-          # Retry with alternate syntax
-          file_name="nxwitness-client-${NxFulVer}-linux_x64.deb"
-          if ! download "https://updates.networkoptix.com/default/$NxBuild/linux/$file_name"; then
-            continue
-          fi
-        fi
-        if ! install_deb "$file_name"; then
-          continue
-        fi
+        install_nx_client
       ;;
       "02")
         # Install Nx Server - specific version
-        file_name="nxwitness-server-${NxFulVer}-linux64.deb"
-        if ! download "https://updates.networkoptix.com/default/$NxBuild/linux/$file_name"; then
-          # Retry with alternate syntax
-          file_name="nxwitness-server-${NxFulVer}-linux_x64.deb"
-          if ! download "https://updates.networkoptix.com/default/$NxBuild/linux/$file_name"; then
-            continue
-          fi
-        fi
-        if ! install_deb "$file_name"; then
-          continue
-        fi
+        install_nx_server
         nxserver_install_post_cmd
         ;;
       esac
