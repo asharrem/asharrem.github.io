@@ -61,7 +61,7 @@ function install_deb {
   return 0
 }
 
-function nxserver_install_post_cmd {
+function install_nx_server_post_cmd {
   TERM=ansi whiptail --title "$TITLE" --infobox "\n Applying Nx Storage permissions Fix..." 19 68
   sleep 0.5
   # Enable Nx AnalyticsDbStoragePermissions
@@ -205,6 +205,7 @@ for CHOICE in $CHOICES; do
     sleep 3
   ;;
   "03")
+    # Purge Nx & Google .deb's from Downloads Folder
     file_name_list="chrome-remote-desktop_current_amd64.deb google-chrome-stable_current_amd64.deb nxwitness-*.deb"
     for file_name in $file_name_list
     do
@@ -259,7 +260,7 @@ EOF
   ;;
   "06")
     install_nx_server
-    nxserver_install_post_cmd
+    install_nx_server_post_cmd
   ;;
   "07")
     # Download & Install Cockpit Advanced
@@ -350,7 +351,7 @@ EOF
       "02")
         # Install Nx Server - specific version
         install_nx_server
-        nxserver_install_post_cmd
+        install_nx_server_post_cmd
         ;;
       esac
     done
