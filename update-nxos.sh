@@ -21,7 +21,6 @@ TITLE="NxOS Installation Wizard"
 SU_PASS="nxw1tness"
 NxMajVer="5.0.0"
 NxBuild="35270"
-NxVer="$(echo $NxMajVer | awk -F. '{print $1}')" 
 OsMajorVer="$(echo $VERSION_ID | awk -F. '{print $1}')"
 OsMinorVer="$(echo $VERSION_ID | awk -F. '{print $2}')"
 ServerName="NxOS-${OsMajorVer}-${OsMinorVer}"
@@ -71,6 +70,7 @@ function install_nx_server_post_cmd {
 
 function install_nx {
   # Download & Install Nx Client / Server
+  NxVer="$(echo $NxMajVer | awk -F. '{print $1}')" 
   if [ $NxVer -lt 5 ]; then
     file_name="nxwitness-$1-${NxFulVer}-linux64.deb"
     download "https://updates.networkoptix.com/default/$NxBuild/linux/$file_name"
