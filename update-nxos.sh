@@ -134,14 +134,14 @@ sleep 3
 CHOICES=$(whiptail --title "$TITLE" --separate-output --checklist "Choose options" 19 68 13 \
   "01" "Install DS-WSELI-T2/8p PoE Drivers" OFF \
   "02" "Update Hostname to MAC address syntax" ON \
-  "03" "Purge Nx & Google .deb's from Downloads Folder" OFF \
+  "03" "Purge Nx & Google .deb's from Downloads Folder" ON \
   "04" "Download & Install Google Chrome Browser" ON \
   "05" "Download & Install Latest Stable Nx Witness Client" ON \
   "06" "Download & Install Latest Stable Nx Witness Server" ON \
   "07" "Install Cockpit Advanced File Sharing (NAS)" OFF \
   "08" "Debug - Follow Boot process" OFF \
   "09" "Debug - Freeze Fix" OFF \
-  "10" "Update NxOS Defaults" ON \
+  "10" "Update NxOS Defaults" OFF \
   "11" "Un-Install Nx Witness Server & Client" OFF \
   "12" "Install a specific Nx Witness Client Build" OFF \
   "13" "Run Updates" ON 3>&1 1>&2 2>&3)
