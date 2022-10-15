@@ -6,16 +6,16 @@
 # manually by /opt/nxos/intsall.sh
 ############################################
 
-# get current OS details
-# shellcheck source=/dev/null
-. /etc/os-release
-
 # set host location of additional install files
 WebAddress="asharrem.github.io"
 WebHostFiles="https://$WebAddress"
 
 # set tile of whiptail TUI
 TITLE="NxOS Installation Wizard"
+
+# get current OS details
+# shellcheck source=/dev/null
+. /etc/os-release
 
 # set Nx defaults & Hostname Prefix
 SU_PASS="nxw1tness"
@@ -69,15 +69,16 @@ function install_nx_server_post_cmd {
 }
 
 function install_nx {
-  # Download & Install Nx Client / Server
+  # Download & Install Nx $1 = server || client
   NxVer="$(echo $NxMajVer | awk -F. '{print $1}')" 
   if [ $NxVer -lt 5 ]; then
+    # Nx v4- syntax
     file_name="nxwitness-$1-${NxFulVer}-linux64.deb"
     download "https://updates.networkoptix.com/default/$NxBuild/linux/$file_name"
   else
-      # Use Nx +v5.0 url syntax
-      file_name="nxwitness-$1-${NxFulVer}-linux_x64.deb"
-      download "https://updates.networkoptix.com/default/$NxBuild/linux/$file_name"
+    # Nx v5+ syntax
+    file_name="nxwitness-$1-${NxFulVer}-linux_x64.deb"
+    download "https://updates.networkoptix.com/default/$NxBuild/linux/$file_name"
   fi
   install_deb "$file_name"
 }
@@ -202,13 +203,7 @@ for CHOICE in $CHOICES; do
         continue
       fi
     done
-    #Do Post Install actions
-    #
-    # No Longer needed?? - Add user to Chrome Remote Desktop user Group
-    # TERM=ansi whiptail --title "$TITLE" --infobox "\n Adding $USER to Chrome Remote Desktop Group..." 19 68
-    # sleep 0.5
-    # sudo usermod -a -G chrome-remote-desktop "$USER"
-
+ 
     # Create Chrome Browser Managed Policy - (Parts no longer work ?)
     file_name="/etc/opt/chrome/policies/managed/nxos.json"
     if [ ! -f "$file_name" ]; then
