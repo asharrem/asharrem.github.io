@@ -18,9 +18,10 @@ TITLE="NxOS Installation Wizard"
 . /etc/os-release
 
 # set Nx defaults & Hostname Prefix
-SU_PASS="nxw1tness"
 NxMajVer="5.0.0"
 NxBuild="35270"
+#
+SU_PASS="nxw1tness"
 OsMajorVer="$(echo $VERSION_ID | awk -F. '{print $1}')"
 OsMinorVer="$(echo $VERSION_ID | awk -F. '{print $2}')"
 ServerName="NxOS-${OsMajorVer}-${OsMinorVer}"
@@ -39,6 +40,7 @@ function download {
     # Download failed
     TERM=ansi whiptail --title "$TITLE" --infobox "\n Downloading $file_name failed!" 19 68
     sleep 3
+    return 1
   fi
 }
 
@@ -47,7 +49,6 @@ function install_deb {
   TERM=ansi whiptail --clear --title "$TITLE" --infobox "\n Installing $file_name..." 19 68
   sleep 0.5
   # Install non-interactive & quiet
-  # clear
   if ! sudo gdebi -n -q -o quiet=1 -o dpkg::progress-fancy="1" "$file_name"; then
     # Install failed
     TERM=ansi whiptail --clear --title "$TITLE" --infobox "\n Installing $file_name failed!" 19 68
@@ -65,11 +66,12 @@ function install_nx_server_post_cmd {
   if ! curl -k -L --max-redirs 1 -u admin:admin "http://127.0.0.1:7001/api/systemSettings?forceAnalyticsDbStoragePermissions=true"; then
     TERM=ansi whiptail --title "$TITLE" --infobox "\n Failed to apply Nx Storage permissions Fix!" 19 68
     sleep 3
+    return 1
   fi
 }
 
 function install_nx {
-  # Download & Install Nx $1 = server || client
+  # Download & Install Nx: $1 = server || client
   NxVer="$(echo $NxMajVer | awk -F. '{print $1}')" 
   if [ $NxVer -lt 5 ]; then
     # Nx v4- syntax
