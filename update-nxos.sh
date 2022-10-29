@@ -116,6 +116,13 @@ if ! command -v curl &> /dev/null; then
   sudo apt -y -q -o=dpkg::progress-fancy="1" install curl
 fi
 
+# Install gdebi. Needed to install stuff.
+TERM=ansi whiptail --title "$TITLE" --infobox "\n Installing GDebi..." 19 68
+if ! command -v gdebi &> /dev/null; then
+  sleep 3
+  sudo apt -y -q -o=dpkg::progress-fancy="1" install gdebi-core
+fi
+
 # set working dir to $HOME/Downloads or ram drive
 if [[ -d $HOME/Downloads ]]; then
   Working_Dir="$HOME/Downloads"
