@@ -30,8 +30,8 @@ NxFulVer="$NxMajVer.$NxBuild"
 
 ############################################
 
+# wget url($1)
 function download {
-  # wget url($1)
   file_name="$(basename -- "$1")"
   TERM=ansi whiptail --title "$TITLE" --infobox "\n Downloading $file_name..." 19 68
   sleep 0.5
@@ -44,11 +44,11 @@ function download {
   fi
 }
 
+# Install using gdebi non-interactive & quiet
 function install_deb {
   file_name="$(basename -- "$1")"
   TERM=ansi whiptail --clear --title "$TITLE" --infobox "\n Installing $file_name..." 19 68
   sleep 0.5
-  # Install non-interactive & quiet
   if ! sudo gdebi -n -q -o quiet=1 -o dpkg::progress-fancy="1" "$file_name"; then
     # Install failed
     TERM=ansi whiptail --clear --title "$TITLE" --infobox "\n Installing $file_name failed!" 19 68
@@ -59,10 +59,10 @@ function install_deb {
   sleep 1
 }
 
+# Enable Nx AnalyticsDbStoragePermissions
 function install_nx_server_post_cmd {
   TERM=ansi whiptail --title "$TITLE" --infobox "\n Applying Nx Storage permissions Fix..." 19 68
   sleep 0.5
-  # Enable Nx AnalyticsDbStoragePermissions
   if ! curl -k -L --max-redirs 1 -u admin:admin "http://127.0.0.1:7001/api/systemSettings?forceAnalyticsDbStoragePermissions=true"; then
     TERM=ansi whiptail --title "$TITLE" --infobox "\n Failed to apply Nx Storage permissions Fix!" 19 68
     sleep 3
@@ -70,8 +70,8 @@ function install_nx_server_post_cmd {
   fi
 }
 
+# Download & Install Nx: $1 = server || client
 function install_nx {
-  # Download & Install Nx: $1 = server || client
   NxVer="$(echo $NxMajVer | awk -F. '{print $1}')" 
   if [ $NxVer -lt 5 ]; then
     # Nx v4- syntax
@@ -157,8 +157,8 @@ CHOICES=$(whiptail --title "$TITLE" --separate-output --checklist "Choose option
 
 for CHOICE in $CHOICES; do
   case $CHOICE in
+  # Install DS-WSELI Workstation PoE Drivers
   "01")
-    # Install DS-WSELI Workstation PoE Drivers
     file_name="ds-wseli-poe.deb"
     if ! download "$WebHostFiles/$file_name"; then
       continue
@@ -167,8 +167,8 @@ for CHOICE in $CHOICES; do
       continue
     fi
   ;;
+  # Update Hostname
   "02")
-    # Update Hostname
     TERM=ansi whiptail --title "$TITLE" --infobox "\n Updating Hostname to MAC address syntax..." 19 68
     sleep 0.5
     # Set Machine Hostname to Last 4 digits of first eth found
@@ -190,8 +190,8 @@ for CHOICE in $CHOICES; do
     TERM=ansi whiptail --title "$TITLE" --infobox "\n DNS Updated - Reboot required" 19 68
     sleep 3
   ;;
+  # Purge Nx & Google .deb's from Downloads Folder
   "03")
-    # Purge Nx & Google .deb's from Downloads Folder
     file_name_list="chrome-remote-desktop_current_amd64.deb google-chrome-stable_current_amd64.deb nxwitness-*.deb"
     for file_name in $file_name_list
     do
@@ -200,8 +200,8 @@ for CHOICE in $CHOICES; do
       rm "$file_name" > /dev/null 2>&1
     done
   ;;
+  # Download Chrome files if they don't exist, then install them
   "04")
-    # Download Chrome files if they don't exist, then install them
     file_name_list="google-chrome-stable_current_amd64.deb chrome-remote-desktop_current_amd64.deb"
     for file_name in $file_name_list
     do
@@ -235,15 +235,17 @@ for CHOICE in $CHOICES; do
 EOF
     fi
   ;;
+  # Install Nx Client
   "05")
     install_nx client
   ;;
+  # Install Nx Sever
   "06")
     install_nx server
     install_nx_server_post_cmd
   ;;
+  # Download & Install Cockpit Advanced
   "07")
-    # Download & Install Cockpit Advanced
     TERM=ansi whiptail --title "$TITLE" --infobox "\n Installing 45drives sharing scripts..." 19 68
     # sleep 0.5
     # Needs GPG to add repos
@@ -264,16 +266,16 @@ EOF
     # add key pair to samba
     sudo crudini --set $file_name global include registry
   ;;
+  # Grub mods: remove statup Splash 
   "08")
-    # remove statup Splash 
     TERM=ansi whiptail --title "$TITLE" --infobox "\n Updating Grub..." 19 68
     sudo sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=\"quiet\ splash\"/GRUB_CMDLINE_LINUX_DEFAULT=\"\"/g" /etc/default/grub
     sudo update-grub
     TERM=ansi whiptail --title "$TITLE" --infobox "\n Boot Splash turned OFF" 19 68
     sleep 0.5
   ;;
+  # Grub mods:
   "09")
-    # Implement Kernal Grub cmds
     TERM=ansi whiptail --title "$TITLE" --infobox "\n Applying current freeze fixes..." 19 68
     sleep 0.5
     # Create grub.d folder
@@ -289,8 +291,8 @@ EOF
     TERM=ansi whiptail --title "$TITLE" --infobox "\n Updating Grub..." 19 68
     sudo update-grub
   ;;
+  # Download nxos-default-settings.deb
   "10")
-    # Download nxos-default-settings.deb
     file_name="nxos-default-settings.deb"
     if ! download "$WebHostFiles/$file_name"; then
       continue
@@ -301,8 +303,8 @@ EOF
     # remove live cd autologin
     sudo rm /etc/lightdm/lightdm.conf
   ;;
+  # Uninstall Nx Server & Client
   "11")
-    # Uninstall Nx Server & Client
     file_name_list="networkoptix-mediaserver networkoptix-client"
     for file_name in $file_name_list
     do
@@ -313,8 +315,8 @@ EOF
       fi
     done
   ;;
+  # Download & Install Specific Nx Client
   "12")
-    # Download & Install Specific Nx Client
     NxMajVer=$(TERM=ansi whiptail --title "$TITLE" --inputbox "\n Install Nx Witness Client\nEnter Nx Major Version eg. 4.2.0" 19 68 3>&1 1>&2 2>&3)      
     NxBuild=$(TERM=ansi whiptail --title "$TITLE" --inputbox "\n Enter Nx Build Number eg. 32840" 19 68 3>&1 1>&2 2>&3)
     NxFulVer="$NxMajVer.$NxBuild"
@@ -336,8 +338,8 @@ EOF
       esac
     done
   ;;
+  # Run updates
   "13")
-    # Run updates
     TERM=ansi whiptail --clear --title "$TITLE" --infobox "\n Applying System Updates..." 19 68
     sleep 0.5
     sudo apt -y -q -o=dpkg::progress-fancy="1" upgrade
@@ -345,6 +347,7 @@ EOF
     sleep 0.5
     sudo apt -y -q -o=dpkg::progress-fancy="1" autoremove
   ;;
+  # Selection out of bounds
   *)
     echo "Unsupported item $CHOICE!" >&2
     break
