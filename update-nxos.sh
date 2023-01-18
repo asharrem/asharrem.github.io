@@ -305,6 +305,7 @@ EOF
         continue
       fi
     done
+    rm -r "$HOME/.local/share/Network Optix"
   ;;
   "12")
     # Download & Install Specific Nx Client
