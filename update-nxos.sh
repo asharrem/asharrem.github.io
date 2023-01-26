@@ -199,6 +199,7 @@ for CHOICE in $CHOICES; do
       sleep 0.5
       rm "$file_name" > /dev/null 2>&1
     done
+    rm -r "$HOME/.local/share/Network Optix"
   ;;
   # Download Chrome files if they don't exist, then install them
   "04")
