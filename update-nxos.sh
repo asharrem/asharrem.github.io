@@ -287,7 +287,7 @@ EOF
     # Don't care if does not exist
     sudo rm /etc/default/grub.d/*nxos*.cfg
     sudo tee /etc/default/grub.d/50_nxos_cstate.cfg > /dev/null << EOF
-GRUB_CMDLINE_LINUX="$GRUB_CMDLINE_LINUX i915.enable_rc6=0"
+GRUB_CMDLINE_LINUX="$GRUB_CMDLINE_LINUX intel_idle.max_cstate=1 i915.enable_dc=0"
 EOF
     TERM=ansi whiptail --title "$TITLE" --infobox "\n Updating Grub..." 19 68
     sudo update-grub
