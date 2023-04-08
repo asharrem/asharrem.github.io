@@ -80,7 +80,11 @@ function install_nx {
   else
     # Nx v5+ syntax
     file_name="nxwitness-$1-${NxFulVer}-linux_x64.deb"
-    download "https://updates.networkoptix.com/default/$NxBuild/linux/$file_name"
+    if ! download "https://updates.networkoptix.com/default/$NxBuild/linux/$file_name"; then
+      # retry with patch syntax
+      file_name="nxwitness-$1-${NxFulVer}-linux_x64-patch.deb"
+      download "https://updates.networkoptix.com/default/$NxBuild/linux/$file_name"
+    fi
   fi
   install_deb "$file_name"
 }
