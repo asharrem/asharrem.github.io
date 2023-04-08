@@ -34,7 +34,7 @@ NxFulVer="$NxMajVer.$NxBuild"
 function download {
   file_name="$(basename -- "$1")"
   TERM=ansi whiptail --title "$TITLE" --infobox "\n Downloading $file_name..." 19 68
-  sleep 0.5
+  sleep 3.5
   # only download & overwrite newer file - quietly
   if ! wget -N -q --show-progress "$1"; then
     # Download failed
