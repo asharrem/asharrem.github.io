@@ -4,6 +4,9 @@
 # This script is for post install of NxOS
 # Automatically run at fist boot or
 # manually by /opt/nxos/intsall.sh
+#
+# maintainer: andrew@nfs.co.nz
+#
 ############################################
 
 # set host location of additional install files
