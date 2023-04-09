@@ -27,11 +27,14 @@ OsMinorVer="$(echo $VERSION_ID | awk -F. '{print $2}')"
 ServerName="NxOS-${OsMajorVer}-${OsMinorVer}"
 macaddy="0000"
 NxFulVer="$NxMajVer.$NxBuild"
+NxUrl="https://updates.networkoptix.com/default"
+NxFilenameTypes="linux64 linux_x64 linux_x64-patch"
 
 ############################################
 
 # wget url($1)
 function download {
+  export file_name_debug="$1"
   file_name="$(basename -- "$1")"
   TERM=ansi whiptail --title "$TITLE" --infobox "\n Downloading $file_name..." 19 68
   sleep 3.5
@@ -72,21 +75,16 @@ function install_nx_server_post_cmd {
 
 # Download & Install Nx: $1 = server || client
 function install_nx {
-  NxVer="$(echo $NxMajVer | awk -F. '{print $1}')" 
-  if [ $NxVer -lt 5 ]; then
-    # Nx v4- syntax
-    file_name="nxwitness-$1-${NxFulVer}-linux64.deb"
-    download "https://updates.networkoptix.com/default/$NxBuild/linux/$file_name"
-  else
-    # Nx v5+ syntax
-    file_name="nxwitness-$1-${NxFulVer}-linux_x64.deb"
-    if ! download "https://updates.networkoptix.com/default/$NxBuild/linux/$file_name"; then
-      # retry with patch syntax
-      file_name="nxwitness-$1-${NxFulVer}-linux_x64-patch.deb"
-      download "https://updates.networkoptix.com/default/$NxBuild/linux/$file_name"
+  # go thru url synatax iterations
+  for Nxtype in $NxFilenameTypes; do
+    file_name="nxwitness-$1-$NxFulVer-$Nxtype.deb"
+    # test if file is available
+    if [[ $(curl -o /dev/null --silent -Iw '%{http_code}' "${NxUrl}/${NxBuild}/linux/${file_name}") = 200 ]]; then
+      download "$NxUrl/$NxBuild/linux/$file_name"
+      install_deb "$file_name"
+      break
     fi
-  fi
-  install_deb "$file_name"
+  done
 }
 
 # =============   main  ================

@@ -37,5 +37,5 @@ function check_internet () {
     return $IPv4_connected
 }
 
-check_internet
+check_internet google.com
 echo Connected = $?
