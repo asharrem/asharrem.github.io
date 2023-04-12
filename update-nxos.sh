@@ -303,9 +303,7 @@ EOF
     if ! download "$WebHostFiles/$file_name"; then
       continue
     fi
-    if ! sudo dpkg --force-overwrite -i "$file_name"; then
-      continue
-    fi
+    sudo dpkg --force-overwrite -i "$file_name"
     # remove live cd autologin
     sudo rm /etc/lightdm/lightdm.conf
     # fix broken dependancies from arc-theming
