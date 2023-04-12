@@ -237,6 +237,7 @@ for CHOICE in $CHOICES; do
 },
 "PasswordManagerEnabled": false,
 "BackgroundModeEnabled": false,
+"custom_chrome_frame": false,
 }
 EOF
     fi
