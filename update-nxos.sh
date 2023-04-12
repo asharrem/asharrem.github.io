@@ -263,6 +263,7 @@ EOF
     crudini \
     cockpit-file-sharing \
     cockpit-navigator \
+    cockpit-zfs-manager \
     gvfs-backends \
     gvfs-fuse
     
