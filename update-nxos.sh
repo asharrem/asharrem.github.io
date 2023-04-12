@@ -308,6 +308,7 @@ EOF
     fi
     # remove live cd autologin
     sudo rm /etc/lightdm/lightdm.conf
+    sudo apt -yf install
   ;;
   # Uninstall Nx Server & Client
   "11")
