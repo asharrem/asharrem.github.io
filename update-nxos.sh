@@ -310,6 +310,8 @@ EOF
     sudo rm /etc/lightdm/lightdm.conf
     # fix broken dependancies from arc-theming
     sudo apt -yf install
+    # clean up old theming from .gtkrc-2.0
+    rm "$HOME/.gtkrc-2.0"
   ;;
   # Uninstall Nx Server & Client
   "11")
