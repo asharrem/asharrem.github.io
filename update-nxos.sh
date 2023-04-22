@@ -153,12 +153,12 @@ CHOICES=$(whiptail --title "$TITLE" --separate-output --checklist "Choose option
   "05" "Download & Install Latest Stable Nx Witness Client" ON \
   "06" "Download & Install Latest Stable Nx Witness Server" ON \
   "07" "Install Cockpit Advanced File Sharing (NAS)" OFF \
-  "08" "Debug - Follow Boot process" OFF \
   "09" "Debug - Freeze Fix" OFF \
   "10" "Update NxOS Defaults" OFF \
   "11" "Un-Install Nx Witness Server & Client" OFF \
   "12" "Install a specific Nx Witness Client Build" OFF \
-  "13" "Run Updates" ON 3>&1 1>&2 2>&3)
+  "13" "Run Updates" ON \
+  "14" "Download & Run dwagent" OFF 3>&1 1>&2 2>&3)
 
 for CHOICE in $CHOICES; do
   case $CHOICE in
@@ -274,16 +274,16 @@ EOF
     # add key pair to samba
     sudo crudini --set $file_name global include registry
   ;;
-  # Grub mods: remove statup Splash 
+  # Nothing here 
   "08")
-    TERM=ansi whiptail --title "$TITLE" --infobox "\n Updating Grub..." 19 68
-    sudo sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=\"quiet\ splash\"/GRUB_CMDLINE_LINUX_DEFAULT=\"\"/g" /etc/default/grub
-    sudo update-grub
-    TERM=ansi whiptail --title "$TITLE" --infobox "\n Boot Splash turned OFF" 19 68
-    sleep 0.5
   ;;
   # Grub mods:
   "09")
+  # Grub mods: remove statup Splash 
+    TERM=ansi whiptail --title "$TITLE" --infobox "\n Updating Grub..." 19 68
+    sudo sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=\"quiet\ splash\"/GRUB_CMDLINE_LINUX_DEFAULT=\"\"/g" /etc/default/grub
+    TERM=ansi whiptail --title "$TITLE" --infobox "\n Boot Splash turned OFF" 19 68
+    sleep 0.5
     TERM=ansi whiptail --title "$TITLE" --infobox "\n Applying current freeze fixes..." 19 68
     sleep 0.5
     # Create grub.d folder
@@ -357,6 +357,21 @@ EOF
     TERM=ansi whiptail --clear --title "$TITLE" --infobox "\n Cleaning System..." 19 68
     sleep 0.5
     sudo apt -y -q -o=dpkg::progress-fancy="1" autoremove
+  ;;
+  # Download & Run DWAgent
+  "14")
+    TERM=ansi whiptail --clear --title "$TITLE" --infobox "\n Getting DWAgent..." 19 68
+    sleep 0.5
+    file_name="https://www.dwservice.net/download/dwagent.sh"
+    if ! download "$file_name"; then
+      TERM=ansi whiptail --clear --title "$TITLE" --infobox "\n Failed to get DWAgent..." 19 68
+      sleep 0.5
+      continue
+    else
+      sudo bash dwagent.sh
+      TERM=ansi whiptail --clear --title "$TITLE" --infobox "\n Finished with DWAgent..." 19 68
+      sleep 0.5
+    fi
   ;;
   # Selection out of bounds
   *)
