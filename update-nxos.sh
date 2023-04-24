@@ -312,6 +312,18 @@ EOF
     sudo apt -yf install
     # clean up old theming from .gtkrc-2.0
     rm "$HOME/.gtkrc-2.0"
+    # clean up from old nxos versions
+    rm "$HOME/.config/gtk-3.0/settings.ini"
+    rm "$HOME/.config/pcmanfm/default/pcmanfm.conf"
+    rm "$HOME/.config/lxterminal/lxterminal.conf"
+    rm "$HOME/.config/tint2/tint2rc"
+    rm "$HOME/.local/share/applications/NxOS_Getting_Started.desktop"
+    rm "$HOME/.local/share/applications/NxOS_Install_Wizard.desktop"
+    rm "$HOME/.local/share/applications/NxOS_Clock.desktop"
+    rm "$HOME/.config/openbox/menu.xml"
+    rm "$HOME/.config/openbox/rc.xml"
+    rm "$HOME/.config/openbox/autostart"
+    sudo rm -r /etc/skel/
   ;;
   # Uninstall Nx Server & Client
   "11")
