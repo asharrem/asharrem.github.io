@@ -22,7 +22,7 @@ TITLE="NxOS Installation Wizard"
 
 # set Nx defaults & Hostname Prefix
 NxMajVer="5.0.0"
-NxBuild="35745"
+NxBuild="36634"
 #
 SU_PASS="nxw1tness"
 OsMajorVer="$(echo $VERSION_ID | awk -F. '{print $1}')"
