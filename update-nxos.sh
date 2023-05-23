@@ -150,15 +150,15 @@ CHOICES=$(whiptail --title "$TITLE" --separate-output --checklist "Choose option
   "02" "Update Hostname to MAC address syntax" ON \
   "03" "Purge Nx & Google .deb's from Downloads Folder" ON \
   "04" "Download & Install Google Chrome Browser" ON \
-  "05" "Download & Install Latest Stable Nx Witness Client" ON \
-  "06" "Download & Install Latest Stable Nx Witness Server" ON \
+  "05" "Download & Install Nx Client ${NxMajVer}.${NxBuild}" ON \
+  "06" "Download & Install Nx Server ${NxMajVer}.${NxBuild}" ON \
   "07" "Install Cockpit Advanced File Sharing (NAS)" OFF \
   "09" "Debug - Freeze Fix" OFF \
   "10" "Update NxOS Defaults" OFF \
   "11" "Un-Install Nx Witness Server & Client" OFF \
   "12" "Install a specific Nx Witness Client Build" OFF \
   "13" "Run Updates" ON \
-  "14" "Download & Run dwagent" OFF 3>&1 1>&2 2>&3)
+  "14" "Download & Run DWService.net Agent" OFF 3>&1 1>&2 2>&3)
 
 for CHOICE in $CHOICES; do
   case $CHOICE in
@@ -255,8 +255,9 @@ EOF
   "07")
     TERM=ansi whiptail --title "$TITLE" --infobox "\n Installing 45drives sharing scripts..." 19 68
     # sleep 0.5
+    sudo apt -y -q -o=dpkg::progress-fancy="1" install -t ${VERSION_CODENAME}-backports cockpit
     # Needs GPG to add repos
-    sudo apt -y -q -o=dpkg::progress-fancy="1" install gpg
+    sudo apt -y -q -o=dpkg::progress-fancy="1" install gpg zfsutils-linux
     # advanced file support by 45drives
     curl -sSL https://repo.45drives.com/setup | sudo bash
     sudo apt -y -q -o=dpkg::progress-fancy="1" install \
@@ -296,9 +297,9 @@ EOF
 #     sudo tee /etc/default/grub.d/50_nxos_cstate.cfg > /dev/null << EOF
 # GRUB_CMDLINE_LINUX="$GRUB_CMDLINE_LINUX intel_idle.max_cstate=1 i915.enable_dc=0"
 # EOF
-    sudo tee /etc/default/grub.d/50_nxos_i8042.cfg > /dev/null << EOF
- GRUB_CMDLINE_LINUX="$GRUB_CMDLINE_LINUX i8042.probe_defer"
-EOF
+#    sudo tee /etc/default/grub.d/50_nxos_i8042.cfg > /dev/null << EOF
+# GRUB_CMDLINE_LINUX="$GRUB_CMDLINE_LINUX i8042.probe_defer"
+#EOF
     TERM=ansi whiptail --title "$TITLE" --infobox "\n Updating Grub..." 19 68
     sudo update-grub
   ;;
