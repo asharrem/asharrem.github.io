@@ -156,7 +156,7 @@ CHOICES=$(whiptail --title "$TITLE" --separate-output --checklist "Choose option
   "09" "Debug - Freeze Fix" OFF \
   "10" "Update NxOS Defaults" OFF \
   "11" "Un-Install Nx Witness Server & Client" OFF \
-  "12" "Install a specific Nx Witness Client Build" OFF \
+  "12" "Install a specific Nx Witness Client & or Server" OFF \
   "13" "Run Updates" ON \
   "14" "Download & Run DWService.net Agent" OFF 3>&1 1>&2 2>&3)
 
