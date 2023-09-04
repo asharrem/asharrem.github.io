@@ -153,6 +153,7 @@ CHOICES=$(whiptail --title "$TITLE" --separate-output --checklist "Choose option
   "05" "Download & Install Nx Client ${NxMajVer}.${NxBuild}" ON \
   "06" "Download & Install Nx Server ${NxMajVer}.${NxBuild}" ON \
   "07" "Install Cockpit Advanced File Sharing (NAS)" OFF \
+  "08" "Install Camera Plugins (VCA)" OFF \
   "09" "Debug - Freeze Fix" OFF \
   "10" "Update NxOS Defaults" OFF \
   "11" "Un-Install Nx Witness Server & Client" OFF \
@@ -275,8 +276,23 @@ EOF
     # add key pair to samba
     sudo crudini --set $file_name global include registry
   ;;
-  # Nothing here 
+  # Install Camera Plugins - currently only VCA Edge AI 
   "08")
+    TERM=ansi whiptail --title "$TITLE" --infobox "\n Installing VCA..." 19 68
+    sleep 0.5
+    file_name="vca/nx/libvca_edge_analytics_plugin.so"
+    if ! download "$WebHostFiles/$file_name"; then
+      TERM=ansi whiptail --title "$TITLE" --infobox "\n Failed..." 19 68
+      sleep 0.5
+    fi
+    sudo cp libvca_edge_analytics_plugin.so /opt/networkoptix/mediaserver/bin/plugins
+    sleep 0.5
+    file_name="vca/nx/vca_models.json"
+    if ! download "$WebHostFiles/$file_name"; then
+      TERM=ansi whiptail --title "$TITLE" --infobox "\n Failed..." 19 68
+      sleep 0.5
+    fi
+    sudo cp vca_models.json /opt/networkoptix/mediaserver/bin
   ;;
   # Grub mods:
   "09")
