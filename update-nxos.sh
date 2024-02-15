@@ -325,7 +325,7 @@ EOF
     if ! download "$WebHostFiles/$file_name"; then
       continue
     fi
-    sudo apt -o DPkg::options::="--force-overwrite" install "$file_name"
+    sudo apt -o DPkg::options::="--force-overwrite" install "./$file_name"
     # remove live cd autologin
     sudo rm /etc/lightdm/lightdm.conf
     # fix broken dependancies from arc-theming
