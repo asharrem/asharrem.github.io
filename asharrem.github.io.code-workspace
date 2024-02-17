@@ -5,6 +5,10 @@
 		},
 		{
 			"path": "../nxos"
+		},
+		{
+			"name": "Nx-PowerToys_beta",
+			"path": "../Nx-PowerToys_beta"
 		}
 	],
 	"settings": {}
