@@ -146,20 +146,20 @@ sleep 3
 
 # Display Checklist (whiptail)
 CHOICES=$(whiptail --title "$TITLE" --separate-output --checklist "Choose options" 19 68 13 \
-  "01" "Install DS-WSELI-T2/8p PoE Drivers" OFF \
-  "02" "Update Hostname to MAC address syntax" ON \
-  "03" "Purge Nx & Google .deb's from Downloads Folder" ON \
-  "04" "Download & Install Google Chrome Browser" ON \
-  "05" "Download & Install Nx Client ${NxMajVer}.${NxBuild}" ON \
-  "06" "Download & Install Nx Server ${NxMajVer}.${NxBuild}" ON \
-  "07" "Install Cockpit Advanced File Sharing (NAS)" OFF \
-  "08" "Install Camera Plugins (VCA)" OFF \
-  "09" "Debug - Freeze Fix" OFF \
-  "10" "Update NxOS Defaults" OFF \
-  "11" "Un-Install Nx Witness Server & Client" OFF \
-  "12" "Install a specific Nx Witness Client & or Server" OFF \
-  "13" "Run Updates" ON \
-  "14" "Download & Run DWService.net Agent" OFF 3>&1 1>&2 2>&3)
+  "01" "Install DS-WSELI-T2/8p PoE Drivers " OFF \
+  "02" "Update Hostname to MAC address syntax " ON \
+  "03" "Purge Nx & Google .deb's from Downloads Folder " ON \
+  "04" "Download & Install Google Chrome Browser " ON \
+  "05" "Download & Install Nx Client ${NxMajVer}.${NxBuild} " ON \
+  "06" "Download & Install Nx Server ${NxMajVer}.${NxBuild} " ON \
+  "07" "Install Cockpit Advanced File Sharing (NAS) " OFF \
+  "08" "Install Camera Plugins (VCA) " OFF \
+  "09" "Debug - Freeze Fix " OFF \
+  "10" "Update NxOS Defaults " OFF \
+  "11" "Un-Install Nx Witness Server & Client " OFF \
+  "12" "Install a specific Nx Witness Client & or Server " OFF \
+  "13" "Run Updates " ON \
+  "14" "Download & Run DWService.net Agen " OFF 3>&1 1>&2 2>&3)
 
 for CHOICE in $CHOICES; do
   case $CHOICE in
@@ -256,7 +256,7 @@ EOF
   "07")
     TERM=ansi whiptail --title "$TITLE" --infobox "\n Installing 45drives sharing scripts..." 19 68
     # sleep 0.5
-    sudo apt -y -q -o=dpkg::progress-fancy="1" install -t ${VERSION_CODENAME}-backports cockpit
+    sudo apt -y -q -o=dpkg::progress-fancy="1" install -t "${VERSION_CODENAME}"-backports cockpit
     # Needs GPG to add repos
     sudo apt -y -q -o=dpkg::progress-fancy="1" install gpg zfsutils-linux
     # advanced file support by 45drives
@@ -344,7 +344,23 @@ EOF
   ;;
   # Uninstall Nx Server & Client
   "11")
-    file_name_list="networkoptix-mediaserver networkoptix-client"
+    unset file_name_list
+    NX_CHOICES=$(whiptail --title "$TITLE" --separate-output --checklist "Choose options" 19 68 13 \
+      "01" "Uninstall Nx Client " ON \
+      "02" "Uninstall Nx Server " ON 3>&1 1>&2 2>&3)
+    for NX_CHOICE in $NX_CHOICES; do
+      case $NX_CHOICE in
+      "01")
+        # Uninstall Nx Client
+       file_name_list="networkoptix-client $file_name_list"
+       rm -r "$HOME/.local/share/Network Optix"
+      ;;
+      "02")
+        # Uninstall Nx Server
+       file_name_list="networkoptix-mediaserver $file_name_list"
+      ;;
+      esac
+    done
     for file_name in $file_name_list
     do
       TERM=ansi whiptail --title "$TITLE" --infobox "\n Removing $file_name..." 19 68
@@ -353,7 +369,6 @@ EOF
         continue
       fi
     done
-    rm -r "$HOME/.local/share/Network Optix"
   ;;
   # Download & Install Specific Nx Client
   "12")
