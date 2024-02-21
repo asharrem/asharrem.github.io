@@ -145,8 +145,8 @@ cd "$Working_Dir" || exit 1
 sleep 3
 
 # Display Checklist (whiptail)
-CHOICES=$(whiptail --title "$TITLE" --separate-output --checklist "Choose options" 19 68 13 \
-  "01" "Install DS-WSELI-T2/8p PoE Drivers " OFF \
+CHOICES=$(whiptail --title "$TITLE" --separate-output --checklist "Choose options" 19 68 14 \
+  "01" "Download & Run DWService.net Agent " OFF \
   "02" "Update Hostname to MAC address syntax " ON \
   "03" "Purge Nx & Google .deb's from Downloads Folder " ON \
   "04" "Download & Install Google Chrome Browser " ON \
@@ -159,18 +159,23 @@ CHOICES=$(whiptail --title "$TITLE" --separate-output --checklist "Choose option
   "11" "Un-Install Nx Witness Server & Client " OFF \
   "12" "Install a specific Nx Witness Client & or Server " OFF \
   "13" "Run Updates " ON \
-  "14" "Download & Run DWService.net Agen " OFF 3>&1 1>&2 2>&3)
+  "14" "Install DS-WSELI-T2/8p PoE Drivers " OFF 3>&1 1>&2 2>&3)
 
 for CHOICE in $CHOICES; do
   case $CHOICE in
-  # Install DS-WSELI Workstation PoE Drivers
+  # Download & Run DWAgent
   "01")
-    file_name="ds-wseli-poe.deb"
-    if ! download "$WebHostFiles/$file_name"; then
+    TERM=ansi whiptail --clear --title "$TITLE" --infobox "\n Getting DWAgent..." 19 68
+    sleep 0.5
+    file_name="https://www.dwservice.net/download/dwagent.sh"
+    if ! download "$file_name"; then
+      TERM=ansi whiptail --clear --title "$TITLE" --infobox "\n Failed to get DWAgent..." 19 68
+      sleep 0.5
       continue
-    fi
-    if ! install_deb "$file_name"; then
-      continue
+    else
+      sudo bash dwagent.sh
+      TERM=ansi whiptail --clear --title "$TITLE" --infobox "\n Finished with DWAgent..." 19 68
+      sleep 0.5
     fi
   ;;
   # Update Hostname
@@ -345,7 +350,7 @@ EOF
   # Uninstall Nx Server & Client
   "11")
     unset file_name_list
-    NX_CHOICES=$(whiptail --title "$TITLE" --separate-output --checklist "Choose options" 19 68 13 \
+    NX_CHOICES=$(whiptail --title "$TITLE" --separate-output --checklist "Choose options" 19 68 2 \
       "01" "Uninstall Nx Client " ON \
       "02" "Uninstall Nx Server " ON 3>&1 1>&2 2>&3)
     for NX_CHOICE in $NX_CHOICES; do
@@ -376,7 +381,7 @@ EOF
     NxBuild=$(TERM=ansi whiptail --title "$TITLE" --inputbox "\n Enter Nx Build Number eg. 32840" 19 68 3>&1 1>&2 2>&3)
     NxFulVer="$NxMajVer.$NxBuild"
     # Display Checklist (whiptail)
-    NX_CHOICES=$(whiptail --title "$TITLE" --separate-output --checklist "Choose options" 19 68 13 \
+    NX_CHOICES=$(whiptail --title "$TITLE" --separate-output --checklist "Choose options" 19 68 2 \
       "01" "Install specific Nx Client" ON \
       "02" "Install specific Nx Server" ON 3>&1 1>&2 2>&3)
     for NX_CHOICE in $NX_CHOICES; do
@@ -402,19 +407,14 @@ EOF
     sleep 0.5
     sudo apt -y -q -o=dpkg::progress-fancy="1" autoremove
   ;;
-  # Download & Run DWAgent
+  # Install DS-WSELI Workstation PoE Drivers
   "14")
-    TERM=ansi whiptail --clear --title "$TITLE" --infobox "\n Getting DWAgent..." 19 68
-    sleep 0.5
-    file_name="https://www.dwservice.net/download/dwagent.sh"
-    if ! download "$file_name"; then
-      TERM=ansi whiptail --clear --title "$TITLE" --infobox "\n Failed to get DWAgent..." 19 68
-      sleep 0.5
+    file_name="ds-wseli-poe.deb"
+    if ! download "$WebHostFiles/$file_name"; then
       continue
-    else
-      sudo bash dwagent.sh
-      TERM=ansi whiptail --clear --title "$TITLE" --infobox "\n Finished with DWAgent..." 19 68
-      sleep 0.5
+    fi
+    if ! install_deb "$file_name"; then
+      continue
     fi
   ;;
   # Selection out of bounds
