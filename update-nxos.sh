@@ -154,8 +154,8 @@ CHOICES=$(whiptail --title "$TITLE" --separate-output --checklist "Choose option
   "06" "Download & Install Nx Server ${NxMajVer}.${NxBuild} " ON \
   "07" "Install Cockpit Advanced File Sharing (NAS) " OFF \
   "08" "Install Camera Plugins (VCA) " OFF \
-  "09" "Debug - Freeze Fix " OFF \
-  "10" "Update NxOS Defaults " OFF \
+  "09" "Debug - Freeze Fix " ON \
+  "10" "Update NxOS Defaults " ON \
   "11" "Un-Install Nx Witness Server & Client " OFF \
   "12" "Install a specific Nx Witness Client & or Server " OFF \
   "13" "Run Updates " ON \
@@ -210,7 +210,7 @@ for CHOICE in $CHOICES; do
       sleep 0.5
       rm "$file_name" > /dev/null 2>&1
     done
-    # rm -r "$HOME/.local/share/Network Optix"
+    rm -r "$HOME/.local/share/Network Optix"
   ;;
   # Download Chrome files if they don't exist, then install them
   "04")
@@ -301,7 +301,7 @@ EOF
   ;;
   # Grub mods:
   "09")
-  # Grub mods: remove statup Splash 
+  # Grub mods: remove startup Splash 
     TERM=ansi whiptail --title "$TITLE" --infobox "\n Updating Grub..." 19 68
     sudo sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=\"quiet\ splash\"/GRUB_CMDLINE_LINUX_DEFAULT=\"\"/g" /etc/default/grub
     TERM=ansi whiptail --title "$TITLE" --infobox "\n Boot Splash turned OFF" 19 68
