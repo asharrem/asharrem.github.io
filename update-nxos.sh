@@ -315,8 +315,8 @@ EOF
     # Remove any existing NxOS grub settings
     # Don't care if does not exist
     sudo rm /etc/default/grub.d/*nxos*.cfg
-    sudo tee /etc/default/grub.d/50_nxos_ipv6.cfg > /dev/null << EOF
-GRUB_CMDLINE_LINUX="$GRUB_CMDLINE_LINUX intel_idle.max_cstate=1 i915.enable_dc=0 ipv6.disable=1"
+    sudo tee /etc/default/grub.d/50_nxos_fix.cfg > /dev/null << EOF
+GRUB_CMDLINE_LINUX="$GRUB_CMDLINE_LINUX intel_idle.max_cstate=1 i915.enable_dc=0 ipv6.disable=1 module_blacklist=pinctrl_elkhartlake"
 EOF
     TERM=ansi whiptail --title "$TITLE" --infobox "\n Updating Grub..." 19 68
     sudo update-grub
