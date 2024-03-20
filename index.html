@@ -25,39 +25,36 @@
         various projects I work on. My personal favourite is&nbsp;<a href="./code_snippets/cascade_rc.xml"
           rel="nofollow">cascade_rc.xml</a>.</p>
     </article>
-    <article>
-      <h2>Cascading Windows on Openbox WM</h2>
-      <p><a href="http://openbox.org/">Openbox</a>&nbsp;is a stacking Window Manager. Tiling is
-        generally achevied by Keybindings.&nbsp;<a href="./code_snippets/cascade_rc.xml"
-          rel="nofollow">cascade_rc.xml</a>&nbsp;is a keybind I wrote that cascades openbox client windows (per
-        monitor).
-        For a number of years I've been searching how I might "Cascade" windows, with most every reference saying it
-        can't
-        be done with openbox alone, and to use a "Tiling" application. Well...using the built-in looping
-        action/condition
-        we
-        can
-        achieve a "cascade per monitor" keybind.</p>
-      <p>The basic nested loop structure is;</p>
-      <div>
-        <pre><code>
-          ForEach
-            Move Window to Top Left
-            Lower
-            ForEach
-              Nudge All other Windows
-            End ForEach
-          End ForEach
-              </code></pre>
-      </div>
-      <figure><img src="./images/cascading.png" alt="cascading openbox windows">
-        <figcaption>Cascading Windows via Openbox Keybinds</figcaption>
-      </figure>
-      <p>With a few other "actions" we are able to maintain "Focus" or include "minimized/iconified" client
-        windows. Un-iconifying or maximizing minimized windows requires the iconified windows get "Focus", so currently
-        I am unable to maintain focus of the original window in this instance.
-      </p>
-    </article>
+    <details open>
+      <summary>Cascading Windows on Openbox WM</summary>
+      <article>
+        <p><a href="http://openbox.org/">Openbox</a>&nbsp;is a [floating / stacking] Window Manager. For a number of years I've
+          been searching how I might "Cascade" windows, with most every reference saying it
+          can't be done with openbox alone, and to use a "Tiling" application. Tiling is generally achevied by
+          Keybindings.&nbsp;<a href="./code_snippets/cascade_rc.xml" rel="nofollow">Cascade_rc.xml</a>&nbsp;is a keybind I wrote
+          that cascades openbox client windows (per monitor).
+          Using the built-in looping action/condition we can achieve a "cascade per monitor" keybind.</p>
+        <p>The basic nested loop structure is;</p>
+        <div>
+          <pre><code>
+                ForEach
+                  Move Window to Top Left
+                  Lower
+                  ForEach
+                    Nudge All other Windows
+                  End ForEach
+                End ForEach
+                    </code></pre>
+        </div>
+        <figure><img src="./images/cascading.png" alt="cascading openbox windows">
+          <figcaption>Cascading Windows via Openbox Keybinds</figcaption>
+        </figure>
+        <p>With a few other "actions" we are able to maintain "Focus" or include "minimized/iconified" client
+          windows. Un-iconifying or maximizing minimized windows requires the iconified windows get "Focus", so currently
+          I am unable to maintain focus of the original window in this instance.
+        </p>
+      </article>
+    </details>
   </main>
 </body>
 
