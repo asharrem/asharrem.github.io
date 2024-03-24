@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>CSS Demo</title>
+  <link rel="stylesheet" href="css/nxpt.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<meta charset='UTF-8'>
+<script src='js/nxpt_script.js'></script>
+
+<body style="cursor: auto;">
+  <main>
+    <article name="a">
+      <aside>
+        <dl>
+          <dt><code>&lt;a&gt;</code></dt>
+          <dd>Text links</dd>
+          <dl>
+            <dt><code>&lt;a&gt;&ltb&gt;,&lta&gt;&ltstrong&gt;</code></dt>
+            <dd>Solid buttons</dd>
+          </dl>
+        </dl>
+
+      </aside>
+      <a href="#">Link</a>
+      <a href="#"><b>&ltb&gtbutton</b></a>
+      <a href="#"><strong>&ltstrong&gtbutton</strong></a>
+      <a href="#"><i>&lti&gtbutton</i></a>
+      <a href="#"><em>&ltem&gtbutton</em></a>
+    </article>
+    <article name="article">
+      <aside>
+        <dl>
+          <dt><code>&lt;article&gt;</code></dt>
+          <dd>First article has top &amp; bottom margin</dd>
+        </dl>
+      </aside>
+      <article>
+        <aside>
+          <dl>
+            <dt><code>&lt;article&gt;&ltarticle&gt;</code></dt>
+            <dd>Child &ltarticle&gt has no top &amp bottom margin</dd>
+          </dl>
+        </aside>
+      </article>
+    </article>
+    <article name="article aside">
+      <aside>
+        <dl>
+          <dt><code>&lt;article&gt;&ltaside&gt;</code></dt>
+          <dd>[This] I am a text callout</dd>
+        </dl>
+      </aside>
+    </article>
+    <article name="blockquote">
+      <aside>
+        <dl>
+          <dt><code>&lt;blockquote&gt;</code></dt>
+          <dd>Quote callout</dd>
+          <dl>
+            <dt><code>&lt;blockquote&gt;&ltfooter&gt;</code></dt>
+            <dd>Quote callout footer</dd>
+          </dl>
+        </dl>
+      </aside>
+      <blockquote>
+        I am a block quote
+      </blockquote>
+      <blockquote>
+        <footer>I am the blockquote footer</footer>
+      </blockquote>
+    </article>
+    <article name="body">
+      <aside>
+        <dl>
+          <dt><code>&lt;body&gt;</code></dt>
+          <dd>Default parent element</dd>
+          <dd>Sets background, fonts etc</dd>
+        </dl>
+      </aside>
+    </article>
+    <article name="button">
+      <aside>
+        <dl>
+          <dt><code>&lt;button&gt;</code></dt>
+          <dd>Form buttons</dd>
+        </dl>
+      </aside>
+      <button>Default Button</button>
+    </article>
+    <article name="code">
+      <aside>
+        <dl>
+          <dt><code>&lt;code&gt;</code></dt>
+          <dd>Inline code highlighting</dd>
+        </dl>
+      </aside>
+      <code>ctrl + c</code>
+      <code>sudo bash some _command</code>
+    </article>
+    <article name="details">
+      <aside>
+        <dl>
+          <dt><code>&lt;details&gt;&comma;&lt;details&gt;&ltsummary&gt;</code></dt>
+          <dd>Expandable content &amp; heading</dd>
+        </dl>
+      </aside>
+      <details open>
+        <summary>Heading</summary>
+        Expanded content
+      </details>
+    </article>
+    <article name="dialog">
+      <aside>
+        <dl>
+          <dt><code>&lt;dialog&gt;</code></dt>
+          <dd>Popup dialog</dd>
+        </dl>
+      </aside>
+    </article>
+    <article name="div">
+      <aside>
+        <dl>
+          <dt><code>&lt;div&gt;</code></dt>
+          <dd>unstyled element</dd>
+        </dl>
+      </aside>
+    </article>
+    <article name="figure">
+      <aside>
+        <dl>
+          <dt><code>&lt;figure&gt;&ltimg&gt;,&ltfigcaption&gt;</code></dt>
+          <dd>Image max's at container width</dd>
+        </dl>
+      </aside>
+      <figure><img src="./images/03_nxos.png" alt="">
+        <figcaption>caption placed here</figcaption>
+      </figure>
+    </article>
+    <article name="footer">
+      <aside>
+        <dl>
+          <dt><code>&lt;footer&gt;</code></dt>
+          <dd>Padded footer area not exceeding container width</dd>
+        </dl>
+      </aside>
+      <footer>I am a footer</footer>
+    </article>
+    <article name="form">
+      <aside>
+        <dl>
+          <dt><code>&lt;form&gt;</code></dt>
+          <dd>Small form area</dd>
+          <dt><code>&lt;form&gt;&lt;header&gt;</code></dt>
+          <dd>Form header with margin &amp; padding</dd>
+          <dt><code>&lt;form&gt;&ltinput&gt;</code></dt>
+          <dd>Short input fields</dd>
+          <dt><code>&lt;form&gt;&ltlabel&gt;</code></dt>
+          <dd>Form field labels</dd>
+          <dt><code>&lt;form&gt;&ltselect&gt;</code></dt>
+          <dd>Dropdown options container</dd>
+          <dt><code>&lt;form&gt;&ltselect&gt;&ltoption&gt;</code></dt>
+          <dd>Dropdown option items</dd>
+        </dl>
+      </aside>
+      <form>
+        <header>Form Header</header>
+        <fieldset>
+          <!-- <legend>Legend</legend> -->
+          <label>Textbox inside label element - pre<input type="text" value="Disabled textbox" disabled></label>
+          <label><input type="text" value="Enabled textbox">Textbox inside label element - post</label>
+        </fieldset>
+        <fieldset>
+          <label><input type="radio">Radio inside label element - post</label>
+          <label>Radio inside label element - pre<input type="radio"></label>
+          <input type="checkbox" id="check1">
+          <label for="check1">Checkbox before label element</label>
+          <input type="checkbox" id="check1a">
+          <label for="check1a">Next checkbox</label>
+          <label for="check2">Label element before checkbox</label>
+          <input type="checkbox" id="check2">
+          <label for="check2a">Next checkbox</label>
+          <input type="checkbox" id="check2a">
+          <legend>Legend</legend>
+        </fieldset>
+        <label>Select Options
+          <select name="cars" id="cars">
+            <optgroup label="Swedish Cars">
+              <option value="volvo">Volvo</option>
+              <option value="saab">Saab</option>
+            </optgroup>
+            <optgroup label="German Cars">
+              <option value="mercedes">Mercedes</option>
+              <option value="audi">Audi</option>
+            </optgroup>
+          </select>
+        </label>
+        <label for="range">Range:</label>
+        <input type="range" id="range" name="valuation" value="50" />
+        <input type="submit" value="Submit">
+        <input type="reset" value="Reset">
+        <input type="button" value="Button">
+        <nav>
+          <input type="submit" value="Submit">
+          <input type="reset" value="Reset">
+          <input type="button" value="Button">
+        </nav>
+        <sup>Protip: use &ltnav&gt to inline justify content</sup>
+      </form>
+    </article>
+    <article name="h1-6">
+      <aside>
+        <dl>
+          <dt><code>&lt;h[1-6];</code></dt>
+          <dd>Headings</dd>
+        </dl>
+      </aside>
+      <h1>Heading 1</h1>
+      <h2>Heading 2</h2>
+      <h3>Heading 3</h3>
+      <h4>Heading 4</h4>
+      <h5>Heading 5</h5>
+      <h6>Heading 6</h6>
+    </article>
+    <article name="header">
+      <aside>
+        <dl>
+          <dt><code>&lt;header&gt;</code></dt>
+          <dd>content area with centered styling &amp; no padding</dd>
+        </dl>
+      </aside>
+      <header>I am a Header</header>
+    </article>
+    <article name="header nav">
+
+      <article>
+        <div>
+          <aside>
+            <dl>
+              <dt><code>header nav [ul] [li]</code></dt>
+              <dd><mark>var(--color-table);</mark> menu bar where each first level &ltul&gt is a flexbox container with
+                justify on
+              </dd>
+              <dt><code>nav [ul] [li] [ul] [li]</code></dt>
+              <dd>var(--color-bg); menu bar sub menu</dd>
+            </dl>
+            <p></p>
+          </aside>
+        </div>
+      </article>
+      <header>
+        <nav>
+          <ul>
+            <li><a href="#">Menu Item 1</a></li>
+            <li>Menu Item 2 &downarrow;
+              <ul>
+                <li><a href="#">Sub Item 1</a></li>
+                <li><a href="#">Sub Item 2</a></li>
+                <li><a href="#">Sub Item 3</a></li>
+              </ul>
+            </li>
+            <li><a href="#">Menu Item 3</a></li>
+          </ul>
+          <ul>
+            <li><a href="#">Login</a></li>
+          </ul>
+        </nav>
+      </header>
+    </article>
+    <article name="hr">
+      <aside>
+        <dl>
+          <dt><code>&lt;hr&gt;</code></dt>
+          <dd>Horizontal rule - margined</dd>
+        </dl>
+      </aside>
+      <hr>
+    </article>
+    <article name="main">
+      <aside>
+        <dl>
+          <dt><code>&lt;main&gt;</code></dt>
+          <dd>Padded margined content area</dd>
+        </dl>
+      </aside>
+    </article>
+    <article name="mark">
+      <aside>
+        <dl>
+          <dt><code>&lt;mark&gt;</code></dt>
+          <dd>Highlighted text</dd>
+        </dl>
+      </aside>
+      <p>Before <mark>highlighted text</mark> after</p>
+    </article>
+    <article name="nav">
+      <article>
+        <aside>
+          <dl>
+            <dt><code>nav [ul] [li]</code></dt>
+            <dd>var(--color-bg); menu bar where each &ltul&gt is a flexbox container with justity on</dd>
+            <dt><code>nav [ul] [li] [ul] [li]</code></dt>
+            <dd>var(--color-bg); menu bar sub menu</dd>
+          </dl>
+          <p></p>
+        </aside>
+      </article>
+      <nav>
+        <ul>
+          <li><a href="#">Menu Item 1</a></li>
+          <li>Menu Item 2 &downarrow;
+            <ul>
+              <li><a href="#">Sub Item 1</a></li>
+              <li><a href="#">Sub Item 2</a></li>
+              <li><a href="#">Sub Item 3</a></li>
+            </ul>
+          </li>
+          <li><a href="#">Menu Item 3</a></li>
+        </ul>
+        <ul>
+          <li><a href="#">Login</a></li>
+        </ul>
+      </nav>
+    </article>
+    <article name="ol li">
+      <aside>
+        <dl>
+          <dt><code>&lt;ol&gt;&lt;li&gt;</code></dt>
+          <dd>unordered list</dd>
+        </dl>
+      </aside>
+      <ul>Unordered list<li>List item</li>
+      </ul>
+    </article>
+    <article name="paragraph">
+      <aside>
+        <dl>
+          <dt><code>&lt;p&gt;</code></dt>
+          <dd>Margined paragraph</dd>
+        </dl>
+      </aside>
+      <p>I am a paragraph</p>
+    </article>
+    <article name="pre">
+      <aside>
+        <dl>
+          <dt><code>&lt;pre&gt;</code></dt>
+          <dd>Preformatted text</dd>
+          <dt><code>&lt;pre&gt;&lt;code&gt;</code></dt>
+          <dd>Code block</dd>
+          <dt><code>&lt;pre&gt;&lt;samp&gt;</code></dt>
+          <dd>Computer output block</dd>
+        </dl>
+      </aside>
+      <pre>Pre text</pre>
+      <pre><code>
+Code block 1
+Code block 2
+      </code></pre>
+      <pre><samp>
+Computer output block 1
+Computer output block 2
+      </samp></pre>
+    </article>
+    <article name="section">
+      <aside>
+        <dl>
+          <dt><code>&lt;section&gt;</code></dt>
+          <dd>Special centered content - inline flexbox</dd>
+          <dt><code>&lt;section&gt;&lt;aside&gt;</code></dt>
+          <dd>Content card - inline flexbox</dd>
+          <dt><code>&lt;section&gt;&lt;header&gt;</code></dt>
+          <dd>Content card - inline flexbox</dd>
+        </dl>
+      </aside>
+      <section>
+        <header>I am a Section Header</header>
+        <aside>
+          <h3>I am a &lt;h3&gt; in a content card</h3>
+          <p>Other things will wrap in the card area when they are long.
+            <br><mark>I do not grow beyond my set width</mark>.
+          </p>
+        </aside>
+        <aside>
+          <ol>
+            An Ordered List in a Card
+            <li>List item 1</li>
+            <li>List item 2</li>
+            <li>List item 3</li>
+          </ol>
+        </aside>
+        <fieldset>
+          <legend>Fieldset</legend>
+          <ul>
+            An Unordered List in a Fieldset in the section. I can grow.
+            <li>List item 1</li>
+            <li>List item 2</li>
+            <li>List item 3</li>
+          </ul>
+        </fieldset>
+        <fieldset>
+          <legend>Fieldset</legend>
+          <ul>
+            An Unordered List in a Fieldset in the section.
+            <li>List item 1</li>
+            <li>List item 2</li>
+            <li>List item 3</li>
+          </ul>
+        </fieldset>
+        <p>Most container elements in the section have no margins or padding so are best suited for cards.</p>
+      </section>
+    </article>
+    <article name="small">
+      <aside>
+        <dl>
+          <dt><code>&lt;small&gt;</code></dt>
+          <dd>Smaller text</dd>
+        </dl>
+      </aside>
+      <small>Small text</small>
+    </article>
+    <article name="sup">
+      <aside>
+        <dl>
+          <dt><code>&lt;sup&gt;</code></dt>
+          <dd>Notification bubble</dd>
+        </dl>
+      </aside>
+      <sup>Content_Example</sup>
+    </article>
+    <article name="table">
+      <aside>
+        <dl>
+          <dt><code>&lt;table&gt;&comma;&lt;table&gt;&lt;thead&gt;&comma;&lt;table&gt;&lt;th&gt;&comma;&lt;table&gt;&lt;tr&gt;&comma;&lt;table&gt;&lt;td&gt;</code></dt>
+          <dd>Data table</dd>
+        </dl>
+      </aside>
+      <table>
+        <thead>
+          <tr>
+            <td colspan="3">thead span=3
+            </td>
+            <td>thead4</td>
+          </tr>
+        </thead>
+        <tr>
+          <th>th1</th>
+          <th>th2</th>
+          <th>th3</th>
+        </tr>
+        <tr>
+          <td>td1</td>
+          <td>td2</td>
+          <td>td3</td>
+          <td>td4</td>
+        </tr>
+        <tr>
+          <td>td1</td>
+          <td>td2</td>
+          <td>td3</td>
+          <td>td4</td>
+        </tr>
+        <tfoot><tr><td>tfoot1</td><td colspan="3">tfoot span=3</td></tr></tfoot>
+      </table>
+    </article>
+    <article name="ul">
+      <aside>
+        <dl>
+          <dt><code>&lt;ul&gt;&lt;li&gt;</code></dt>
+          <dd>Unordered list</dd>
+        </dl>
+      </aside>
+      <ul>Unordered List
+        <li>List item 1</li>
+        <li>List item 2</li>
+        <li>List item 3</li>
+      </ul>
+    </article>
+  </main>
+</body>
+</html>

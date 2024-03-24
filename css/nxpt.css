@@ -149,14 +149,15 @@ section header {
 }
 
 /* Nav */
-form nav {
-    background-color: var(--color-bg);
+header nav, header nav a, header nav ul li:hover ul {
+    background-color: var(--color-table);
+    color: var(--color-bg);
 }
 
 nav {
     border-radius: var(--border-radius);
-    background-color: var(--color-table);
-    color: var(--color-bg);
+    background-color: var(--color-bg);
+    color: var(--color-link);
     align-items: center;
     display: flex;
     font-weight: bold;
@@ -167,7 +168,7 @@ nav {
 }
 
 nav a {
-    color: var(--color-bg);
+    color: var(--color-link);
 }
 
 nav ul {
@@ -185,7 +186,7 @@ nav ul li {
 /* Nav Dropdown */
 nav ul li:hover ul {
     display: block;
-    background-color: var(--color-table);
+    background-color: var(--color-bg);
 }
 
 nav ul li ul {
@@ -553,3 +554,11 @@ blockquote footer {
     background-color: rgb(202, 202, 232);
     border-radius: 10px;
 }
+
+article {
+        margin-bottom: 1rem;
+        margin-top: 1rem;}
+article article {
+        margin-bottom: 0;
+        margin-top: 0;
+    }
