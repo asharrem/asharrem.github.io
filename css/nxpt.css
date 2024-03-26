@@ -149,8 +149,11 @@ section header {
 }
 
 /* Nav */
-header nav, header nav a, header nav ul li:hover ul {
-    background-color: var(--color-table);
+header nav, nav ul li:hover ul {
+    background-color: var(--color-link);
+}
+
+header nav, header nav a {
     color: var(--color-bg);
 }
 
@@ -189,6 +192,9 @@ nav ul li:hover ul {
     background-color: var(--color-bg);
 }
 
+header nav ul li:hover ul {
+    background-color: var(--color-link);
+}
 nav ul li ul {
     background: var(--color-bg);
     border: 1px solid var(--color-bg-secondary);

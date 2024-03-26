@@ -147,7 +147,9 @@
     <article name="form">
       <aside>
         <dl>
-          <dt><code>&lt;form&gt;&comma;&lt;form&gt;&lt;header&gt;&comma;&lt;form&gt;&ltinput&gt;&comma;&lt;form&gt;&ltlabel&gt;&comma;&lt;form&gt;&ltselect&gt;&comma;&lt;form&gt;&ltselect&gt;&ltoption&gt;</code></dt>
+          <dt>
+            <code>&lt;form&gt;&comma;&lt;form&gt;&lt;header&gt;&comma;&lt;form&gt;&ltinput&gt;&comma;&lt;form&gt;&ltlabel&gt;&comma;&lt;form&gt;&ltselect&gt;&comma;&lt;form&gt;&ltselect&gt;&ltoption&gt;</code>
+          </dt>
           <dd>Small form area</dd>
           <dd>Form header with margin &amp; padding</dd>
           <dd>Short input fields</dd>
@@ -225,21 +227,17 @@
       <header>I am a Header</header>
     </article>
     <article name="header nav">
-      <!-- <article> -->
-        <!-- <div> -->
-          <aside>
-            <dl>
-              <dt><code>header nav [ul] [li]</code></dt>
-              <dd><mark>var(--color-table);</mark> menu bar where each first level &ltul&gt is a flexbox container with
-                justify on
-              </dd>
-              <dt><code>nav [ul] [li] [ul] [li]</code></dt>
-              <dd>var(--color-bg); menu bar sub menu</dd>
-            </dl>
-            <p></p>
-          </aside>
-        <!-- </div> -->
-      <!-- </article> -->
+      <aside>
+        <dl>
+          <dt><code>header nav [ul] [li]</code></dt>
+          <dd><mark>var(--color-table);</mark> menu bar where each first level &ltul&gt is a flexbox container with
+            justify on
+          </dd>
+          <dt><code>nav [ul] [li] [ul] [li]</code></dt>
+          <dd>var(--color-bg); menu bar sub menu</dd>
+        </dl>
+        <p></p>
+      </aside>
       <header>
         <nav>
           <ul>
@@ -423,7 +421,9 @@ Computer output block 2
     <article name="table">
       <aside>
         <dl>
-          <dt><code>&lt;table&gt;&comma;&lt;table&gt;&lt;thead&gt;&comma;&lt;table&gt;&lt;th&gt;&comma;&lt;table&gt;&lt;tr&gt;&comma;&lt;table&gt;&lt;td&gt;</code></dt>
+          <dt>
+            <code>&lt;table&gt;&comma;&lt;table&gt;&lt;thead&gt;&comma;&lt;table&gt;&lt;th&gt;&comma;&lt;table&gt;&lt;tr&gt;&comma;&lt;table&gt;&lt;td&gt;</code>
+          </dt>
           <dd>Data table</dd>
         </dl>
       </aside>
@@ -452,7 +452,12 @@ Computer output block 2
           <td>td3</td>
           <td>td4</td>
         </tr>
-        <tfoot><tr><td>tfoot1</td><td colspan="3">tfoot span=3</td></tr></tfoot>
+        <tfoot>
+          <tr>
+            <td>tfoot1</td>
+            <td colspan="3">tfoot span=3</td>
+          </tr>
+        </tfoot>
       </table>
     </article>
     <article name="ul">
@@ -470,4 +475,5 @@ Computer output block 2
     </article>
   </main>
 </body>
+
 </html>
