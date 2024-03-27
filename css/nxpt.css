@@ -157,6 +157,10 @@ header nav, header nav a {
     color: var(--color-bg);
 }
 
+header nav a:hover {
+    filter: brightness(var(--active-brightness));
+}
+
 nav {
     border-radius: var(--border-radius);
     background-color: var(--color-bg);
