@@ -572,7 +572,7 @@ blockquote footer {
 article {
         margin-bottom: 1rem;
         margin-top: 1rem;}
-article article {
+article>article {
         margin-bottom: 0;
         margin-top: 0;
     }
