@@ -15,5 +15,12 @@
 			"path": "../nxpt.io"
 		}
 	],
-	"settings": {}
+	"settings": {
+		"cSpell.words": [
+			"nxpt",
+			"Powertoys",
+			"Proxied",
+			"timelapse"
+		]
+	}
 }
