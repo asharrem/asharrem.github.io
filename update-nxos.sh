@@ -21,8 +21,8 @@ TITLE="NxOS Installation Wizard"
 . /etc/os-release
 
 # set Nx defaults & Hostname Prefix
-NxMajVer="5.1.3"
-NxBuild="38363"
+NxMajVer="5.1.4"
+NxBuild="38659"
 #
 SU_PASS="nxw1tness"
 OsMajorVer="$(echo $VERSION_ID | awk -F. '{print $1}')"
