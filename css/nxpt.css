@@ -58,7 +58,7 @@ article aside {
 }
 
 body {
-    background: var(--color-bg);
+    background: var(--color-table);
     color: var(--color-text);
     font-family: var(--font-family);
     line-height: var(--line-height);
@@ -70,6 +70,8 @@ body {
 footer,
 header,
 main {
+    cursor: auto;
+    background: var(--color-bg);
     margin: 0 auto;
     max-width: var(--width-content);
     padding: 3rem 1rem;
@@ -106,10 +108,11 @@ section aside {
     background-color: var(--color-bg-secondary);
     border: 1px solid var(--color-text-secondary);
     border-radius: var(--border-radius);
-    box-shadow: var(--box-shadow) var(--color-shadow);
+    /* box-shadow: var(--box-shadow) var(--color-shadow); */
     margin: 1rem;
     padding: 1.25rem;
     width: var(--width-card);
+    box-shadow: var(--box-shadow) var(--color-text-secondary);
 }
 
 section aside:hover {
@@ -140,7 +143,7 @@ header a strong {
 }
 
 header nav img {
-    margin: 1rem 0;
+    margin: 0;
 }
 
 section header {
@@ -149,11 +152,13 @@ section header {
 }
 
 /* Nav */
-header nav, nav ul li:hover ul {
+header nav,
+nav ul li:hover ul {
     background-color: var(--color-link);
 }
 
-header nav, header nav a {
+header nav,
+header nav a {
     color: var(--color-bg);
 }
 
@@ -167,14 +172,14 @@ form nav {
 
 nav {
     border-radius: var(--border-radius);
-    background-color: var(--color-bg);
-    color: var(--color-link);
+    /* background-color: var(--color-bg); */
+    /* color: var(--color-link); */
     align-items: center;
     display: flex;
     font-weight: bold;
     justify-content: space-between;
     /* margin: 0.5rem; */
-    padding: .75rem;
+    padding: 0 .75rem;
     /* margin-bottom: 7rem; */
 }
 
@@ -203,6 +208,7 @@ nav ul li:hover ul {
 header nav ul li:hover ul {
     background-color: var(--color-link);
 }
+
 nav ul li ul {
     background: var(--color-bg);
     border: 1px solid var(--color-bg-secondary);
@@ -375,7 +381,7 @@ a i {
 }
 
 article aside a {
-    color: var(--color-secondary);
+    color: var(--color-link);
 }
 
 /* Images */
@@ -411,7 +417,7 @@ form {
     border-radius: var(--border-radius);
     box-shadow: var(--box-shadow) var(--color-shadow);
     display: block;
-    max-width: var(--width-card-wide);
+    max-width: var(--width-content);
     min-width: var(--width-card);
     padding: 1.5rem;
     text-align: var(--justify-normal);
@@ -494,7 +500,7 @@ table {
     max-width: 100%;
     overflow-x: auto;
     padding: 0;
-    white-space: nowrap;
+    /*white-space: nowrap;*/
 }
 
 table td,
@@ -570,9 +576,54 @@ blockquote footer {
 }
 
 article {
-        margin-bottom: 1rem;
-        margin-top: 1rem;}
-article>article {
-        margin-bottom: 0;
-        margin-top: 0;
-    }
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+}
+
+article article {
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
+article fieldset {
+    padding: 1rem;
+    margin: 0 1.5rem;
+    background-color: var(--color-shadow);
+}
+
+article>section>header {
+    background-color: var(--color-text);
+    color: var(--color-bg);
+    border-width: 0;
+    padding: 0;
+    /* border: 2px solid var(--color-link);
+    border-radius: var(--border-radius);
+    color: var(--color-link);
+    padding: 0; */
+}
+
+section>header>fieldset {
+    background-color: var(--color-bg-secondary);
+    border-radius: var(--border-radius);
+    margin: 1rem;
+    box-shadow: var(--box-shadow) var(--color-text-secondary);
+    border-width: 0;
+    padding: 3rem;
+}
+
+figcaption>ul>li {
+    padding: 0;
+}
+
+fieldset details figure {
+    border: 1px solid var(--color-text);
+    border-radius: var(--border-radius);
+    padding: 1rem;
+    margin: 1rem;
+    background-color: var(--color-bg);
+}
+
+section aside a {
+    display: flex;
+    justify-content: center;
+}
