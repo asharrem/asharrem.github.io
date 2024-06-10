@@ -8,11 +8,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <meta charset='UTF-8'>
-<script src='js/nxpt_script.js'></script>
+<!-- <script src='js/nxpt_script.js'></script> -->
 
 <body style="background-color: var(--color-accent);">
   <p>&nbsp;</p>
-  <main style="background-color: var(--color-bg); border: 1px solid var(--color-text-secondary); border-radius: var(--border-radius);">
+  <main
+    style="background-color: var(--color-bg); border: 1px solid var(--color-text-secondary); border-radius: var(--border-radius);">
     <header>
       <h1>nxpt.css - CSS Reference doc</h1>
     </header>
@@ -34,8 +35,9 @@
         <a href="#"><i>&lti&gtbutton</i></a>
         <a href="#"><em>&ltem&gtbutton</em></a>
       </article>
-    </fieldset><p></p>
-    <fieldset  name="article">
+    </fieldset>
+    <p></p>
+    <fieldset name="article">
       <article>
         <aside>
           <dl>
@@ -52,17 +54,53 @@
           </aside>
         </article>
       </article>
-    </fieldset><p></p>
-    <fieldset  name="article aside">
+    </fieldset>
+    <p></p>
+    <fieldset name="article aside">
       <article>
         <aside>
           <dl>
-            <dt><code>&lt;article&gt;&ltaside&gt;</code></dt>
+            <dt><code>&lt;article&gt;&lt;aside&gt;</code></dt>
             <dd>[This] I am a text callout</dd>
           </dl>
         </aside>
       </article>
-    </fieldset><p></p>
+    </fieldset>
+    <p></p>
+    <fieldset name="article fieldset">
+      <article>
+        <aside>
+          <dl>
+            <dt><code>&lt;article&gt;&lt;fieldset&gt;</code></dt>
+            <dd>Shaded Fieldset</dd>
+          </dl>
+        </aside>
+        <article>
+          <fieldset>
+            <legend>fieldset</legend>
+          </fieldset>
+        </article>
+      </article>
+    </fieldset>
+    <p></p>
+    <fieldset name="article>section>header">
+      <article>
+        <aside>
+          <dl>
+            <dt><code>&lt;article&gt;&lt;section&gt;&lt;header&gt; &</code></dt>
+            <dd>Title bar</dd>
+          </dl>
+        </aside>
+        <article>
+          <section>
+            <header>
+              <h3>A title bar best enclosed in a &lt;H1-3&gt;</h3>
+            </header>
+          </section>
+        </article>
+      </article>
+    </fieldset>
+    <p></p>
     <fieldset name="blockquote">
       <article>
         <aside>
@@ -78,7 +116,8 @@
           <footer>I am the blockquote footer</footer>
         </blockquote>
       </article>
-    </fieldset><p></p>
+    </fieldset>
+    <p></p>
     <fieldset name="body">
       <article>
         <aside>
@@ -89,7 +128,8 @@
           </dl>
         </aside>
       </article>
-    </fieldset><p></p>
+    </fieldset>
+    <p></p>
     <fieldset name="button">
       <article>
         <aside>
@@ -100,8 +140,9 @@
         </aside>
         <button>Default Button</button>
       </article>
-    </fieldset><p></p>
-    <fieldset  name="code">
+    </fieldset>
+    <p></p>
+    <fieldset name="code">
       <article>
         <aside>
           <dl>
@@ -112,7 +153,8 @@
         <code>ctrl + c</code>
         <code>sudo bash some-command</code>
       </article>
-    </fieldset><p></p>
+    </fieldset>
+    <p></p>
     <fieldset name="details">
       <article>
         <aside>
@@ -126,7 +168,8 @@
           Expanded content
         </details>
       </article>
-    </fieldset><p></p>
+    </fieldset>
+    <p></p>
     <fieldset name="dialog">
       <article>
         <aside>
@@ -136,7 +179,8 @@
           </dl>
         </aside>
       </article>
-    </fieldset><p></p>
+    </fieldset>
+    <p></p>
     <fieldset name="div">
       <article>
         <aside>
@@ -146,7 +190,27 @@
           </dl>
         </aside>
       </article>
-    </fieldset><p></p>
+    </fieldset>
+    <p></p>
+    <fieldset name="fieldset details figure">
+      <article>
+        <aside>
+          <dl>
+            <dt><code>&lt;fieldset&gt;&lt;details&gt;&lt;figure&gt;</code></dt>
+            <dd>Figure is padded with border</dd>
+          </dl>
+        </aside>
+        <fieldset>
+          <details open>
+            <summary>Image is padded with border</summary>
+          <figure><img src="./images/03_nxos.png" alt="">
+            <figcaption>caption placed here</figcaption>
+          </figure>
+          </details>
+        </fieldset>
+      </article>
+    </fieldset>
+    <p></p>
     <fieldset name="figure">
       <article>
         <aside>
@@ -159,7 +223,8 @@
           <figcaption>caption placed here</figcaption>
         </figure>
       </article>
-    </fieldset><p></p>
+    </fieldset>
+    <p></p>
     <fieldset name="footer">
       <article>
         <aside>
@@ -170,7 +235,8 @@
         </aside>
         <footer>I am a footer</footer>
       </article>
-    </fieldset><p></p>
+    </fieldset>
+    <p></p>
     <fieldset name="form">
       <article>
         <aside>
@@ -228,7 +294,8 @@
           <sup>Protip: use &ltnav&gt to inline justify content</sup>
         </form>
       </article>
-    </fieldset><p></p>
+    </fieldset>
+    <p></p>
     <fieldset name="h1-6">
       <article>
         <aside>
@@ -244,7 +311,8 @@
         <h5>Heading 5</h5>
         <h6>Heading 6</h6>
       </article>
-    </fieldset><p></p>
+    </fieldset>
+    <p></p>
     <fieldset name="header">
       <article>
         <aside>
@@ -255,7 +323,8 @@
         </aside>
         <header>I am a Header</header>
       </article>
-    </fieldset><p></p>
+    </fieldset>
+    <p></p>
     <fieldset name="header nav">
       <article>
         <aside>
@@ -289,7 +358,8 @@
           </nav>
         </header>
       </article>
-    </fieldset><p></p>
+    </fieldset>
+    <p></p>
     <fieldset name="hr">
       <article>
         <aside>
@@ -300,7 +370,8 @@
         </aside>
         <hr>
       </article>
-    </fieldset><p></p>
+    </fieldset>
+    <p></p>
     <fieldset name="main">
       <article>
         <aside>
@@ -310,7 +381,8 @@
           </dl>
         </aside>
       </article>
-    </fieldset><p></p>
+    </fieldset>
+    <p></p>
     <fieldset name="mark">
       <article>
         <aside>
@@ -321,7 +393,8 @@
         </aside>
         <p>Before <mark>highlighted text</mark> after</p>
       </article>
-    </fieldset><p></p>
+    </fieldset>
+    <p></p>
     <fieldset name="nav">
       <article>
         <article>
@@ -352,7 +425,8 @@
           </ul>
         </nav>
       </article>
-    </fieldset><p></p>
+    </fieldset>
+    <p></p>
     <fieldset name="ol li">
       <article>
         <aside>
@@ -367,7 +441,8 @@
           <li>List item</li>
         </ol>
       </article>
-    </fieldset><p></p>
+    </fieldset>
+    <p></p>
     <fieldset name="paragraph">
       <article>
         <aside>
@@ -378,7 +453,8 @@
         </aside>
         <p>I am a paragraph</p>
       </article>
-    </fieldset><p></p>
+    </fieldset>
+    <p></p>
     <fieldset name="pre">
       <article>
         <aside>
@@ -401,21 +477,23 @@ Computer output block 1
 Computer output block 2
         </samp></pre>
       </article>
-    </fieldset><p></p>
+    </fieldset>
+    <p></p>
     <fieldset name="section">
       <article>
         <aside>
           <dl>
             <dt><code>&lt;section&gt;</code></dt>
             <dd>Special centered content - inline flexbox</dd>
-            <dt><code>&lt;section&gt;&lt;aside&gt;</code></dt>
-            <dd>Content card - inline flexbox</dd>
+            <dt><code>&lt;section&gt;&lt;aside&gt; &lt;a&gt;</code></dt>
+            <dd>Content card - inline flexbox, hyperlinks are centered</dd>
             <dt><code>&lt;section&gt;&lt;header&gt;</code></dt>
             <dd>Centered header</dd>
+            <dt><code>&lt;section&gt;&lt;header&gt;&lt;fieldset&gt;</code></dt>
+            <dd>Full size blurb badge</dd>
           </dl>
         </aside>
         <section>
-          <header>I am a Section Header</header>
           <aside>
             <h3>I am a &lt;h3&gt; in a content card</h3>
             <p>Other things will wrap in the card area when they are long.
@@ -449,9 +527,16 @@ Computer output block 2
             </ol>
           </fieldset>
           <p>Most container elements in the section have no margins or padding so are best suited for cards.</p>
+          <header>
+            I am a Section Header
+          </header>
+          <header>
+            <fieldset>Full size blurb / badge</fieldset>
+          </header>
         </section>
       </article>
-    </fieldset><p></p>
+    </fieldset>
+    <p></p>
     <fieldset name="small">
       <article>
         <aside>
@@ -462,7 +547,8 @@ Computer output block 2
         </aside>
         <small>Small text</small>
       </article>
-    </fieldset><p></p>
+    </fieldset>
+    <p></p>
     <fieldset name="sup">
       <article>
         <aside>
@@ -473,7 +559,8 @@ Computer output block 2
         </aside>
         <sup>Content_Example</sup>
       </article>
-    </fieldset><p></p>
+    </fieldset>
+    <p></p>
     <fieldset name="table">
       <article>
         <aside>
@@ -517,7 +604,8 @@ Computer output block 2
           </tfoot>
         </table>
       </article>
-    </fieldset><p></p>
+    </fieldset>
+    <p></p>
     <fieldset name="ul">
       <article>
         <aside>
@@ -533,7 +621,8 @@ Computer output block 2
         </ul>
       </article>
     </fieldset>
-  </main><p>&nbsp;</p>
+  </main>
+  <p>&nbsp;</p>
 </body>
 
 </html>

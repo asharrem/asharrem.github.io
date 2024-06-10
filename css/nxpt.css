@@ -591,7 +591,7 @@ article fieldset {
     background-color: var(--color-shadow);
 }
 
-article>section>header {
+article section header:nth-child(1) {
     background-color: var(--color-text);
     color: var(--color-bg);
     border-width: 0;
@@ -602,7 +602,7 @@ article>section>header {
     padding: 0; */
 }
 
-section>header>fieldset {
+section header fieldset {
     background-color: var(--color-bg-secondary);
     border-radius: var(--border-radius);
     margin: 1rem;
@@ -612,7 +612,7 @@ section>header>fieldset {
 }
 
 figcaption>ul>li {
-    padding: 0;
+    padding: 1rem;
 }
 
 fieldset details figure {
