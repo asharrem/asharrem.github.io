@@ -106,7 +106,7 @@ section pre {
 }
 
 section aside {
-    background-color: var(--color-bg-secondary);
+    background-color: var(--color-bg);
     border: 1px solid var(--color-text-secondary);
     border-radius: var(--border-radius);
     /* box-shadow: var(--box-shadow) var(--color-shadow); */
