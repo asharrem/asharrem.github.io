@@ -379,7 +379,8 @@ a i {
     border-radius: var(--border-radius);
     color: var(--color-link);
     display: inline-block;
-    padding: .5rem .75rem;}
+    padding: .5rem .75rem;
+}
 
 article aside a {
     color: var(--color-link);
@@ -582,6 +583,7 @@ blockquote footer {
 article {
     margin-bottom: 1rem;
     margin-top: 1rem;
+    background-color: var(--color-secondary-accent);
 }
 
 article article {
