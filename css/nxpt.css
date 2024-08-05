@@ -348,6 +348,11 @@ input {
     padding: .5rem .75rem;
 }
 
+a em,
+a i {
+    background-color: var(--color-bg);
+}
+
 button,
 input {
     font-family: var(--font-family);
