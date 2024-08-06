@@ -560,6 +560,9 @@ blockquote {
     max-width: var(--width-card-medium);
     padding: 1.5rem 1rem;
     text-align: var(--justify-important);
+    border-radius: var(--border-radius);
+    border: 1px var(--color-secondary) solid;
+    box-shadow: var(--box-shadow) var(--color-text);
 }
 
 blockquote footer {
