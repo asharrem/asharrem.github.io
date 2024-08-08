@@ -114,6 +114,7 @@ section aside {
     padding: 1.25rem;
     width: var(--width-card);
     box-shadow: var(--box-shadow) var(--color-text-secondary);
+    color: var(--color-text);
 }
 
 section aside:hover {
@@ -620,6 +621,12 @@ article section header:nth-child(1) {
     border-radius: var(--border-radius);
     color: var(--color-link);
     padding: 0; */
+}
+
+section article {
+    background-color: var(--color-link);
+    border-radius: var(--border-radius);
+    color: var(--color-bg);
 }
 
 section header fieldset {
