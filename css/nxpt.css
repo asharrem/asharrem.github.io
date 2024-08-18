@@ -114,7 +114,6 @@ section aside {
     padding: 1.25rem;
     width: var(--width-card);
     box-shadow: var(--box-shadow) var(--color-text-secondary);
-    color: var(--color-text);
 }
 
 section aside:hover {
@@ -183,6 +182,12 @@ nav {
     /* margin: 0.5rem; */
     padding: 0 .75rem;
     /* margin-bottom: 7rem; */
+}
+
+@media screen and (max-width: 768px) {
+    nav {
+        flex-direction: column;
+    }
 }
 
 nav a {
@@ -561,9 +566,6 @@ blockquote {
     max-width: var(--width-card-medium);
     padding: 1.5rem 1rem;
     text-align: var(--justify-important);
-    border-radius: var(--border-radius);
-    border: 1px var(--color-secondary) solid;
-    box-shadow: var(--box-shadow) var(--color-text);
 }
 
 blockquote footer {
@@ -621,12 +623,6 @@ article section header:nth-child(1) {
     border-radius: var(--border-radius);
     color: var(--color-link);
     padding: 0; */
-}
-
-section article {
-    background-color: var(--color-link);
-    border-radius: var(--border-radius);
-    color: var(--color-bg);
 }
 
 section header fieldset {
