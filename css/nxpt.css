@@ -1,4 +1,4 @@
-/* MVP.css v1.14 - https://github.com/andybrewer/mvp */
+/* Thanks to https://github.com/andybrewer/mvp */
 
 :root {
     --active-brightness: 0.85;
@@ -628,7 +628,7 @@ article section header:nth-child(1) {
 
 section header fieldset {
     background-color: var(--color-bg-secondary);
-    border-radius: var(--border-radius);
+    border-radius: 1rem 0;
     margin: 1rem;
     box-shadow: var(--box-shadow) var(--color-text-secondary);
     border-width: 0;
