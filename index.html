@@ -119,22 +119,21 @@
           <article>
             <p><a href="http://openbox.org/">Openbox</a>&nbsp;is a [floating/stacking] Window Manager. For a number of
               years
-              I've been searching how I might "Cascade" windows, with most every reference saying it can't be done with
-              openbox alone, and to use a "Tiling" application. Tiling is generally achieved by Keybindings.&nbsp;<a
+              I've been searching how I might "Cascade" open windows, with most every reference saying it can't be done with
+              Openbox alone, and to use a "Tiling" application. Tiling is achieved by Openbox Keybindings.&nbsp;<a
                 href="./code_snippets/cascade_rc.xml" rel="nofollow">Cascade_rc.xml</a>&nbsp;is a keybind
-              I wrote that cascades openbox client windows (per monitor). Using the built-in looping action/condition we
-              can
-              achieve a "cascade per monitor" keybind.</p>
+              I wrote that cascades Openbox client windows (per monitor) with no other app required. Using the built-in looping action/condition we
+              can achieve a "cascade per monitor" keybind.</p>
             <p>The basic nested loop structure is a bit like a card shuffle;</p>
             <div>
               <pre><code>
-          ForEach
-        Move Window to Top Left
-        Lower
-        ForEach
-          Nudge All other Windows
-        End ForEach
-          End ForEach
+  ForEach
+    Resize Window to Top Left
+    Lower
+    ForEach
+      Nudge All other Windows
+    End ForEach
+  End ForEach
               </code></pre>
             </div>
             <figure><img src="./images/cascading.png" alt="cascading openbox windows">
