@@ -278,8 +278,9 @@ h6 {
 }
 
 mark {
-    padding: 0.1rem;
+    padding: 0.5rem;
     background-color: var(--color-highlight);
+    border-radius: .75rem 0;
 }
 
 ol li,
