@@ -69,10 +69,16 @@ body {
 }
 
 footer,
-header,
+header {
+    cursor: auto;
+    /* background: var(--color-bg); */
+    margin: 0 auto;
+    max-width: var(--width-content);
+}
+
 main {
     cursor: auto;
-    background: var(--color-bg);
+    /* background: var(--color-bg); */
     margin: 0 auto;
     max-width: var(--width-content);
     padding: 3rem 1rem;
@@ -107,6 +113,7 @@ section pre {
 }
 
 section aside {
+    color: var(--color-text);
     background-color: var(--color-bg);
     border: 1px solid var(--color-text-secondary);
     border-radius: var(--border-radius);
@@ -172,8 +179,8 @@ form nav {
 }
 
 nav {
-    border-radius: var(--border-radius);
-    /* background-color: var(--color-bg); */
+    border-radius: 0 0 var(--border-radius) var(--border-radius);
+    background-color: var(--color-bg);
     /* color: var(--color-link); */
     align-items: center;
     display: flex;
@@ -600,22 +607,23 @@ blockquote footer {
 article {
     margin-bottom: 1rem;
     margin-top: 1rem;
-    /* background-color: var(--color-secondary-accent); */
+    background-color: var(--color-bg);
+    border-radius: var(--border-radius);
     padding: 1rem;
 }
 
-article article {
+article > article {
     margin-bottom: 0;
     margin-top: 0;
 }
 
-article fieldset {
+article > fieldset {
     padding: 1rem;
     margin: 0 1.5rem;
     background-color: var(--color-shadow);
 }
 
-article section header:nth-child(1) {
+article > section > header:nth-child(1) {
     background-color: var(--color-text);
     color: var(--color-bg);
     border-width: 0;
@@ -626,8 +634,8 @@ article section header:nth-child(1) {
     padding: 0; */
 }
 
-section header fieldset {
-    background-color: var(--color-bg-secondary);
+section > header > fieldset {
+    /* background-color: var(--color-bg-secondary); */
     border-radius: 1rem 0;
     margin: 1rem;
     box-shadow: var(--box-shadow) var(--color-text-secondary);
@@ -639,7 +647,7 @@ figcaption>ul>li {
     padding: 1rem;
 }
 
-fieldset details figure {
+fieldset > details > figure {
     border: 1px solid var(--color-table);
     border-radius: var(--border-radius);
     padding: 1rem;
@@ -650,6 +658,12 @@ fieldset details figure {
 section aside a {
     display: flex;
     justify-content: center;
+}
+
+section article {
+    background-color: var(--color-link);
+    border-radius: var(--border-radius);
+    color: var(--color-bg);
 }
 
 kbd {
