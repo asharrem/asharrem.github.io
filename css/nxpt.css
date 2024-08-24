@@ -135,11 +135,11 @@ section aside:hover {
 /* Headers */
 article header,
 div header,
-main header {
+main + header {
     padding-top: 0;
 }
 
-main footer {
+main + footer {
     padding-bottom: 0;
 }
 
