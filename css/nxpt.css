@@ -74,6 +74,7 @@ header {
     /* background: var(--color-bg); */
     margin: 0 auto;
     max-width: var(--width-content);
+    padding: 2rem 0;
 }
 
 main {
@@ -136,6 +137,10 @@ article header,
 div header,
 main header {
     padding-top: 0;
+}
+
+main footer {
+    padding-bottom: 0;
 }
 
 header {
@@ -612,18 +617,18 @@ article {
     padding: 1rem;
 }
 
-article > article {
+article>article {
     margin-bottom: 0;
     margin-top: 0;
 }
 
-article > fieldset {
+article>fieldset {
     padding: 1rem;
     margin: 0 1.5rem;
     background-color: var(--color-shadow);
 }
 
-article > section > header:nth-child(1) {
+article>section>header:nth-child(1) {
     background-color: var(--color-text);
     color: var(--color-bg);
     border-width: 0;
@@ -634,7 +639,7 @@ article > section > header:nth-child(1) {
     padding: 0; */
 }
 
-section > header > fieldset {
+section>header>fieldset {
     /* background-color: var(--color-bg-secondary); */
     border-radius: 1rem 0;
     margin: 1rem;
@@ -647,7 +652,7 @@ figcaption>ul>li {
     padding: 1rem;
 }
 
-fieldset > details > figure {
+fieldset>details>figure {
     border: 1px solid var(--color-table);
     border-radius: var(--border-radius);
     padding: 1rem;
