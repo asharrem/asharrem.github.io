@@ -9,41 +9,44 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 </head>
 
-<body style="background-color: var(--color-link);">
-  <p>&nbsp;</p>
-  <main
-    style="border-radius: var(--border-radius); border: 1px solid var(--color-text); background-color: var(--color-bg);">
+<body
+  style="cursor: auto; background-color: var(--color-bg); background-image: url(images/background.jpg); background-repeat: no-repeat; background-position: center center; background-attachment: fixed; opacity: 1;">
+  <!-- <p>&nbsp;</p> -->
+  <main>
 
     <!-- Main Header Blurb -->
-    <header>
-      <fieldset>
-        <legend>
-          <h1>Andrew Sharrem</h1>
-        </legend>
-        <p>General Manager @&nbsp;<a href="https://www.nfs.nz/">National Fire &amp; Security Ltd</a>.</p>
-        <p>Developer &amp; Curator of&nbsp;<a href="https://support.nfs.co.nz/menu/nxwitness/nxos-versions">NxOS</a>; A
-          lightweight Ubuntu Distribution specifically developed to run&nbsp;<a
-            href="https://www.networkoptix.com/nx-witness/" rel="nofollow">NxWitness (by Networkoptix)</a>&nbsp;as a
-          Server &amp; Client Appliance.</p>
-      </fieldset>
-    </header>
-    <hr>
-    <!-- Cards -->
-    <section>
-      <aside>
-        <div><a href="https://www.networkoptix.com/nx-witness/" rel="nofollow"><img
-              src="./images/Nx Witness Logo_Color.png" width="256"></a></div>
-      </aside>
-      <aside style="background-color: var(--color-link);">
-        <div><a href="https://nxpt.io" rel="nofollow"><img src="./images/NxPowertoys_logo_white.svg" width="96"></a>
-        </div>
-        <div style="text-align: center; color: white"><strong>Nx Powertoys</strong></div>
-      </aside>
-      <aside style="background-color: black;">
-        <div style="transform: rotate(-12deg);"><a href="https://support.nfs.co.nz/menu/nxwitness/nxos-versions"
-            rel="nofollow"><img src="./images/NxOS.png" width="256"></a></div>
-      </aside>
-    </section>
+    <article>
+      <header>
+        <fieldset>
+          <legend>
+            <h1>Andrew Sharrem</h1>
+          </legend>
+          <p>General Manager @&nbsp;<a href="https://www.nfs.nz/">National Fire &amp; Security Ltd</a>.</p>
+          <p>Developer &amp; Curator of&nbsp;<a href="https://support.nfs.co.nz/menu/nxwitness/nxos-versions">NxOS</a>;
+            A
+            lightweight Ubuntu Distribution specifically developed to run&nbsp;<a
+              href="https://www.networkoptix.com/nx-witness/" rel="nofollow">NxWitness (by Networkoptix)</a>&nbsp;as a
+            Server &amp; Client Appliance.</p>
+        </fieldset>
+      </header>
+      <hr>
+      <!-- Cards -->
+      <section>
+        <aside>
+          <div><a href="https://www.networkoptix.com/nx-witness/" rel="nofollow"><img
+                src="./images/Nx Witness Logo_Color.png" width="256"></a></div>
+        </aside>
+        <aside style="background-color: var(--color-link);">
+          <div><a href="https://nxpt.io" rel="nofollow"><img src="./images/NxPowertoys_logo_white.svg" width="96"></a>
+          </div>
+          <div style="text-align: center; color: white"><strong>Nx Powertoys</strong></div>
+        </aside>
+        <aside style="background-color: black;">
+          <div style="transform: rotate(-12deg);"><a href="https://support.nfs.co.nz/menu/nxwitness/nxos-versions"
+              rel="nofollow"><img src="./images/NxOS.png" width="256"></a></div>
+        </aside>
+      </section>
+    </article>
     <hr>
 
     <!-- Site Description -->
@@ -60,141 +63,147 @@
         </fieldset>
       </header>
     </section>
+    <hr>
 
-    <a name="screenshots"></a>
     <article>
-      <fieldset>
-        <details>
-          <summary>NxOS Screenshots</summary>
-          <figure><img src="./images/03_nxos.png">
-            <figcaption>
-              <ul>
-                <li>
-                  NxOS components
-                </li>
-              </ul>
-            </figcaption>
-          </figure>
-          <figure>
-            <img src="./images/NxOS_promo_2.jpg">
-            <figcaption>
-              <ul>
-                <li>
-                  NxOS Live USB Installer - Screenshot
-                </li>
-              </ul>
-            </figcaption>
-          </figure>
-
-          <figure>
-            <img src="./images/NxOS_promo.jpg">
-            <figcaption>
-              <ul>
-                <li>
-                  NxOS Main Menu - Screenshot
-                </li>
-              </ul>
-            </figcaption>
-          </figure>
-
-          <figure>
-            <img src="./images/NxOS_promo_1.jpg">
-            <figcaption>
-              <ul>
-                <li>
-                  NxOS running Nx client
-                </li>
-              </ul>
-            </figcaption>
-          </figure>
-
-          <div align="right"><a href="#screenshots"><strong>&uparrow;</strong></a></div>
-        </details>
-      </fieldset>
-    </article>
-
-    <a name="cascade"></a>
-    <article>
-      <fieldset>
-        <details>
-          <summary>Cascading Windows on Openbox WM</summary>
-          <article>
-            <p><a href="http://openbox.org/">Openbox</a>&nbsp;is a [floating/stacking] Window Manager. For a number of
-              years
-              I've been searching how I might "Cascade" open windows, with most every reference saying it can't be done
-              with
-              Openbox alone, and to use a "Tiling" application. Tiling is achieved by Openbox Keybindings.&nbsp;<a
-                href="./code_snippets/cascade_rc.xml" rel="nofollow">Cascade_rc.xml</a>&nbsp;is a keybind
-              I wrote that cascades Openbox client windows (per monitor) with no other app required. Using the built-in
-              looping action/condition we
-              can achieve a "cascade per monitor" keybind.</p>
-            <p>The basic nested loop structure is a bit like a card shuffle;</p>
-            <div>
-              <pre><code>
-  ForEach
-    Resize Window to Top Left
-    Lower
-    ForEach
-      Nudge All other Windows
-    End ForEach
-  End ForEach
-              </code></pre>
-            </div>
-            <figure><img src="./images/cascading.png" alt="cascading openbox windows">
-              <legend>Cascading Windows via Openbox Keybinds</legend>
+      <a name="screenshots"></a>
+      <article>
+        <fieldset>
+          <details>
+            <summary>NxOS Screenshots</summary>
+            <figure><img src="./images/03_nxos.png">
+              <figcaption>
+                <ul>
+                  <li>
+                    NxOS components
+                  </li>
+                </ul>
+              </figcaption>
             </figure>
-          </article>
-          <article>
-            <aside>With a few other "actions" we are able to maintain "Focus" or include "minimized/iconified" client
-              windows.
-              Un-iconifying or maximizing minimized windows requires the iconified windows get "Focus", so currently I
-              am
-              unable to maintain focus of the original window in this instance.
+            <figure>
+              <img src="./images/NxOS_promo_2.jpg">
+              <figcaption>
+                <ul>
+                  <li>
+                    NxOS Live USB Installer - Screenshot
+                  </li>
+                </ul>
+              </figcaption>
+            </figure>
+
+            <figure>
+              <img src="./images/NxOS_promo.jpg">
+              <figcaption>
+                <ul>
+                  <li>
+                    NxOS Main Menu - Screenshot
+                  </li>
+                </ul>
+              </figcaption>
+            </figure>
+
+            <figure>
+              <img src="./images/NxOS_promo_1.jpg">
+              <figcaption>
+                <ul>
+                  <li>
+                    NxOS running Nx client
+                  </li>
+                </ul>
+              </figcaption>
+            </figure>
+
+            <div align="right"><a href="#screenshots"><strong>&uparrow;</strong></a></div>
+          </details>
+        </fieldset>
+      </article>
+
+      <a name="cascade"></a>
+      <article>
+        <fieldset>
+          <details>
+            <summary>Cascading Windows on Openbox WM</summary>
+            <article>
+              <p><a href="http://openbox.org/">Openbox</a>&nbsp;is a [floating/stacking] Window Manager. For a number of
+                years
+                I've been searching how I might "Cascade" open windows, with most every reference saying it can't be
+                done
+                with
+                Openbox alone, and to use a "Tiling" application. Tiling is achieved by Openbox Keybindings.&nbsp;<a
+                  href="./code_snippets/cascade_rc.xml" rel="nofollow">Cascade_rc.xml</a>&nbsp;is a keybind
+                I wrote that cascades Openbox client windows (per monitor) with no other app required. Using the
+                built-in
+                looping action/condition we
+                can achieve a "cascade per monitor" keybind.</p>
+              <p>The basic nested loop structure is a bit like a card shuffle;</p>
+              <div>
+                <pre><code>
+    ForEach
+      Resize Window to Top Left
+      Lower
+      ForEach
+        Nudge All other Windows
+      End ForEach
+    End ForEach
+                </code></pre>
+              </div>
+              <figure><img src="./images/cascading.png" alt="cascading openbox windows">
+                <legend>Cascading Windows via Openbox Keybinds</legend>
+              </figure>
+            </article>
+            <article>
+              <aside>With a few other "actions" we are able to maintain "Focus" or include "minimized/iconified" client
+                windows.
+                Un-iconifying or maximizing minimized windows requires the iconified windows get "Focus", so currently I
+                am
+                unable to maintain focus of the original window in this instance.
+              </aside>
+            </article>
+            <div align="right"><a href="#cascade"><strong>&uparrow;</strong></a></div>
+          </details>
+        </fieldset>
+      </article>
+
+      <a name="css"></a>
+      <article>
+        <fieldset>
+          <details>
+            <summary>Classless CSS</summary>
+            <p>
+              Starting a new HTML project usually involves deciding what CSS framework to run with. Learning a CSS
+              framework
+              was something I didn't want to do. Fortunately I found "Classless" CSS, which made my semantic HTML
+              look much better!
+            </p>
+            <h4>Learn more</h4>
+            <ul>
+              <li><a href="https://github.com/dbohdan/classless-css?tab=readme-ov-file" target="_blank"
+                  rel="noopener noreferrer">dbohdan &nearr;</a></li>
+              <li><a href="https://www.cssbed.com/" target="_blank" rel="noopener noreferrer">cssbed &nearr;</a></li>
+              <li><a href="https://andybrewer.github.io/mvp/" target="_blank" rel="noopener noreferrer">MVP.css
+                  &nearr;</a>
+              </li>
+              <li><a href="http://asharrem.github.io/css.html" target="_blank" rel="noopener noreferrer">[this] nxpt.css
+                  &nearr;</a></li>
+            </ul>
+            <aside>
+              This site is styled with a customized mvp.css <br>
+              In chrome press <kbd>ctrl</kbd> + <kbd>u</kbd> to view the source.
             </aside>
-          </article>
-          <div align="right"><a href="#cascade"><strong>&uparrow;</strong></a></div>
-        </details>
-      </fieldset>
-    </article>
+            <div align="right"><a href="#css"><strong>&uparrow;</strong></a></div>
+          </details>
+        </fieldset>
+      </article>
 
-    <a name="css"></a>
-    <article>
-      <fieldset>
-        <details>
-          <summary>Classless CSS</summary>
-          <p>
-            Starting a new HTML project usually involves deciding what CSS framework to run with. Learning a CSS
-            framework
-            was something I didn't want to do. Fortunately I found "Classless" CSS, which made my semantic HTML
-            look much better!
-          </p>
-          <h4>Learn more</h4>
+      <footer>
+        <nav>
+          <ul></ul>
           <ul>
-            <li><a href="https://github.com/dbohdan/classless-css?tab=readme-ov-file" target="_blank"
-                rel="noopener noreferrer">dbohdan &nearr;</a></li>
-            <li><a href="https://www.cssbed.com/" target="_blank" rel="noopener noreferrer">cssbed &nearr;</a></li>
-            <li><a href="https://andybrewer.github.io/mvp/" target="_blank" rel="noopener noreferrer">MVP.css
-                &nearr;</a>
-            </li>
-            <li><a href="http://asharrem.github.io/css.html" target="_blank" rel="noopener noreferrer">[this] nxpt.css
-                &nearr;</a></li>
+            &copy; Andrew Sharrem 2024
           </ul>
-          <aside>
-            This site is styled with a customized mvp.css <br>
-            In chrome press <kbd>ctrl</kbd> + <kbd>u</kbd> to view the source.
-          </aside>
-          <div align="right"><a href="#css"><strong>&uparrow;</strong></a></div>
-        </details>
-      </fieldset>
+        </nav>
+      </footer>
     </article>
-
-    <footer>
-      <nav>
-        <ul></ul><ul>
-          &copy; Andrew Sharrem 2024
-        </ul>
-      </nav>
-    </footer>
 
   </main>
   <p>&nbsp;</p>
