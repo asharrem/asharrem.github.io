@@ -1,5 +1,7 @@
 #!/bin/bash
-sudo apt install curl
+
+# prepare script dependencies
+sudo apt install curl software-properties-common
 
 # disable gui
 sudo systemctl set-default multi-user.target
@@ -17,10 +19,19 @@ sudo apt-get update
 sudo apt install openssh-server cockpit-file-sharing cockpit-zfs-manager cockpit-machines
 
 # setup root user for vm migration & zfs remote replication tasks
+echo "Please enter the new root password:"
+read -s password1
+echo "Please repeat the new root password:"
+read -s password2
+# Check both passwords match
+if [ $password1 != $password2 ]; then
+    echo "Passwords do not match"
+     exit    
+fi
+# Change password
+echo -e "$password1n$password1" | sudo passwd root
 # unlock root account
 sudo passwd -u root
-echo "set root password"
-sudo passwd root
 sudo sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 sudo systemctl restart ssh
 echo "Use cockpit to do root key exchange"
