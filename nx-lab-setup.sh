@@ -1,4 +1,5 @@
 #!/bin/bash
+sudo apt install curl
 
 # disable gui
 sudo systemctl set-default multi-user.target
