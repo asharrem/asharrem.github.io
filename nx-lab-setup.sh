@@ -16,7 +16,7 @@ sudo apt install -t ${VERSION_CODENAME}-backports cockpit
 # add cockpit ZFS manager
 curl -sSL https://repo.45drives.com/setup | sudo bash
 sudo apt-get update
-sudo apt install openssh-server cockpit-file-sharing cockpit-zfs-manager cockpit-machines
+sudo apt install openssh-server cockpit-file-sharing cockpit-zfs-manager zfsutils-linux samba cockpit-machines
 
 # setup root user for vm migration & zfs remote replication tasks
 echo "Please enter the new root password:"
