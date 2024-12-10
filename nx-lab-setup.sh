@@ -25,15 +25,15 @@ echo "Please repeat the new root password:"
 read -s password2
 # Check both passwords match
 if [ $password1 != $password2 ]; then
-    echo "Passwords do not match"
-     exit    
-fi
+  echo "Passwords do not match"
+else
 # Change password
-echo -e "$password1\n$password1\n" | sudo -S passwd root
-# unlock root account
-sudo passwd -u root
-sudo sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
-sudo systemctl restart ssh
-echo "Use cockpit to do root key exchange"
+  echo -e "$password1\n$password1\n" | sudo -S passwd root
+  # unlock root account
+  sudo passwd -u root
+  sudo sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+  sudo systemctl restart ssh
+  echo "Use cockpit to do root key exchange"
+fi
 
 # next task here
