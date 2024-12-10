@@ -29,7 +29,7 @@ if [ $password1 != $password2 ]; then
      exit    
 fi
 # Change password
-echo -e "$password1n$password1" | sudo passwd root
+echo -e "$password1\n$password1\n" | sudo -S passwd root
 # unlock root account
 sudo passwd -u root
 sudo sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
