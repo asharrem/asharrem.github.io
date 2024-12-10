@@ -16,12 +16,12 @@ sudo apt-get update
 sudo apt install openssh-server cockpit-file-sharing cockpit-zfs-manager cockpit-machines
 
 # setup root user for vm migration & zfs remote replication tasks
-# use cockpit to setup key exchange hosts
-echo "set root password"
-sleep 2
-sudo passwd root
+# unlock root account
 sudo passwd -u root
+echo "set root password"
+sudo passwd root
 sudo sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 sudo systemctl restart ssh
+echo "Use cockpit to do root key exchange"
 
 # next task here
