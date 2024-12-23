@@ -402,6 +402,7 @@ EOF
   "13")
     TERM=ansi whiptail --clear --title "$TITLE" --infobox "\n Applying System Updates..." 19 68
     sleep 0.5
+    sudo apt -y -q -o DPkg::options::="--force-overwrite" install libgtk-3-0
     sudo apt -y -q -o=dpkg::progress-fancy="1" upgrade
     TERM=ansi whiptail --clear --title "$TITLE" --infobox "\n Cleaning System..." 19 68
     sleep 0.5
