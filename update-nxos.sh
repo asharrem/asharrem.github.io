@@ -147,22 +147,39 @@ TERM=ansi whiptail --title "$TITLE" --infobox "\n Working Dir is: ${Working_Dir}
 cd "$Working_Dir" || exit 1
 sleep 3
 
-# Display Checklist (whiptail)
-CHOICES=$(whiptail --title "$TITLE" --separate-output --checklist "Choose options" 19 68 14 \
-  "01" "Download & Run DWService.net Agent " OFF \
-  "02" "Update Hostname to MAC address syntax " ON \
-  "03" "Purge Nx & Google .deb's from Downloads Folder " ON \
-  "04" "Download & Install Google Chrome Browser " ON \
-  "05" "Download & Install Nx Client ${NxMajVer}.${NxBuild} " ON \
-  "06" "Download & Install Nx Server ${NxMajVer}.${NxBuild} " ON \
-  "07" "Install Cockpit Advanced File Sharing (NAS) " OFF \
-  "08" "Install Camera Plugins (VCA) " OFF \
-  "09" "Debug - Freeze Fix " ON \
-  "10" "Update NxOS Defaults " ON \
-  "11" "Un-Install Nx Witness Server & Client " OFF \
-  "12" "Install a specific Nx Witness Client & or Server " OFF \
-  "13" "Run Updates " ON \
-  "14" "Install DS-WSELI-T2/8p PoE Drivers " OFF 3>&1 1>&2 2>&3)
+# display a whiptail progress bar for 90 seconds to accept any key press
+for ((i = 0; i <= 100; i+=5)); do
+    # read any key press 1 second timeout
+    read -s -t 1 -n 1 key && break
+    echo $i | TERM=ansi whiptail --title "$TITLE" --gauge "Press S to skip New System setup..." 6 60 0
+done
+
+case $key in
+  # Skip New System setup
+  "s" | "S")
+    # Display Checklist (whiptail)
+    CHOICES=$(whiptail --title "$TITLE" --separate-output --checklist "Choose options \n" 20 68 13 \
+      "01" "Download & Run DWService.net Agent " ON \
+      "02" "Update Hostname to MAC address syntax " OFF \
+      "03" "Purge Nx & Google .deb's from Downloads Folder " OFF \
+      "04" "Download & Install Google Chrome Browser " OFF \
+      "05" "Download & Install Nx Client ${NxMajVer}.${NxBuild} " OFF \
+      "06" "Download & Install Nx Server ${NxMajVer}.${NxBuild} " OFF \
+      "07" "Install Cockpit Advanced File Sharing (NAS) " OFF \
+      "08" "Install Camera Plugins (VCA) " OFF \
+      "09" "Debug - Freeze Fix " OFF \
+      "10" "Update NxOS Defaults " OFF \
+      "11" "Un-Install Nx Witness Server & Client " OFF \
+      "12" "Install a specific Nx Witness Client & or Server " OFF \
+      "13" "Run Updates " OFF \
+      "14" "Install DS-WSELI-T2/8p PoE Drivers " OFF 3>&1 1>&2 2>&3)
+    ;;
+  *)
+    CHOICES="02 03 04 05 06 09 10 13"
+    TERM=ansi whiptail --clear --title "$TITLE" --infobox "\n Starting New System Defaults..." 19 68
+    sleep 1
+    ;;
+esac
 
 for CHOICE in $CHOICES; do
   case $CHOICE in
