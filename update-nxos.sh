@@ -281,25 +281,17 @@ EOF
   "07")
     TERM=ansi whiptail --title "$TITLE" --infobox "\n Installing 45drives sharing scripts..." 19 68
     # sleep 0.5
-    sudo apt -y -q -o=dpkg::progress-fancy="1" install -t "${VERSION_CODENAME}"-backports cockpit
+    sudo apt -y -q -o=dpkg::progress-fancy="1" install -t "${VERSION_CODENAME}"-backports cockpit cockpit-files
     # Needs GPG to add repos
     sudo apt -y -q -o=dpkg::progress-fancy="1" install gpg zfsutils-linux
     # advanced file support by 45drives
     curl -sSL https://repo.45drives.com/setup | sudo bash
     sudo apt -y -q -o=dpkg::progress-fancy="1" install \
-    crudini \
     cockpit-file-sharing \
-    cockpit-navigator \
     cockpit-zfs-manager \
+    cockpit-identities \
     gvfs-backends \
     gvfs-fuse
-    
-    TERM=ansi whiptail --title "$TITLE" --infobox "\n Setting up smb.conf..." 19 68
-    file_name=/etc/samba/smb.conf
-    # remove leading spaces & tabs so crudini does not fail
-    sudo sed -i.bak 's/^[ \t]*//' $file_name
-    # add key pair to samba
-    sudo crudini --set $file_name global include registry
   ;;
   # Install Camera Plugins - currently only VCA Edge AI 
   "08")
