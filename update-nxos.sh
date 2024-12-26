@@ -110,6 +110,9 @@ do
   fi
 done
 
+# change ANSI color for TUI
+sudo ln -sf /etc/newt/palette.original /etc/newt/palette
+
 # run apt update
 TERM=ansi whiptail --title "$TITLE" --infobox "\n Running apt update..." 19 68
 sudo apt -y -q -o=dpkg::progress-fancy="1" update
