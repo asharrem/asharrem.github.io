@@ -33,7 +33,7 @@ NxFulVer="$NxMajVer.$NxBuild"
 NxUrl="https://updates.networkoptix.com/default"
 NxFilenameTypes="linux64 linux_x64 linux_x64-patch"
 
-export DEBIAN_FRONTEND=noninteractive
+#export DEBIAN_FRONTEND=noninteractive
 ############################################
 
 # wget url($1)
@@ -56,7 +56,7 @@ function install_deb {
   file_name="$(basename -- "$1")"
   TERM=ansi whiptail --clear --title "$TITLE" --infobox "\n Installing $file_name..." 19 68
   sleep 0.5
-  if ! sudo gdebi -n -q -o quiet=1 -o dpkg::progress-fancy="1" "$file_name"; then
+  if ! sudo gdebi -n -q -o quiet=1 -o non-interactive=1 -o dpkg::progress-fancy="1" "$file_name"; then
     # Install failed
     TERM=ansi whiptail --clear --title "$TITLE" --infobox "\n Installing $file_name failed!" 19 68
     sleep 3
