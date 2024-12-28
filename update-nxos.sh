@@ -441,11 +441,26 @@ EOF
   ;;
   esac
 done
-TERM=ansi whiptail --title "$TITLE" --infobox "\n Finished!!!" 8 68
-sleep 1
 if [ "$RebootWillHappenAfterFinish" == "1" ]; then
-  TERM=ansi whiptail --title "$TITLE" --infobox "\n Rebooting in 10 seconds..." 8 68
-  sleep 10
-  sudo reboot
+  # display a whiptail progress bar for 10 seconds to accept any key press
+  unset key
+  for ((i = 0; i <= 100; i+=5)); do
+      # read any key press 1 second timeout
+      read -s -t 1 -n 1 key && break
+      echo $i | TERM=ansi whiptail --title "$TITLE" --gauge "Press S to skip Reboot..." 6 60 0
+  done
+
+  case $key in
+    # Skip Reboot
+    s | S)
+    ;;
+    *)
+      # remove new_install flag - also in /opt/nxos/install.sh, but not actioned due to reboot
+      sudo rm /opt/nxos/new_install
+      sudo reboot
+    ;;
+  esac
 fi 
+TERM=ansi whiptail --title "$TITLE" --infobox "\n Wizard Finished!!!" 8 68
+sleep 1
 exit 0
