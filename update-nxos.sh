@@ -55,6 +55,8 @@ function download {
 function install_deb {
   file_name="$(basename -- "$1")"
   TERM=ansi whiptail --clear --title "$TITLE" --infobox "\n Installing $file_name..." 19 68
+  export DEBIAN_FRONTEND=noninteractive
+  export DEBIAN_PRIORITY=critical
   sleep 0.5
   if ! sudo gdebi -n -q -o quiet=1 -o non-interactive=1 -o dpkg::progress-fancy="1" "$file_name"; then
     # Install failed
@@ -415,8 +417,8 @@ EOF
   "13")
     TERM=ansi whiptail --clear --title "$TITLE" --infobox "\n Applying System Updates..." 19 68
     sleep 0.5
-    sudo apt -y -q -o DPkg::options::="--force-overwrite" install libgtk-3-0
-    sudo apt -y -q -o=dpkg::progress-fancy="1" upgrade
+    sudo apt -y -q -o=DPkg::options::="--force-overwrite" install libgtk-3-0
+    sudo apt -y -q -o=dpkg::progress-fancy="1" dist-upgrade
     TERM=ansi whiptail --clear --title "$TITLE" --infobox "\n Cleaning System..." 19 68
     sleep 0.5
     sudo apt -y -q -o=dpkg::progress-fancy="1" autoremove
