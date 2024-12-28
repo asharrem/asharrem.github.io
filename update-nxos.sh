@@ -33,7 +33,7 @@ NxFulVer="$NxMajVer.$NxBuild"
 NxUrl="https://updates.networkoptix.com/default"
 NxFilenameTypes="linux64 linux_x64 linux_x64-patch"
 
-#export DEBIAN_FRONTEND=noninteractive
+export DEBIAN_FRONTEND=noninteractive
 ############################################
 
 # wget url($1)
