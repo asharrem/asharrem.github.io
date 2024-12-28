@@ -32,6 +32,7 @@ macaddy="0000"
 NxFulVer="$NxMajVer.$NxBuild"
 NxUrl="https://updates.networkoptix.com/default"
 NxFilenameTypes="linux64 linux_x64 linux_x64-patch"
+LogoutWillHappenAfterFinish=0
 
 ############################################
 
@@ -218,7 +219,8 @@ for CHOICE in $CHOICES; do
 
     # udpdate hosts file with new ServerName
     sudo sed -i 's/127.0.1.1	'"${HOSTNAME}"'/127.0.1.1	'"${ServerName}"'/g' /etc/hosts
-    TERM=ansi whiptail --title "$TITLE" --infobox "\n DNS Updated - Reboot required" 19 68
+    TERM=ansi whiptail --title "$TITLE" --infobox "\n DNS Updated - Logout will happen after finish." 19 68
+    LogoutWillHappenAfterFinish=1
     sleep 3
   ;;
   # Purge Nx & Google .deb's from Downloads Folder
@@ -439,3 +441,9 @@ EOF
 done
 TERM=ansi whiptail --title "$TITLE" --infobox "\n Finished!!!" 8 68
 sleep 1
+if [ "$LogoutWillHappenAfterFinish" == "1" ]; then
+  TERM=ansi whiptail --title "$TITLE" --infobox "\n Rebooting in 10 seconds..." 8 68
+  sleep 10
+  sudo reboot
+fi 
+exit 0
