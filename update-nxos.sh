@@ -32,7 +32,7 @@ macaddy="0000"
 NxFulVer="$NxMajVer.$NxBuild"
 NxUrl="https://updates.networkoptix.com/default"
 NxFilenameTypes="linux64 linux_x64 linux_x64-patch"
-LogoutWillHappenAfterFinish=0
+RebootWillHappenAfterFinish=0
 
 ############################################
 
@@ -178,6 +178,8 @@ case $key in
   *)
     CHOICES="02 03 04 05 06 09 10 13"
     TERM=ansi whiptail --clear --title "$TITLE" --infobox "\n Starting New System Defaults..." 19 68
+    # Create openbox autostart script  file reference for disk manager
+    sudo touch /opt/nxos/autostart_disk_manager
     sleep 1
     ;;
 esac
@@ -219,8 +221,8 @@ for CHOICE in $CHOICES; do
 
     # udpdate hosts file with new ServerName
     sudo sed -i 's/127.0.1.1	'"${HOSTNAME}"'/127.0.1.1	'"${ServerName}"'/g' /etc/hosts
-    TERM=ansi whiptail --title "$TITLE" --infobox "\n DNS Updated - Logout will happen after finish." 19 68
-    LogoutWillHappenAfterFinish=1
+    TERM=ansi whiptail --title "$TITLE" --infobox "\n DNS Updated - Reboot will happen after finish." 19 68
+    RebootWillHappenAfterFinish=1
     sleep 3
   ;;
   # Purge Nx & Google .deb's from Downloads Folder
@@ -441,7 +443,7 @@ EOF
 done
 TERM=ansi whiptail --title "$TITLE" --infobox "\n Finished!!!" 8 68
 sleep 1
-if [ "$LogoutWillHappenAfterFinish" == "1" ]; then
+if [ "$RebootWillHappenAfterFinish" == "1" ]; then
   TERM=ansi whiptail --title "$TITLE" --infobox "\n Rebooting in 10 seconds..." 8 68
   sleep 10
   sudo reboot
