@@ -115,7 +115,7 @@ done
 if [ -e /opt/nxos/autostart_disk_manager ]; then
   TERM=ansi whiptail --title "$TITLE" --infobox "\n Already run once...Disk Manager Starting!" 19 68
   sudo rm /opt/nxos/autostart_disk_manager
-  sudo rm /opt/nxos/new_install
+  if [ -e /opt/nxos/new_install ]; then sudo rm /opt/nxos/new_install; fi
   sleep 3
   sudo gnome-disks &
   exit 0
