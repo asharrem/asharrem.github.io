@@ -111,6 +111,16 @@ do
   fi
 done
 
+# check if run once & disk manager flag exists. Clean up and start disk manager
+if [ -e /opt/nxos/autostart_disk_manager ]; then
+  TERM=ansi whiptail --title "$TITLE" --infobox "\n Already run once...Disk Manager Starting!" 19 68
+  sudo rm /opt/nxos/autostart_disk_manager
+  sudo rm /opt/nxos/new_install
+  sleep 3
+  sudo gnome-disks &
+  exit 0
+fi
+
 # change ANSI color for TUI
 sudo ln -sf /etc/newt/palette.original /etc/newt/palette
 
@@ -148,6 +158,11 @@ TERM=ansi whiptail --title "$TITLE" --infobox "\n Working Dir is: ${Working_Dir}
 cd "$Working_Dir" || exit 1
 sleep 3
 
+# update cockpit
+TERM=ansi whiptail --title "$TITLE" --infobox "\n Updating Cockpit..." 19 68
+sleep 1
+sudo apt -y -q -o=dpkg::progress-fancy="1" install -t "${VERSION_CODENAME}"-backports cockpit
+
 # display a whiptail progress bar for 90 seconds to accept any key press
 for ((i = 0; i <= 100; i+=5)); do
     # read any key press 1 second timeout
@@ -178,7 +193,7 @@ case $key in
   *)
     CHOICES="02 03 04 05 06 09 10 13"
     TERM=ansi whiptail --clear --title "$TITLE" --infobox "\n Starting New System Defaults..." 19 68
-    # Create openbox autostart script  file reference for disk manager
+    # Create openbox autostart script file reference for disk manager
     sudo touch /opt/nxos/autostart_disk_manager
     sleep 1
     ;;
@@ -285,7 +300,6 @@ EOF
   "07")
     TERM=ansi whiptail --title "$TITLE" --infobox "\n Installing 45drives sharing scripts..." 19 68
     # sleep 0.5
-    sudo apt -y -q -o=dpkg::progress-fancy="1" install -t "${VERSION_CODENAME}"-backports cockpit cockpit-files
     # Needs GPG to add repos
     sudo apt -y -q -o=dpkg::progress-fancy="1" install gpg zfsutils-linux
     # advanced file support by 45drives
@@ -343,7 +357,8 @@ EOF
     if ! download "$WebHostFiles/$file_name"; then
       continue
     fi
-    sudo apt -o DPkg::options::="--force-overwrite" install "./$file_name"
+    #sudo apt -y -o DPkg::options::="--force-overwrite" install "./$file_name"
+    install_deb "$file_name"
     # remove live cd autologin
     sudo rm /etc/lightdm/lightdm.conf
     # fix broken dependancies from arc-theming
