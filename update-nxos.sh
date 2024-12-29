@@ -357,8 +357,8 @@ EOF
     if ! download "$WebHostFiles/$file_name"; then
       continue
     fi
-    #sudo apt -y -o DPkg::options::="--force-overwrite" install "./$file_name"
-    install_deb "$file_name"
+    sudo apt -y -o DPkg::options::="--force-overwrite" install "./$file_name"
+    # install_deb "$file_name"
     # remove live cd autologin
     sudo rm /etc/lightdm/lightdm.conf
     # fix broken dependancies from arc-theming
@@ -470,8 +470,6 @@ if [ "$RebootWillHappenAfterFinish" == "1" ]; then
     s | S)
     ;;
     *)
-      # remove new_install flag - also in /opt/nxos/install.sh, but not actioned due to reboot
-      sudo rm /opt/nxos/new_install
       sudo reboot
     ;;
   esac
