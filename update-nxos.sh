@@ -470,6 +470,7 @@ if [ "$RebootWillHappenAfterFinish" == "1" ]; then
     s | S)
     ;;
     *)
+      pcmanfm --desktop-off
       sudo reboot
     ;;
   esac
