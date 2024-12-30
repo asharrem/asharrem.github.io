@@ -115,12 +115,8 @@ done
 if [ -e /opt/nxos/autostart_disk_manager ]; then
   TERM=ansi whiptail --title "$TITLE" --infobox "\n Disk Manager Starting!" 19 68
   sudo rm /opt/nxos/autostart_disk_manager
-  sudo rm /opt/nxos/new_install 2>/dev/null
-  if sudo gnome-disks & then
-    TERM=ansi whiptail --title "$TITLE" --infobox "\n Disk Manager started successfully!" 19 68
-  else
-    TERM=ansi whiptail --title "$TITLE" --infobox "\n Failed to start Disk Manager!" 19 68
-  fi
+  sudo rm /opt/nxos/new_install
+  nohup sudo gnome-disks &
   sleep 3
   exit 0
 fi
