@@ -111,13 +111,17 @@ do
   fi
 done
 
-# check if run once & disk manager flag exists. Clean up and start disk manager
+# check if the script has run once & disk manager flag exists. Clean up and start disk manager
 if [ -e /opt/nxos/autostart_disk_manager ]; then
-  TERM=ansi whiptail --title "$TITLE" --infobox "\n Already run once...Disk Manager Starting!" 19 68
+  TERM=ansi whiptail --title "$TITLE" --infobox "\n Disk Manager Starting!" 19 68
   sudo rm /opt/nxos/autostart_disk_manager
-  if [ -e /opt/nxos/new_install ]; then sudo rm /opt/nxos/new_install; fi
+  sudo rm /opt/nxos/new_install 2>/dev/null
+  if sudo gnome-disks & then
+    TERM=ansi whiptail --title "$TITLE" --infobox "\n Disk Manager started successfully!" 19 68
+  else
+    TERM=ansi whiptail --title "$TITLE" --infobox "\n Failed to start Disk Manager!" 19 68
+  fi
   sleep 3
-  sudo gnome-disks &
   exit 0
 fi
 
