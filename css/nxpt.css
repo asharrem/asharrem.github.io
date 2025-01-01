@@ -59,7 +59,7 @@ article aside {
 }
 
 body {
-    background: var(--color-table);
+    background: var(--color-link);
     color: var(--color-text);
     font-family: var(--font-family);
     line-height: var(--line-height);
@@ -79,7 +79,7 @@ header {
 
 main {
     cursor: auto;
-    /* background: var(--color-bg); */
+    background: var(--color-bg);
     margin: 0 auto;
     max-width: var(--width-content);
     padding: 3rem 1rem;
@@ -196,6 +196,12 @@ nav {
     /* margin-bottom: 7rem; */
 }
 
+@media screen and (max-width: 768px) {
+    nav {
+        flex-direction: column;
+    }
+}
+
 nav a {
     color: var(--color-link);
 }
@@ -251,24 +257,6 @@ nav ul li ul::before {
 nav ul li ul li,
 nav ul li ul li a {
     display: block;
-}
-
-@media screen and (max-width: 768px) {
-    nav {
-        flex-direction: column;
-    }
-
-    nav ul li {
-        width: calc(100% - .2rem);
-    }
-
-    nav ul li ul {
-        background: var(--color-link);
-        border: none;
-        box-shadow: none;
-        display: block;
-        position: static;
-    }
 }
 
 /* Typography */
@@ -505,7 +493,6 @@ textarea {
 }
 
 input[type="text"],
-input[type="password"],
 textarea {
     width: calc(100% - 1.6rem);
     background-color: var(--color-bg);
