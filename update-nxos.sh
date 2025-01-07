@@ -164,8 +164,8 @@ TERM=ansi whiptail --title "$TITLE" --infobox "\n Updating Cockpit..." 19 68
 sleep 1
 sudo apt -y -q -o=dpkg::progress-fancy="1" install -t "${VERSION_CODENAME}"-backports cockpit
 
-# display a whiptail progress bar for 90 seconds to accept any key press
-for ((i = 0; i <= 100; i+=5)); do
+# display a whiptail progress bar for 50 seconds to accept any key press
+for ((i = 0; i <= 100; i+=2)); do
     # read any key press 1 second timeout
     read -s -t 1 -n 1 key && break
     echo $i | TERM=ansi whiptail --title "$TITLE" --gauge "Press S to skip New System setup..." 6 60 0
