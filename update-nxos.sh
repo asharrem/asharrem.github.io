@@ -159,11 +159,6 @@ TERM=ansi whiptail --title "$TITLE" --infobox "\n Working Dir is: ${Working_Dir}
 cd "$Working_Dir" || exit 1
 sleep 3
 
-# update cockpit
-TERM=ansi whiptail --title "$TITLE" --infobox "\n Updating Cockpit..." 19 68
-sleep 1
-sudo apt -y -q -o=dpkg::progress-fancy="1" install -t "${VERSION_CODENAME}"-backports cockpit
-
 # display a whiptail progress bar for 50 seconds to accept any key press
 for ((i = 0; i <= 100; i+=2)); do
     # read any key press 1 second timeout
@@ -192,6 +187,11 @@ case $key in
       "14" "Install DS-WSELI-T2/8p PoE Drivers " OFF 3>&1 1>&2 2>&3)
     ;;
   *)
+    # update cockpit
+    TERM=ansi whiptail --title "$TITLE" --infobox "\n Updating Cockpit..." 19 68
+    sleep 1
+    sudo apt -y -q -o=dpkg::progress-fancy="1" install -t "${VERSION_CODENAME}"-backports cockpit
+    # Set default choices
     CHOICES="02 03 04 05 06 09 10 13"
     TERM=ansi whiptail --clear --title "$TITLE" --infobox "\n Starting New System Defaults..." 19 68
     # Create openbox autostart script file reference for disk manager
