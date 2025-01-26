@@ -23,7 +23,7 @@
     --width-card: 285px;
     --width-card-medium: 460px;
     --width-card-wide: 800px;
-    --width-content: 1080px;
+    --width-content: 85%;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -682,4 +682,18 @@ kbd {
     padding: 2px 5px;
     position: relative;
     top: -1px;
+}
+
+ol {
+    counter-reset: item;
+}
+
+li {
+    display: block;
+    /* color: #666666; */
+}
+
+ol>li:before {
+    content: counters(item, ".") ". ";
+    counter-increment: item;
 }
