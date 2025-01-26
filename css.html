@@ -203,9 +203,9 @@
         <fieldset>
           <details open>
             <summary>Image is padded with border</summary>
-          <figure><img src="./images/03_nxos.png" alt="">
-            <figcaption>caption placed here</figcaption>
-          </figure>
+            <figure><img src="./images/03_nxos.png" alt="">
+              <figcaption>caption placed here</figcaption>
+            </figure>
           </details>
         </fieldset>
       </article>
@@ -410,34 +410,32 @@
     <p></p>
     <fieldset name="nav">
       <article>
-        <article>
-          <aside>
-            <dl>
-              <dt><code>nav [ul] [li]</code></dt>
-              <dd>var(--color-bg); menu bar where each &ltul&gt is a flexbox container with justity on</dd>
-              <dt><code>nav [ul] [li] [ul] [li]</code></dt>
-              <dd>var(--color-bg); menu bar sub menu</dd>
-            </dl>
-            <p></p>
-          </aside>
-        </article>
-        <nav>
-          <ul>
-            <li><a href="#">Menu Item 1</a></li>
-            <li>Menu Item 2 &downarrow;
-              <ul>
-                <li><a href="#">Sub Item 1</a></li>
-                <li><a href="#">Sub Item 2</a></li>
-                <li><a href="#">Sub Item 3</a></li>
-              </ul>
-            </li>
-            <li><a href="#">Menu Item 3</a></li>
-          </ul>
-          <ul>
-            <li><a href="#">Login</a></li>
-          </ul>
-        </nav>
+        <aside>
+          <dl>
+            <dt><code>nav [ul] [li]</code></dt>
+            <dd>var(--color-bg); menu bar where each &ltul&gt is a flexbox container with justity on</dd>
+            <dt><code>nav [ul] [li] [ul] [li]</code></dt>
+            <dd>var(--color-bg); menu bar sub menu</dd>
+          </dl>
+          <p></p>
+        </aside>
       </article>
+      <nav>
+        <ul>
+          <li><a href="#">Menu Item 1</a></li>
+          <li>Menu Item 2 &downarrow;
+            <ul>
+              <li><a href="#">Sub Item 1</a></li>
+              <li><a href="#">Sub Item 2</a></li>
+              <li><a href="#">Sub Item 3</a></li>
+            </ul>
+          </li>
+          <li><a href="#">Menu Item 3</a></li>
+        </ul>
+        <ul>
+          <li><a href="#">Login</a></li>
+        </ul>
+      </nav>
     </fieldset>
     <p></p>
     <fieldset name="ol li">
@@ -450,7 +448,21 @@
         </aside>
         <ol>Ordered list
           <li>List item</li>
+          <ol>
+            <li>List item</li>
+          </ol>
           <li>List item</li>
+          <ol>
+            <li>List item</li>
+          </ol>
+          <li>List item</li>
+          <ol>
+            <li>List item</li>
+            <ol>
+              <li>List item</li>
+              <li> List item</li>
+            </ol>
+          </ol>
           <li>List item</li>
         </ol>
       </article>
