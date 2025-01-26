@@ -320,6 +320,11 @@ pre samp {
     white-space: pre-wrap;
 }
 
+pre samp {
+    background-color: var(--color-text);
+    color: var(--color-bg);
+}
+
 small {
     color: var(--color-text-secondary);
 }
