@@ -7,12 +7,12 @@
 			"path": "../nxos"
 		},
 		{
-			"name": "Nx-PowerToys_beta",
-			"path": "../Nx-PowerToys_beta"
-		},
-		{
 			"name": "nxpt.io",
 			"path": "../nxpt.io"
+		},
+		{
+			"name": "Nx-PowerToys_beta",
+			"path": "../Nx-PowerToys_beta"
 		}
 	],
 	"settings": {
