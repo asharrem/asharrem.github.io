@@ -13,26 +13,14 @@
 WebAddress="asharrem.github.io"
 WebHostFiles="https://$WebAddress"
 
-# set tile of whiptail TUI
-TITLE="NxOS Installation Wizard"
-
-# get current OS details
-# shellcheck source=/dev/null
-. /etc/os-release
-
 # set Nx defaults & Hostname Prefix
 NxMajVer="6.0.2"
 NxBuild="40414"
-#
+
 SU_PASS="nxw1tness"
-OsMajorVer="$(echo $VERSION_ID | awk -F. '{print $1}')"
-OsMinorVer="$(echo $VERSION_ID | awk -F. '{print $2}')"
-ServerName="NxOS-${OsMajorVer}-${OsMinorVer}"
-macaddy="0000"
-NxFulVer="$NxMajVer.$NxBuild"
+
 NxUrl="https://updates.networkoptix.com/default"
 NxFilenameTypes="linux64 linux_x64 linux_x64-patch"
-RebootWillHappenAfterFinish=0
 
 ############################################
 
@@ -110,6 +98,19 @@ do
     break
   fi
 done
+
+# get current OS details
+# shellcheck source=/dev/null
+. /etc/os-release
+
+RebootWillHappenAfterFinish=0
+OsMajorVer="$(echo $VERSION_ID | awk -F. '{print $1}')"
+OsMinorVer="$(echo $VERSION_ID | awk -F. '{print $2}')"
+ServerName="NxOS-${OsMajorVer}-${OsMinorVer}"
+NxFulVer="$NxMajVer.$NxBuild"
+
+# set tile of whiptail TUI
+TITLE="NxOS Installation Wizard"
 
 # check if the script has run once & disk manager flag exists. Clean up and start disk manager
 if [ -e /opt/nxos/autostart_disk_manager ]; then
@@ -219,6 +220,7 @@ for CHOICE in $CHOICES; do
   ;;
   # Update Hostname
   "02")
+    macaddy="0000"
     TERM=ansi whiptail --title "$TITLE" --infobox "\n Updating Hostname to MAC address syntax..." 19 68
     sleep 0.5
     # Set Machine Hostname to Last 4 digits of first eth found
