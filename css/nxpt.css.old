@@ -23,7 +23,7 @@
     --width-card: 285px;
     --width-card-medium: 460px;
     --width-card-wide: 800px;
-    --width-content: 1080px;
+    --width-content: 85%;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -449,7 +449,6 @@ form {
     border-radius: var(--border-radius);
     box-shadow: var(--box-shadow) var(--color-shadow);
     display: block;
-    margin: 0 auto;
     max-width: var(--width-content);
     min-width: var(--width-card);
     padding: 1.5rem;
@@ -492,16 +491,10 @@ input[type="range"] {
 input,
 select,
 textarea {
-    border: 1px solid var(--color-text-secondary);
+    border: 1px solid var(--color-bg-secondary);
     border-radius: var(--border-radius);
     margin-bottom: 1rem;
     padding: 0.4rem 0.8rem;
-}
-
-input:hover,
-select:hover,
-textarea:hover {
-    border: 1px solid var(--color-text);
 }
 
 input[type="text"],
@@ -542,10 +535,11 @@ table {
     border: 1px solid var(--color-bg-secondary);
     border-radius: var(--border-radius);
     border-spacing: 0;
-    /* display: inline-block; */
+    display: inline-block;
     max-width: 100%;
+    overflow-x: auto;
     padding: 0;
-    width: 100%;
+    /*white-space: nowrap;*/
 }
 
 table td,
@@ -562,15 +556,7 @@ table thead {
     color: var(--color-bg);
     margin: 0;
     padding: 0;
-    position: sticky;
-    top: 0;
 }
-
-tbody {
-    max-height: 800px;
-    overflow-y: auto;
-}
-
 
 table thead tr:first-child th:first-child {
     border-top-left-radius: var(--border-radius);
@@ -634,8 +620,6 @@ article {
     background-color: var(--color-bg);
     border-radius: var(--border-radius);
     padding: 1rem;
-    max-width: var(--width-content);
-    margin: 0 auto;
 }
 
 article>article {
