@@ -6,6 +6,30 @@
   <link rel="stylesheet" href="css/nxpt.css">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const main = document.querySelector("main");
+      const toc = document.createElement("nav");
+      toc.id = "table-of-contents";
+      toc.innerHTML = "<h2>Table of Contents</h2><ul></ul>";
+      const ul = toc.querySelector("ul");
+
+      document.querySelectorAll("fieldset[name]").forEach(fieldset => {
+        const name = fieldset.getAttribute("name");
+        const li = document.createElement("li");
+        const a = document.createElement("a");
+        a.href = `#${name}`;
+        a.textContent = name;
+        li.appendChild(a);
+        ul.appendChild(li);
+
+        // Add an ID to the fieldset for linking
+        fieldset.id = name;
+      });
+
+      main.insertAdjacentElement("afterbegin", toc);
+    });
+  </script>
 </head>
 <meta charset='UTF-8'>
 <!-- <script src='js/nxpt_script.js'></script> -->
@@ -37,6 +61,7 @@
         <a href="#"><em>&ltem&gtbutton</em></a>
       </article>
     </fieldset>
+    <a href="#top"><b>&uarr;</b></a>
     <p></p>
     <fieldset name="article">
       <article>
@@ -57,6 +82,7 @@
         </article>
       </article>
     </fieldset>
+    <a href="#top"><b>&uarr;</b></a>
     <p></p>
     <fieldset name="article aside">
       <article>
@@ -68,6 +94,7 @@
         </aside>
       </article>
     </fieldset>
+    <a href="#top"><b>&uarr;</b></a>
     <p></p>
     <fieldset name="article fieldset">
       <article>
@@ -84,6 +111,7 @@
         </article>
       </article>
     </fieldset>
+    <a href="#top"><b>&uarr;</b></a>
     <p></p>
     <fieldset name="article>section>header">
       <article>
@@ -102,6 +130,7 @@
         </article>
       </article>
     </fieldset>
+    <a href="#top"><b>&uarr;</b></a>
     <p></p>
     <fieldset name="blockquote">
       <article>
@@ -117,6 +146,7 @@
         </blockquote>
       </article>
     </fieldset>
+    <a href="#top"><b>&uarr;</b></a>
     <p></p>
     <fieldset name="body">
       <article>
@@ -129,6 +159,7 @@
         </aside>
       </article>
     </fieldset>
+    <a href="#top"><b>&uarr;</b></a>
     <p></p>
     <fieldset name="button">
       <article>
@@ -141,6 +172,7 @@
         <button>Default Button</button>
       </article>
     </fieldset>
+    <a href="#top"><b>&uarr;</b></a>
     <p></p>
     <fieldset name="code">
       <article>
@@ -154,6 +186,7 @@
         <code>sudo bash some-command</code>
       </article>
     </fieldset>
+    <a href="#top"><b>&uarr;</b></a>
     <p></p>
     <fieldset name="details">
       <article>
@@ -169,6 +202,7 @@
         </details>
       </article>
     </fieldset>
+    <a href="#top"><b>&uarr;</b></a>
     <p></p>
     <fieldset name="dialog">
       <article>
@@ -180,6 +214,7 @@
         </aside>
       </article>
     </fieldset>
+    <a href="#top"><b>&uarr;</b></a>
     <p></p>
     <fieldset name="div">
       <article>
@@ -191,6 +226,7 @@
         </aside>
       </article>
     </fieldset>
+    <a href="#top"><b>&uarr;</b></a>
     <p></p>
     <fieldset name="fieldset details figure">
       <article>
@@ -210,6 +246,7 @@
         </fieldset>
       </article>
     </fieldset>
+    <a href="#top"><b>&uarr;</b></a>
     <p></p>
     <fieldset name="figure">
       <article>
@@ -224,6 +261,7 @@
         </figure>
       </article>
     </fieldset>
+    <a href="#top"><b>&uarr;</b></a>
     <p></p>
     <fieldset name="footer">
       <article>
@@ -236,6 +274,7 @@
         <footer>I am a footer</footer>
       </article>
     </fieldset>
+    <a href="#top"><b>&uarr;</b></a>
     <p></p>
     <fieldset name="form">
       <article>
@@ -295,6 +334,7 @@
         </form>
       </article>
     </fieldset>
+    <a href="#top"><b>&uarr;</b></a>
     <p></p>
     <fieldset name="h1-6">
       <article>
@@ -312,6 +352,7 @@
         <h6>Heading 6</h6>
       </article>
     </fieldset>
+    <a href="#top"><b>&uarr;</b></a>
     <p></p>
     <fieldset name="header">
       <article>
@@ -324,6 +365,7 @@
         <header>I am a Header</header>
       </article>
     </fieldset>
+    <a href="#top"><b>&uarr;</b></a>
     <p></p>
     <fieldset name="header nav">
       <article>
@@ -359,6 +401,7 @@
         </header>
       </article>
     </fieldset>
+    <a href="#top"><b>&uarr;</b></a>
     <p></p>
     <fieldset name="hr">
       <article>
@@ -371,6 +414,7 @@
         <hr>
       </article>
     </fieldset>
+    <a href="#top"><b>&uarr;</b></a>
     <p></p>
     <fieldset name="kbd">
       <article>
@@ -383,6 +427,7 @@
         <kbd>CTRL</kbd> + <kbd>C</kbd>
       </article>
     </fieldset>
+    <a href="#top"><b>&uarr;</b></a>
     <p></p>
     <p></p>
     <fieldset name="main">
@@ -395,6 +440,7 @@
         </aside>
       </article>
     </fieldset>
+    <a href="#top"><b>&uarr;</b></a>
     <p></p>
     <fieldset name="mark">
       <article>
@@ -407,6 +453,7 @@
         <p>Before <mark>highlighted text</mark> after</p>
       </article>
     </fieldset>
+    <a href="#top"><b>&uarr;</b></a>
     <p></p>
     <fieldset name="nav">
       <article>
@@ -437,6 +484,7 @@
         </ul>
       </nav>
     </fieldset>
+    <a href="#top"><b>&uarr;</b></a>
     <p></p>
     <fieldset name="ol li">
       <article>
@@ -467,6 +515,7 @@
         </ol>
       </article>
     </fieldset>
+    <a href="#top"><b>&uarr;</b></a>
     <p></p>
     <fieldset name="paragraph">
       <article>
@@ -479,6 +528,7 @@
         <p>I am a paragraph</p>
       </article>
     </fieldset>
+    <a href="#top"><b>&uarr;</b></a>
     <p></p>
     <fieldset name="pre">
       <article>
@@ -503,6 +553,7 @@ Computer output block 2
         </samp></pre>
       </article>
     </fieldset>
+    <a href="#top"><b>&uarr;</b></a>
     <p></p>
     <fieldset name="section">
       <article>
@@ -561,6 +612,7 @@ Computer output block 2
         </section>
       </article>
     </fieldset>
+    <a href="#top"><b>&uarr;</b></a>
     <p></p>
     <fieldset name="small">
       <article>
@@ -573,6 +625,7 @@ Computer output block 2
         <small>Small text</small>
       </article>
     </fieldset>
+    <a href="#top"><b>&uarr;</b></a>
     <p></p>
     <fieldset name="sup">
       <article>
@@ -585,6 +638,7 @@ Computer output block 2
         <sup>Content_Example</sup>
       </article>
     </fieldset>
+    <a href="#top"><b>&uarr;</b></a>
     <p></p>
     <fieldset name="table">
       <article>
@@ -630,6 +684,7 @@ Computer output block 2
         </table>
       </article>
     </fieldset>
+    <a href="#top"><b>&uarr;</b></a>
     <p></p>
     <fieldset name="ul">
       <article>
@@ -646,6 +701,7 @@ Computer output block 2
         </ul>
       </article>
     </fieldset>
+    <a href="#top"><b>&uarr;</b></a>
   </main>
   <p>&nbsp;</p>
 </body>
