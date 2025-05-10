@@ -165,6 +165,11 @@ section header {
 }
 
 /* Nav */
+header nav {
+    border-color: var(--color-text);
+    border-style: solid;
+}
+
 header nav,
 nav ul li:hover ul {
     background-color: var(--color-link);
@@ -184,8 +189,6 @@ form nav {
 }
 
 nav {
-    border-color: var(--color-text);
-    border-style: solid;
     border-radius: 0 0 var(--border-radius) var(--border-radius);
     background-color: var(--color-bg);
     /* color: var(--color-link); */
