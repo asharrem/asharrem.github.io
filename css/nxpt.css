@@ -184,6 +184,8 @@ form nav {
 }
 
 nav {
+    border-color: var(--color-text);
+    border-style: solid;
     border-radius: 0 0 var(--border-radius) var(--border-radius);
     background-color: var(--color-bg);
     /* color: var(--color-link); */
