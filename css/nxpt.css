@@ -204,6 +204,7 @@ nav {
 @media screen and (max-width: 768px) {
     nav {
         flex-direction: column;
+        min-width: 100%;
     }
 }
 
