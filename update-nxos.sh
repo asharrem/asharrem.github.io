@@ -170,6 +170,10 @@ done
 case $key in
   # Skip New System setup
   "s" | "S")
+    
+    sudo rm /opt/nxos/autostart_disk_manager
+    sudo rm /opt/nxos/new_install
+
     # Display Checklist (whiptail)
     CHOICES=$(whiptail --title "$TITLE" --separate-output --checklist "Choose options \n" 20 68 13 \
       "01" "Download & Run DWService.net Agent " ON \
