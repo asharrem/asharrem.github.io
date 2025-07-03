@@ -81,6 +81,7 @@ function install_nx {
 
 # =============   main  ================
 
+main() {
 # Get sudo password
 while true
 do
@@ -205,81 +206,74 @@ case $key in
     ;;
 esac
 
-for CHOICE in $CHOICES; do
-  case $CHOICE in
-  # Download & Run DWAgent
-  "01")
-    TERM=ansi whiptail --clear --title "$TITLE" --infobox "\n Getting DWAgent..." 19 68
-    sleep 0.5
-    file_name="https://www.dwservice.net/download/dwagent.sh"
-    if ! download "$file_name"; then
-      TERM=ansi whiptail --clear --title "$TITLE" --infobox "\n Failed to get DWAgent..." 19 68
-      sleep 0.5
-      continue
-    else
-      sudo bash dwagent.sh
-      TERM=ansi whiptail --clear --title "$TITLE" --infobox "\n Finished with DWAgent..." 19 68
-      sleep 0.5
-    fi
-  ;;
-  # Update Hostname
-  "02")
-    macaddy="0000"
-    TERM=ansi whiptail --title "$TITLE" --infobox "\n Updating Hostname to MAC address syntax..." 19 68
-    sleep 0.5
-    # Set Machine Hostname to Last 4 digits of first eth found
-    # reset so we can test for null
-    unset first_eth
-      # shellcheck disable=SC2010
-    first_eth=$(ls /sys/class/net | grep -m1 ^e)
-    if [[ -n "$first_eth" ]]; then
-      # shellcheck disable=SC2002
-      macaddy=$(cat /sys/class/net/"$first_eth"/address | tr -d ':' | grep -o '....$')
-    fi
-    ServerName="${ServerName}-${macaddy}"
-    sudo hostnamectl set-hostname "$ServerName"
-    TERM=ansi whiptail --title "$TITLE" --infobox "\n Hostname = ${ServerName}" 19 68
-    sleep 0.5
+# --- CHOICE HANDLERS ---
 
-    # udpdate hosts file with new ServerName
-    sudo sed -i 's/127.0.1.1	'"${HOSTNAME}"'/127.0.1.1	'"${ServerName}"'/g' /etc/hosts
-    TERM=ansi whiptail --title "$TITLE" --infobox "\n DNS Updated - Reboot will happen after finish." 19 68
-    RebootWillHappenAfterFinish=1
-    sleep 3
-  ;;
+function choice_01 {
+  # Download & Run DWAgent
+  TERM=ansi whiptail --clear --title "$TITLE" --infobox "\n Getting DWAgent..." 19 68
+  sleep 0.5
+  file_name="https://www.dwservice.net/download/dwagent.sh"
+  if ! download "$file_name"; then
+    TERM=ansi whiptail --clear --title "$TITLE" --infobox "\n Failed to get DWAgent..." 19 68
+    sleep 0.5
+    return
+  else
+    sudo bash dwagent.sh
+    TERM=ansi whiptail --clear --title "$TITLE" --infobox "\n Finished with DWAgent..." 19 68
+    sleep 0.5
+  fi
+}
+
+function choice_02 {
+  # Update Hostname
+  macaddy="0000"
+  TERM=ansi whiptail --title "$TITLE" --infobox "\n Updating Hostname to MAC address syntax..." 19 68
+  sleep 0.5
+  unset first_eth
+  first_eth=$(ls /sys/class/net | grep -m1 ^e)
+  if [[ -n "$first_eth" ]]; then
+    macaddy=$(cat /sys/class/net/"$first_eth"/address | tr -d ':' | grep -o '....$')
+  fi
+  ServerName="${ServerName}-${macaddy}"
+  sudo hostnamectl set-hostname "$ServerName"
+  TERM=ansi whiptail --title "$TITLE" --infobox "\n Hostname = ${ServerName}" 19 68
+  sleep 0.5
+  sudo sed -i 's/127.0.1.1	'"${HOSTNAME}"'/127.0.1.1	'"${ServerName}"'/g' /etc/hosts
+  TERM=ansi whiptail --title "$TITLE" --infobox "\n DNS Updated - Reboot will happen after finish." 19 68
+  RebootWillHappenAfterFinish=1
+  sleep 3
+}
+
+function choice_03 {
   # Purge Nx & Google .deb's from Downloads Folder
-  "03")
-    file_name_list="chrome-remote-desktop_current_amd64.deb google-chrome-stable_current_amd64.deb nxwitness-*.deb"
-    for file_name in $file_name_list
-    do
-      TERM=ansi whiptail --title "$TITLE" --infobox "\n Removing $file_name ..." 19 68
-      sleep 0.5
-      rm "$file_name" > /dev/null 2>&1
-    done
-    rm -r "$HOME/.local/share/Network Optix"
-  ;;
+  file_name_list="chrome-remote-desktop_current_amd64.deb google-chrome-stable_current_amd64.deb nxwitness-*.deb"
+  for file_name in $file_name_list
+  do
+    TERM=ansi whiptail --title "$TITLE" --infobox "\n Removing $file_name ..." 19 68
+    sleep 0.5
+    rm "$file_name" > /dev/null 2>&1
+  done
+  rm -r "$HOME/.local/share/Network Optix"
+}
+
+function choice_04 {
   # Download Chrome files if they don't exist, then install them
-  "04")
-    file_name_list="google-chrome-stable_current_amd64.deb chrome-remote-desktop_current_amd64.deb"
-    for file_name in $file_name_list
-    do
-      if ! download "https://dl.google.com/linux/direct/$file_name"; then
-        continue
-      fi
-      if ! install_deb "$file_name"; then
-        continue
-      fi
-    done
- 
-    # Create Chrome Browser Managed Policy - (Parts no longer work ?)
-    file_name="/etc/opt/chrome/policies/managed/nxos.json"
-    if [ ! -f "$file_name" ]; then
-      TERM=ansi whiptail --title "$TITLE" --infobox "\n Setting Chrome Browser Policy..." 19 68
-      sleep 0.5
-      # create file first because tee will not
-      sudo mkdir -p "${file_name%/*}"
-      # use tee to write to file because sudo cat <<EOF is BAD in this context.
-      sudo tee $file_name >/dev/null <<EOF
+  file_name_list="google-chrome-stable_current_amd64.deb chrome-remote-desktop_current_amd64.deb"
+  for file_name in $file_name_list
+  do
+    if ! download "https://dl.google.com/linux/direct/$file_name"; then
+      continue
+    fi
+    if ! install_deb "$file_name"; then
+      continue
+    fi
+  done
+  file_name="/etc/opt/chrome/policies/managed/nxos.json"
+  if [ ! -f "$file_name" ]; then
+    TERM=ansi whiptail --title "$TITLE" --infobox "\n Setting Chrome Browser Policy..." 19 68
+    sleep 0.5
+    sudo mkdir -p "${file_name%/*}"
+    sudo tee $file_name >/dev/null <<EOF
 {
 "distribution": {
   "suppress_first_run_bubble": true,
@@ -292,177 +286,174 @@ for CHOICE in $CHOICES; do
 "custom_chrome_frame": false,
 }
 EOF
-    fi
-  ;;
+  fi
+}
+
+function choice_05 {
   # Install Nx Client
-  "05")
-    install_nx client
-  ;;
-  # Install Nx Sever
-  "06")
-    install_nx server
-    install_nx_server_post_cmd
-  ;;
+  install_nx client
+}
+
+function choice_06 {
+  # Install Nx Server
+  install_nx server
+  install_nx_server_post_cmd
+}
+
+function choice_07 {
   # Download & Install Cockpit Advanced
-  "07")
-    TERM=ansi whiptail --title "$TITLE" --infobox "\n Installing 45drives sharing scripts..." 19 68
-    # sleep 0.5
-    # Needs GPG to add repos
-    sudo apt -y -q -o=dpkg::progress-fancy="1" install gpg zfsutils-linux
-    # advanced file support by 45drives
-    curl -sSL https://repo.45drives.com/setup | sudo bash
-    sudo apt -y -q -o=dpkg::progress-fancy="1" install \
-    cockpit-file-sharing \
-    cockpit-zfs-manager \
-    cockpit-identities \
-    gvfs-backends \
-    gvfs-fuse
-  ;;
-  # Install Camera Plugins - currently only VCA Edge AI 
-  "08")
-    TERM=ansi whiptail --title "$TITLE" --infobox "\n Installing VCA..." 19 68
+  TERM=ansi whiptail --title "$TITLE" --infobox "\n Installing 45drives sharing scripts..." 19 68
+  sudo apt -y -q -o=dpkg::progress-fancy="1" install gpg zfsutils-linux
+  curl -sSL https://repo.45drives.com/setup | sudo bash
+  sudo apt -y -q -o=dpkg::progress-fancy="1" install \
+  cockpit-file-sharing \
+  cockpit-zfs-manager \
+  cockpit-identities \
+  gvfs-backends \
+  gvfs-fuse
+}
+
+function choice_08 {
+  # Install Camera Plugins - currently only VCA Edge AI
+  TERM=ansi whiptail --title "$TITLE" --infobox "\n Installing VCA..." 19 68
+  sleep 0.5
+  file_name="vca/nx/libvca_edge_analytics_plugin.so"
+  if ! download "$WebHostFiles/$file_name"; then
+    TERM=ansi whiptail --title "$TITLE" --infobox "\n Failed..." 19 68
     sleep 0.5
-    file_name="vca/nx/libvca_edge_analytics_plugin.so"
-    if ! download "$WebHostFiles/$file_name"; then
-      TERM=ansi whiptail --title "$TITLE" --infobox "\n Failed..." 19 68
-      sleep 0.5
-    fi
-    sudo cp libvca_edge_analytics_plugin.so /opt/networkoptix/mediaserver/bin/plugins
+  fi
+  sudo cp libvca_edge_analytics_plugin.so /opt/networkoptix/mediaserver/bin/plugins
+  sleep 0.5
+  file_name="vca/nx/vca_models.json"
+  if ! download "$WebHostFiles/$file_name"; then
+    TERM=ansi whiptail --title "$TITLE" --infobox "\n Failed..." 19 68
     sleep 0.5
-    file_name="vca/nx/vca_models.json"
-    if ! download "$WebHostFiles/$file_name"; then
-      TERM=ansi whiptail --title "$TITLE" --infobox "\n Failed..." 19 68
-      sleep 0.5
-    fi
-    sudo cp vca_models.json /opt/networkoptix/mediaserver/bin
-  ;;
-  # Grub mods:
-  "09")
-  # Grub mods: remove startup Splash 
-    TERM=ansi whiptail --title "$TITLE" --infobox "\n Updating Grub..." 19 68
-    sudo sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=\"quiet\ splash\"/GRUB_CMDLINE_LINUX_DEFAULT=\"\"/g" /etc/default/grub
-    TERM=ansi whiptail --title "$TITLE" --infobox "\n Boot Splash turned OFF" 19 68
-    sleep 0.5
-    TERM=ansi whiptail --title "$TITLE" --infobox "\n Applying current freeze fixes..." 19 68
-    sleep 0.5
-    # Create grub.d folder
-    if [ ! -e /etc/default/grub.d ]; then
-      sudo mkdir /etc/default/grub.d
-    fi
-    # Remove any existing NxOS grub settings
-    # Don't care if does not exist
-    sudo rm /etc/default/grub.d/*nxos*.cfg
-    sudo tee /etc/default/grub.d/50_nxos_fix.cfg > /dev/null << EOF
+  fi
+  sudo cp vca_models.json /opt/networkoptix/mediaserver/bin
+}
+
+function choice_09 {
+  # Grub mods: remove startup Splash
+  TERM=ansi whiptail --title "$TITLE" --infobox "\n Updating Grub..." 19 68
+  sudo sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=\"quiet\\ splash\"/GRUB_CMDLINE_LINUX_DEFAULT=\"\"/g" /etc/default/grub
+  TERM=ansi whiptail --title "$TITLE" --infobox "\n Boot Splash turned OFF" 19 68
+  sleep 0.5
+  TERM=ansi whiptail --title "$TITLE" --infobox "\n Applying current freeze fixes..." 19 68
+  sleep 0.5
+  if [ ! -e /etc/default/grub.d ]; then
+    sudo mkdir /etc/default/grub.d
+  fi
+  sudo rm /etc/default/grub.d/*nxos*.cfg
+  sudo tee /etc/default/grub.d/50_nxos_fix.cfg > /dev/null << EOF
 GRUB_CMDLINE_LINUX="$GRUB_CMDLINE_LINUX intel_idle.max_cstate=1 i915.enable_dc=0 ipv6.disable=1 module_blacklist=pinctrl_elkhartlake"
 EOF
-    TERM=ansi whiptail --title "$TITLE" --infobox "\n Updating Grub..." 19 68
-    sudo update-grub
-  ;;
+  TERM=ansi whiptail --title "$TITLE" --infobox "\n Updating Grub..." 19 68
+  sudo update-grub
+}
+
+function choice_10 {
   # Download nxos-default-settings.deb
-  "10")
-    file_name="nxos-default-settings.deb"
-    if ! download "$WebHostFiles/$file_name"; then
-      continue
-    fi
-    sudo apt -y -o DPkg::options::="--force-overwrite" install "./$file_name"
-    # install_deb "$file_name"
-    # remove live cd autologin
-    sudo rm /etc/lightdm/lightdm.conf
-    # fix broken dependancies from arc-theming
-    sudo apt -yf install
-    # clean up old theming from .gtkrc-2.0
-    rm "$HOME/.gtkrc-2.0"
-    # clean up from old nxos versions
-    rm "$HOME/.config/gtk-3.0/settings.ini"
-    rm "$HOME/.config/pcmanfm/default/pcmanfm.conf"
-    rm "$HOME/.config/lxterminal/lxterminal.conf"
-    rm "$HOME/.config/tint2/tint2rc"
-    rm "$HOME/.local/share/applications/NxOS_Getting_Started.desktop"
-    rm "$HOME/.local/share/applications/NxOS_Install_Wizard.desktop"
-    rm "$HOME/.local/share/applications/NxOS_Clock.desktop"
-    rm "$HOME/.config/openbox/menu.xml"
-    rm "$HOME/.config/openbox/rc.xml"
-    rm "$HOME/.config/openbox/autostart"
-    sudo rm -r /etc/skel/
-  ;;
+  file_name="nxos-default-settings.deb"
+  if ! download "$WebHostFiles/$file_name"; then
+    return
+  fi
+  sudo apt -y -o DPkg::options::="--force-overwrite" install "./$file_name"
+  sudo rm /etc/lightdm/lightdm.conf
+  sudo apt -yf install
+  rm "$HOME/.gtkrc-2.0"
+  rm "$HOME/.config/gtk-3.0/settings.ini"
+  rm "$HOME/.config/pcmanfm/default/pcmanfm.conf"
+  rm "$HOME/.config/lxterminal/lxterminal.conf"
+  rm "$HOME/.config/tint2/tint2rc"
+  rm "$HOME/.local/share/applications/NxOS_Getting_Started.desktop"
+  rm "$HOME/.local/share/applications/NxOS_Install_Wizard.desktop"
+  rm "$HOME/.local/share/applications/NxOS_Clock.desktop"
+  rm "$HOME/.config/openbox/menu.xml"
+  rm "$HOME/.config/openbox/rc.xml"
+  rm "$HOME/.config/openbox/autostart"
+  sudo rm -r /etc/skel/
+}
+
+function choice_11 {
   # Uninstall Nx Server & Client
-  "11")
-    unset file_name_list
-    NX_CHOICES=$(whiptail --title "$TITLE" --separate-output --checklist "Choose options" 19 68 2 \
-      "01" "Uninstall Nx Client " ON \
-      "02" "Uninstall Nx Server " ON 3>&1 1>&2 2>&3)
-    for NX_CHOICE in $NX_CHOICES; do
-      case $NX_CHOICE in
-      "01")
-        # Uninstall Nx Client
-       file_name_list="networkoptix-client $file_name_list"
-       rm -r "$HOME/.local/share/Network Optix"
+  unset file_name_list
+  NX_CHOICES=$(whiptail --title "$TITLE" --separate-output --checklist "Choose options" 19 68 2 \
+    "01" "Uninstall Nx Client " ON \
+    "02" "Uninstall Nx Server " ON 3>&1 1>&2 2>&3)
+  for NX_CHOICE in $NX_CHOICES; do
+    case $NX_CHOICE in
+    "01")
+      file_name_list="networkoptix-client $file_name_list"
+      rm -r "$HOME/.local/share/Network Optix"
       ;;
-      "02")
-        # Uninstall Nx Server
-       file_name_list="networkoptix-mediaserver $file_name_list"
+    "02")
+      file_name_list="networkoptix-mediaserver $file_name_list"
       ;;
-      esac
-    done
-    for file_name in $file_name_list
-    do
-      TERM=ansi whiptail --title "$TITLE" --infobox "\n Removing $file_name..." 19 68
-      sleep 0.5
-      if ! sudo dpkg -r "$file_name"; then
-        continue
-      fi
-    done
-  ;;
+    esac
+  done
+  for file_name in $file_name_list
+  do
+    TERM=ansi whiptail --title "$TITLE" --infobox "\n Removing $file_name..." 19 68
+    sleep 0.5
+    if ! sudo dpkg -r "$file_name"; then
+      continue
+    fi
+  done
+}
+
+function choice_12 {
   # Download & Install Specific Nx Client
-  "12")
-    NxMajVer=$(TERM=ansi whiptail --title "$TITLE" --inputbox "\n Install Nx Witness Client\nEnter Nx Major Version eg. 4.2.0" 19 68 3>&1 1>&2 2>&3)      
-    NxBuild=$(TERM=ansi whiptail --title "$TITLE" --inputbox "\n Enter Nx Build Number eg. 32840" 19 68 3>&1 1>&2 2>&3)
-    NxFulVer="$NxMajVer.$NxBuild"
-    # Display Checklist (whiptail)
-    NX_CHOICES=$(whiptail --title "$TITLE" --separate-output --checklist "Choose options" 19 68 2 \
-      "01" "Install specific Nx Client" ON \
-      "02" "Install specific Nx Server" ON 3>&1 1>&2 2>&3)
-    for NX_CHOICE in $NX_CHOICES; do
-      case $NX_CHOICE in
-      "01")
-        # Install Nx Client - specific version
-        install_nx client
+  NxMajVer=$(TERM=ansi whiptail --title "$TITLE" --inputbox "\n Install Nx Witness Client\nEnter Nx Major Version eg. 4.2.0" 19 68 3>&1 1>&2 2>&3)      
+  NxBuild=$(TERM=ansi whiptail --title "$TITLE" --inputbox "\n Enter Nx Build Number eg. 32840" 19 68 3>&1 1>&2 2>&3)
+  NxFulVer="$NxMajVer.$NxBuild"
+  NX_CHOICES=$(whiptail --title "$TITLE" --separate-output --checklist "Choose options" 19 68 2 \
+    "01" "Install specific Nx Client" ON \
+    "02" "Install specific Nx Server" ON 3>&1 1>&2 2>&3)
+  for NX_CHOICE in $NX_CHOICES; do
+    case $NX_CHOICE in
+    "01")
+      install_nx client
       ;;
-      "02")
-        # Install Nx Server - specific version
-        install_nx server
-        install_nx_server_post_cmd
-        ;;
-      esac
-    done
-  ;;
+    "02")
+      install_nx server
+      install_nx_server_post_cmd
+      ;;
+    esac
+  done
+}
+
+function choice_13 {
   # Run updates
-  "13")
-    TERM=ansi whiptail --clear --title "$TITLE" --infobox "\n Applying System Updates..." 19 68
-    sleep 0.5
-    sudo apt -y -q -o=DPkg::options::="--force-overwrite" install libgtk-3-0
-    sudo apt -y -q -o=dpkg::progress-fancy="1" dist-upgrade
-    TERM=ansi whiptail --clear --title "$TITLE" --infobox "\n Cleaning System..." 19 68
-    sleep 0.5
-    sudo apt -y -q -o=dpkg::progress-fancy="1" autoremove
-  ;;
+  TERM=ansi whiptail --clear --title "$TITLE" --infobox "\n Applying System Updates..." 19 68
+  sleep 0.5
+  sudo apt -y -q -o=DPkg::options::="--force-overwrite" install libgtk-3-0
+  sudo apt -y -q -o=dpkg::progress-fancy="1" dist-upgrade
+  TERM=ansi whiptail --clear --title "$TITLE" --infobox "\n Cleaning System..." 19 68
+  sleep 0.5
+  sudo apt -y -q -o=dpkg::progress-fancy="1" autoremove
+}
+
+function choice_14 {
   # Install DS-WSELI Workstation PoE Drivers
-  "14")
-    file_name="ds-wseli-poe.deb"
-    if ! download "$WebHostFiles/$file_name"; then
-      continue
-    fi
-    if ! install_deb "$file_name"; then
-      continue
-    fi
-  ;;
-  # Selection out of bounds
-  *)
+  file_name="ds-wseli-poe.deb"
+  if ! download "$WebHostFiles/$file_name"; then
+    return
+  fi
+  if ! install_deb "$file_name"; then
+    return
+  fi
+}
+
+for CHOICE in $CHOICES; do
+  func="choice_${CHOICE}"
+  if declare -f "$func" > /dev/null; then
+    $func
+  else
     echo "Unsupported item $CHOICE!" >&2
     break
-  ;;
-  esac
+  fi
 done
+
 if [ "$RebootWillHappenAfterFinish" == "1" ]; then
   # display a whiptail progress bar for 10 seconds to accept any key press
   unset key
@@ -485,3 +476,6 @@ fi
 TERM=ansi whiptail --title "$TITLE" --infobox "\n Wizard Finished!!!" 8 68
 sleep 1
 exit 0
+}
+
+main "$@"
