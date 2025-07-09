@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# shellcheck disable=SC2317
+# Functions are called dynamically via $func mechanism
+
 ############################################
 # This script is for post install of NxOS
 # Automatically run at fist boot or
@@ -371,7 +374,7 @@ function choice_10 {
   rm "$HOME/.config/openbox/menu.xml"
   rm "$HOME/.config/openbox/rc.xml"
   rm "$HOME/.config/openbox/autostart"
-  sudo rm -r /etc/skel/
+  sudo rm /etc/lightdm/lightdm.conf
 }
 
 function choice_11 {
