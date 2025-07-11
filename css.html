@@ -127,7 +127,7 @@
         <article>
           <section>
             <header>
-              <h3>A title bar best enclosed in a &lt;H1-3&gt;</h3>
+              <h3>A title bar best enclosed in a &ltH1-3&gt;</h3>
             </header>
           </section>
         </article>
@@ -209,6 +209,20 @@
             <dd>Popup dialog</dd>
           </dl>
         </aside>
+        <button id="showDialogBtn">Show Dialog</button>
+        <dialog id="exampleDialog">
+          <form method="dialog">
+            <p>This is a dialog example.</p>
+            <button id="closeDialogBtn">Close</button>
+          </form>
+        </dialog>
+        <script>
+          const dialog = document.getElementById('exampleDialog');
+          const showBtn = document.getElementById('showDialogBtn');
+          const closeBtn = document.getElementById('closeDialogBtn');
+          showBtn.addEventListener('click', () => dialog.showModal());
+          closeBtn.addEventListener('click', () => dialog.close());
+        </script>
       </article>
     </fieldset>
     <p></p>
@@ -284,6 +298,10 @@
             <!-- <legend>Legend</legend> -->
             <label>Textbox inside label element - pre<input type="text" value="Disabled textbox" disabled></label>
             <label><input type="text" value="Enabled textbox">Textbox inside label element - post</label>
+            <label>Password inside label element - pre<input type="password" value="password"></label>
+            <label><input type="password" value="password">Password inside label element - post</label>
+            <label>Number inside label element - pre<input type="number" value="42"></label>
+            <label><input type="number" value="42">Number inside label element - post</label>
           </fieldset>
           <fieldset>
             <label><input type="radio">Radio inside label element - post</label>

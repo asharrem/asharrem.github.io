@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NxPT CSS Showcase</title>
+  <link rel="stylesheet" href="css/nxpt.css">
+</head>
+<body>
+  <main>
+    <header>
+      <nav>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+        <ul>
+          <li><a href="#login">Login</a></li>
+        </ul>
+      </nav>
+      <h1 id="home">NxPT CSS Showcase</h1>
+      <p>Demonstrating semantic HTML elements styled by nxpt.css</p>
+    </header>
+    <section id="features">
+      <header>
+        <h2>Features</h2>
+      </header>
+      <article>
+        <header><h3>Semantic Elements</h3></header>
+        <p>This page uses only semantic HTML elements. No classes or ids are used for styling, only for navigation or accessibility.</p>
+        <aside>
+          <p>Aside: This is a callout using the <code>&lt;aside&gt;</code> element.</p>
+        </aside>
+      </article>
+      <article>
+        <header><h3>Lists</h3></header>
+        <ul>
+          <li>Unordered list item 1</li>
+          <li>Unordered list item 2</li>
+        </ul>
+        <ol>
+          <li>Ordered list item 1</li>
+          <li>Ordered list item 2</li>
+        </ol>
+      </article>
+      <article>
+        <header><h3>Blockquote</h3></header>
+        <blockquote>
+          "This is a blockquote example. NxPT CSS makes it look great!"
+          <footer>— CSS Enthusiast</footer>
+        </blockquote>
+      </article>
+      <article>
+        <header><h3>Table</h3></header>
+        <table>
+          <thead>
+            <tr><th>Feature</th><th>Description</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Semantic</td><td>Uses only semantic HTML</td></tr>
+            <tr><td>Classless</td><td>No classes required for styling</td></tr>
+            <tr><td>Responsive</td><td>Looks good on all devices</td></tr>
+          </tbody>
+        </table>
+      </article>
+    </section>
+    <section id="about">
+      <header>
+        <h2>About</h2>
+      </header>
+      <article>
+        <header><h3>Images &amp; Figures</h3></header>
+        <figure>
+          <img src="images/NxPowertoys_logo_white.svg" alt="NxPT Logo" width="120">
+          <figcaption>NxPT Logo in a &lt;figure&gt;</figcaption>
+        </figure>
+      </article>
+      <article>
+        <header><h3>Form Example</h3></header>
+        <form>
+          <header>Contact Us</header>
+          <fieldset>
+            <label>Name <input type="text" placeholder="Your name"></label>
+            <label>Email <input type="email" placeholder="you@example.com"></label>
+            <label>Password <input type="password" placeholder="Password"></label>
+            <label>Number <input type="number" value="1"></label>
+            <label>Date <input type="date"></label>
+            <label>Color <input type="color"></label>
+            <label>Message <textarea placeholder="Your message"></textarea></label>
+          </fieldset>
+          <fieldset>
+            <label><input type="checkbox"> Subscribe to newsletter</label>
+            <label><input type="radio" name="contact" checked> Email</label>
+            <label><input type="radio" name="contact"> Phone</label>
+          </fieldset>
+          <input type="submit" value="Send">
+          <input type="reset" value="Reset">
+        </form>
+      </article>
+      <article>
+        <header><h3>Details &amp; Summary</h3></header>
+        <details>
+          <summary>Click to expand more info</summary>
+          <p>This is hidden content inside a <code>&lt;details&gt;</code> element.</p>
+        </details>
+      </article>
+      <article>
+        <header><h3>Code &amp; Keyboard</h3></header>
+        <p>Inline code: <code>npm install</code></p>
+        <p>Keyboard keys: <kbd>Ctrl</kbd> + <kbd>C</kbd></p>
+        <pre><code>function hello() {
+  console.log('Hello, world!');
+}</code></pre>
+      </article>
+    </section>
+    <section id="contact">
+      <header>
+        <h2>Contact</h2>
+      </header>
+      <article>
+        <header><h3>Dialog Example</h3></header>
+        <button id="showDialogBtn">Show Dialog</button>
+        <dialog id="exampleDialog">
+          <form method="dialog">
+            <p>This is a dialog example.</p>
+            <button id="closeDialogBtn">Close</button>
+          </form>
+        </dialog>
+        <script>
+          const dialog = document.getElementById('exampleDialog');
+          const showBtn = document.getElementById('showDialogBtn');
+          const closeBtn = document.getElementById('closeDialogBtn');
+          showBtn.addEventListener('click', () => dialog.showModal());
+          closeBtn.addEventListener('click', () => dialog.close());
+        </script>
+      </article>
+    </section>
+  </main>
+  <footer>
+    <nav>
+      <ul>
+        <li>&copy; Nx Powertoys 2024</li>
+        <li><a href="http://asharrem.github.io" target="_blank" rel="noopener noreferrer">asharrem &nearrow;</a></li>
+        <li><a href="http://cujonz.github.io" target="_blank" rel="noopener noreferrer">cujonz &nearr;</a></li>
+      </ul>
+    </nav>
+  </footer>
+</body>
+</html> 

@@ -510,7 +510,7 @@ textarea:hover {
     border: 1px solid var(--color-text);
 }
 
-input[type="text"],
+input:not([type="button"]):not([type="submit"]):not([type="reset"]):not([type="hidden"]),
 textarea {
     width: calc(100% - 1.6rem);
     background-color: var(--color-bg);
