@@ -23,18 +23,18 @@
       <h1 id="home">NxPT CSS Showcase</h1>
       <p>Demonstrating semantic HTML elements styled by nxpt.css</p>
     </header>
-    <section id="features">
+    <article id="features">
       <header>
         <h2>Features</h2>
       </header>
-      <article>
+      <section>
         <header><h3>Semantic Elements</h3></header>
         <p>This page uses only semantic HTML elements. No classes or ids are used for styling, only for navigation or accessibility.</p>
         <aside>
           <p>Aside: This is a callout using the <code>&lt;aside&gt;</code> element.</p>
         </aside>
-      </article>
-      <article>
+      </section>
+      <section>
         <header><h3>Lists</h3></header>
         <ul>
           <li>Unordered list item 1</li>
@@ -44,15 +44,15 @@
           <li>Ordered list item 1</li>
           <li>Ordered list item 2</li>
         </ol>
-      </article>
-      <article>
+      </section>
+      <section>
         <header><h3>Blockquote</h3></header>
         <blockquote>
           "This is a blockquote example. NxPT CSS makes it look great!"
           <footer>— CSS Enthusiast</footer>
         </blockquote>
-      </article>
-      <article>
+      </section>
+      <section>
         <header><h3>Table</h3></header>
         <table>
           <thead>
@@ -64,20 +64,20 @@
             <tr><td>Responsive</td><td>Looks good on all devices</td></tr>
           </tbody>
         </table>
-      </article>
-    </section>
-    <section id="about">
+      </section>
+    </article>
+    <article id="about">
       <header>
         <h2>About</h2>
       </header>
-      <article>
+      <section>
         <header><h3>Images &amp; Figures</h3></header>
         <figure>
           <img src="images/NxPowertoys_logo_white.svg" alt="NxPT Logo" width="120">
           <figcaption>NxPT Logo in a &lt;figure&gt;</figcaption>
         </figure>
-      </article>
-      <article>
+      </section>
+      <section>
         <header><h3>Form Example</h3></header>
         <form>
           <header>Contact Us</header>
@@ -98,28 +98,28 @@
           <input type="submit" value="Send">
           <input type="reset" value="Reset">
         </form>
-      </article>
-      <article>
+      </section>
+      <section>
         <header><h3>Details &amp; Summary</h3></header>
         <details>
           <summary>Click to expand more info</summary>
           <p>This is hidden content inside a <code>&lt;details&gt;</code> element.</p>
         </details>
-      </article>
-      <article>
+      </section>
+      <section>
         <header><h3>Code &amp; Keyboard</h3></header>
         <p>Inline code: <code>npm install</code></p>
         <p>Keyboard keys: <kbd>Ctrl</kbd> + <kbd>C</kbd></p>
         <pre><code>function hello() {
   console.log('Hello, world!');
 }</code></pre>
-      </article>
-    </section>
-    <section id="contact">
+      </section>
+    </article>
+    <article id="contact">
       <header>
         <h2>Contact</h2>
       </header>
-      <article>
+      <section>
         <header><h3>Dialog Example</h3></header>
         <button id="showDialogBtn">Show Dialog</button>
         <dialog id="exampleDialog">
@@ -135,8 +135,8 @@
           showBtn.addEventListener('click', () => dialog.showModal());
           closeBtn.addEventListener('click', () => dialog.close());
         </script>
-      </article>
-    </section>
+      </section>
+    </article>
   </main>
   <footer>
     <nav>
