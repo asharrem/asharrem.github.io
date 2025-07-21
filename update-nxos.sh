@@ -17,8 +17,8 @@ WebAddress="asharrem.github.io"
 WebHostFiles="https://$WebAddress"
 
 # set Nx defaults & Hostname Prefix
-NxMajVer="6.0.3"
-NxBuild="40736"
+NxMajVer="6.0.5"
+NxBuild="41290"
 
 SU_PASS="nxw1tness"
 
