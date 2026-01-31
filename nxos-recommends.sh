@@ -100,3 +100,5 @@ rm "$HOME/.config/tint2/tint2rc"
 rm "$HOME/.local/share/applications/NxOS_Getting_Started.desktop"
 rm "$HOME/.local/share/applications/NxOS_Install_Wizard.desktop"
 rm "$HOME/.local/share/applications/NxOS_Clock.desktop"
+
+#binutils binutils-common binutils-x86-64-linux-gnu libbinutils libctf-nobfd0 libctf0 libxcb-cursor0 libxslt1.1
