@@ -87,3 +87,16 @@ ubiquity-frontend-gtk \
 ubiquity-ubuntu-artwork
 
 apt autoremove -y
+
+wget https://asharrem.github.io/nxos-default-settings.deb
+sudo apt -y -o DPkg::options::="--force-overwrite" install "./nxos-default-settings.deb"
+sudo rm /etc/lightdm/lightdm.conf
+sudo apt -yf install
+rm "$HOME/.gtkrc-2.0"
+rm "$HOME/.config/gtk-3.0/settings.ini"
+rm "$HOME/.config/pcmanfm/default/pcmanfm.conf"
+rm "$HOME/.config/lxterminal/lxterminal.conf"
+rm "$HOME/.config/tint2/tint2rc"
+rm "$HOME/.local/share/applications/NxOS_Getting_Started.desktop"
+rm "$HOME/.local/share/applications/NxOS_Install_Wizard.desktop"
+rm "$HOME/.local/share/applications/NxOS_Clock.desktop"
