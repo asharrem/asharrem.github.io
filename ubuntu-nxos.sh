@@ -1,6 +1,11 @@
 #!/bin/bash
 
-apt install -y --no-install-recommends \
+# remove ubuntu (variants)desktop
+sudo apt remove -y -- \
+  *ubuntu-desktop
+
+# install nxos packages
+sudo apt install -y --no-install-recommends \
 arandr \
 arc-theme \
 arp-scan \
@@ -80,14 +85,9 @@ xorg \
 xserver-xorg-video-all \
 xserver-xorg-video-intel
 
-apt remove -y \
-ubiquity \
-ubiquity-casper \
-ubiquity-frontend-gtk \
-ubiquity-ubuntu-artwork
+sudo apt autoremove -y
 
-apt autoremove -y
-
+# download, install & cleanup nxos-default-settings
 wget https://asharrem.github.io/nxos-default-settings.deb
 sudo apt -y -o DPkg::options::="--force-overwrite" install "./nxos-default-settings.deb"
 sudo rm /etc/lightdm/lightdm.conf
@@ -101,4 +101,8 @@ rm "$HOME/.local/share/applications/NxOS_Getting_Started.desktop"
 rm "$HOME/.local/share/applications/NxOS_Install_Wizard.desktop"
 rm "$HOME/.local/share/applications/NxOS_Clock.desktop"
 
+
+sudo sudo apt update && sudo apt upgrade -y
+
+# Nx 6.1 depends
 #binutils binutils-common binutils-x86-64-linux-gnu libbinutils libctf-nobfd0 libctf0 libxcb-cursor0 libxslt1.1
