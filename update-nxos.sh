@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# shellcheck disable=SC2317
-# Functions are called dynamically via $func mechanism
+# shellcheck disable=SC2317,SC2329
+# Functions are called dynamically via $func mechanism (choice_01 .. choice_14)
 
 ############################################
 # This script is for post install of NxOS
@@ -148,17 +148,30 @@ if ! command -v gdebi &> /dev/null; then
   sudo apt -y -q -o=dpkg::progress-fancy="1" install gdebi-core
 fi
 
-# set working dir to $HOME/Downloads or ram drive
-if [[ -d $HOME/Downloads ]]; then
-  Working_Dir="$HOME/Downloads"
-else
+# set working dir: when root use /dev/shm or /tmp (no ~/Downloads); else use ~/Downloads or ram/tmp
+if [[ $EUID -eq 0 ]]; then
+  # Running as root — ~/Downloads often doesn't exist; use ram or /tmp
   if [[ -d /dev/shm ]]; then
     Working_Dir="/dev/shm"
+  elif [[ -d /tmp ]]; then
+    Working_Dir="/tmp"
   else
     TERM=ansi whiptail --title "$TITLE" --infobox "\n Unable to set Working Dir...Aborting" 8 68
     sleep 3
     exit 1
-  fi  
+  fi
+elif [[ -n "$HOME" && -d "$HOME/Downloads" ]]; then
+  Working_Dir="$HOME/Downloads"
+else
+  if [[ -d /dev/shm ]]; then
+    Working_Dir="/dev/shm"
+  elif [[ -d /tmp ]]; then
+    Working_Dir="/tmp"
+  else
+    TERM=ansi whiptail --title "$TITLE" --infobox "\n Unable to set Working Dir...Aborting" 8 68
+    sleep 3
+    exit 1
+  fi
 fi
 TERM=ansi whiptail --title "$TITLE" --infobox "\n Working Dir is: ${Working_Dir}..." 8 68
 cd "$Working_Dir" || exit 1
@@ -233,7 +246,13 @@ function choice_02 {
   TERM=ansi whiptail --title "$TITLE" --infobox "\n Updating Hostname to MAC address syntax..." 19 68
   sleep 0.5
   unset first_eth
-  first_eth=$(ls /sys/class/net | grep -m1 ^e)
+  for iface in /sys/class/net/*; do
+    [[ -d "$iface" ]] || continue
+    if [[ $(basename "$iface") == e* ]]; then
+      first_eth=$(basename "$iface")
+      break
+    fi
+  done
   if [[ -n "$first_eth" ]]; then
     macaddy=$(cat /sys/class/net/"$first_eth"/address | tr -d ':' | grep -o '....$')
   fi
