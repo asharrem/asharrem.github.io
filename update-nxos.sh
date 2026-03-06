@@ -204,7 +204,7 @@ case $key in
       "05" "Download & Install Nx Client ${NxMajVer}.${NxBuild} " OFF \
       "06" "Download & Install Nx Server ${NxMajVer}.${NxBuild} " OFF \
       "07" "Install Cockpit Advanced File Sharing (NAS) " OFF \
-      "08" "Install Camera Plugins (VCA) " OFF \
+      "08" "Install Camera Plugins" OFF \
       "09" "Debug - Freeze Fix " OFF \
       "10" "Update NxOS Defaults " OFF \
       "11" "Un-Install Nx Witness Server & Client " OFF \
