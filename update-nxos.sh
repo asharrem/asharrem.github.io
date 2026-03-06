@@ -25,6 +25,10 @@ SU_PASS="nxw1tness"
 NxUrl="https://updates.networkoptix.com/default"
 NxFilenameTypes="linux64 linux_x64 linux_x64-patch"
 
+NxBinDir="/opt/networkoptix/mediaserver/bin"
+NxPluginsDir="${NxBinDir}/plugins"
+NxPluginsOptional="${NxBinDir}/plugins_optional"
+
 ############################################
 
 # wget url($1)
@@ -336,22 +340,87 @@ function choice_07 {
 }
 
 function choice_08 {
-  # Install Camera Plugins - currently only VCA Edge AI
-  TERM=ansi whiptail --title "$TITLE" --infobox "\n Installing VCA..." 19 68
-  sleep 0.5
-  file_name="vca/nx/libvca_edge_analytics_plugin.so"
-  if ! download "$WebHostFiles/$file_name"; then
-    TERM=ansi whiptail --title "$TITLE" --infobox "\n Failed..." 19 68
-    sleep 0.5
+  # Install Camera Plugins - multiple vendors from nx_plugins
+  PLUGIN_CHOICES=$(whiptail --title "$TITLE" --separate-output --checklist "Choose plugin vendors to install:" 20 68 8 \
+    "vca" "VCA Edge AI" OFF \
+    "provision" "Provision" OFF \
+    "milesight" "Milesight Analytics" OFF 3>&1 1>&2 2>&3)
+  PLUGINS_INSTALLED=0
+  for PLUGIN in $PLUGIN_CHOICES; do
+    case $PLUGIN in
+      vca)
+        TERM=ansi whiptail --title "$TITLE" --infobox "\n Installing VCA..." 19 68
+        sleep 0.5
+        file_name="nx_plugins/vca/libvca_edge_analytics_plugin.so"
+        if ! download "$WebHostFiles/$file_name"; then
+          TERM=ansi whiptail --title "$TITLE" --infobox "\n Failed to download VCA plugin..." 19 68
+          sleep 2
+          continue
+        fi
+        sudo cp libvca_edge_analytics_plugin.so "$NxPluginsDir"
+        sleep 0.5
+        file_name="nx_plugins/vca/vca_models.json"
+        if ! download "$WebHostFiles/$file_name"; then
+          TERM=ansi whiptail --title "$TITLE" --infobox "\n Failed to download VCA models..." 19 68
+          sleep 2
+          continue
+        fi
+        sudo cp vca_models.json "$NxBinDir"
+        PLUGINS_INSTALLED=1
+        TERM=ansi whiptail --title "$TITLE" --infobox "\n VCA installed successfully." 19 68
+        sleep 1
+        ;;
+      provision)
+        TERM=ansi whiptail --title "$TITLE" --infobox "\n Installing Provision..." 19 68
+        sleep 0.5
+        file_name="nx_plugins/provision/libprovision_isr_analytics_plugin.so"
+        if ! download "$WebHostFiles/$file_name"; then
+          TERM=ansi whiptail --title "$TITLE" --infobox "\n Failed to download Provision plugin..." 19 68
+          sleep 2
+          continue
+        fi
+        sudo cp libprovision_isr_analytics_plugin.so "$NxPluginsDir"
+        PLUGINS_INSTALLED=1
+        TERM=ansi whiptail --title "$TITLE" --infobox "\n Provision installed successfully." 19 68
+        sleep 1
+        ;;
+      milesight)
+        TERM=ansi whiptail --title "$TITLE" --infobox "\n Installing Milesight Analytics..." 19 68
+        sleep 0.5
+        rm -rf milesight_analytics_plugin
+        MS_FILES="libmilesight_analytics_plugin.so libMSBase.so libMSRTSP.so"
+        for f in $MS_FILES; do
+          if ! wget -q -P milesight_analytics_plugin "$WebHostFiles/nx_plugins/milesight/milesight_analytics_plugin/$f"; then
+            TERM=ansi whiptail --title "$TITLE" --infobox "\n Failed to download Milesight $f..." 19 68
+            sleep 2
+            continue 2
+          fi
+        done
+        if [[ -d "$NxPluginsDir/milesight_analytics_plugin" ]]; then
+          sudo rm -rf "$NxPluginsDir/milesight_analytics_plugin"
+        fi
+        if [[ -f "$NxPluginsDir/libmilesight_analytics_plugin.so" ]]; then
+          if whiptail --title "$TITLE" --yesno "\n Detected original Milesight v1.0.1 plugin.\nCoexistence may affect performance.\nMove it to plugins_optional?" 12 68; then
+            sudo mkdir -p "$NxPluginsOptional"
+            sudo mv "$NxPluginsDir/libmilesight_analytics_plugin.so" "$NxPluginsOptional/"
+          fi
+        fi
+        sudo mkdir -p "$NxPluginsDir/milesight_analytics_plugin"
+        sudo cp milesight_analytics_plugin/* "$NxPluginsDir/milesight_analytics_plugin/"
+        rm -rf milesight_analytics_plugin
+        PLUGINS_INSTALLED=1
+        TERM=ansi whiptail --title "$TITLE" --infobox "\n Milesight installed successfully." 19 68
+        sleep 1
+        ;;
+      *)
+        TERM=ansi whiptail --title "$TITLE" --infobox "\n Unknown plugin: $PLUGIN" 8 68
+        sleep 2
+        ;;
+    esac
+  done
+  if [[ "$PLUGINS_INSTALLED" -eq 1 ]]; then
+    TERM=ansi whiptail --title "$TITLE" --msgbox "\n Plugin(s) installed.\n\nPlease restart Network Optix Media Server manually when ready:\n  sudo systemctl restart networkoptix-mediaserver" 12 68
   fi
-  sudo cp libvca_edge_analytics_plugin.so /opt/networkoptix/mediaserver/bin/plugins
-  sleep 0.5
-  file_name="vca/nx/vca_models.json"
-  if ! download "$WebHostFiles/$file_name"; then
-    TERM=ansi whiptail --title "$TITLE" --infobox "\n Failed..." 19 68
-    sleep 0.5
-  fi
-  sudo cp vca_models.json /opt/networkoptix/mediaserver/bin
 }
 
 function choice_09 {
