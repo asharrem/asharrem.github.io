@@ -37,8 +37,8 @@ function download {
   file_name="$(basename -- "$1")"
   TERM=ansi whiptail --title "$TITLE" --infobox "\n Downloading $file_name..." 19 68
   sleep 3.5
-  # only download & overwrite newer file - quietly
-  if ! wget -N -q --show-progress "$1"; then
+  # download and overwrite existing file if present
+  if ! wget -q --show-progress -O "$file_name" "$1"; then
     # Download failed
     TERM=ansi whiptail --title "$TITLE" --infobox "\n Downloading $file_name failed!" 19 68
     sleep 3
@@ -152,30 +152,17 @@ if ! command -v gdebi &> /dev/null; then
   sudo apt -y -q -o=dpkg::progress-fancy="1" install gdebi-core
 fi
 
-# set working dir: when root use /dev/shm or /tmp (no ~/Downloads); else use ~/Downloads or ram/tmp
-if [[ $EUID -eq 0 ]]; then
-  # Running as root — ~/Downloads often doesn't exist; use ram or /tmp
-  if [[ -d /dev/shm ]]; then
-    Working_Dir="/dev/shm"
-  elif [[ -d /tmp ]]; then
-    Working_Dir="/tmp"
-  else
-    TERM=ansi whiptail --title "$TITLE" --infobox "\n Unable to set Working Dir...Aborting" 8 68
-    sleep 3
-    exit 1
-  fi
-elif [[ -n "$HOME" && -d "$HOME/Downloads" ]]; then
+# set working dir: use ~/Downloads if it exists and is writable, else fallback to tmp (portable across root/non-root)
+if [[ -n "$HOME" && -d "$HOME/Downloads" && -w "$HOME/Downloads" ]]; then
   Working_Dir="$HOME/Downloads"
+elif [[ -d /dev/shm ]]; then
+  Working_Dir="/dev/shm"
+elif [[ -d /tmp ]]; then
+  Working_Dir="/tmp"
 else
-  if [[ -d /dev/shm ]]; then
-    Working_Dir="/dev/shm"
-  elif [[ -d /tmp ]]; then
-    Working_Dir="/tmp"
-  else
-    TERM=ansi whiptail --title "$TITLE" --infobox "\n Unable to set Working Dir...Aborting" 8 68
-    sleep 3
-    exit 1
-  fi
+  TERM=ansi whiptail --title "$TITLE" --infobox "\n Unable to set Working Dir...Aborting" 8 68
+  sleep 3
+  exit 1
 fi
 TERM=ansi whiptail --title "$TITLE" --infobox "\n Working Dir is: ${Working_Dir}..." 8 68
 cd "$Working_Dir" || exit 1
@@ -390,7 +377,8 @@ function choice_08 {
         rm -rf milesight_analytics_plugin
         MS_FILES="libmilesight_analytics_plugin.so libMSBase.so libMSRTSP.so"
         for f in $MS_FILES; do
-          if ! wget -q -P milesight_analytics_plugin "$WebHostFiles/nx_plugins/milesight/milesight_analytics_plugin/$f"; then
+          mkdir -p milesight_analytics_plugin
+          if ! wget -q --show-progress -O "milesight_analytics_plugin/$f" "$WebHostFiles/nx_plugins/milesight/milesight_analytics_plugin/$f"; then
             TERM=ansi whiptail --title "$TITLE" --infobox "\n Failed to download Milesight $f..." 19 68
             sleep 2
             continue 2
