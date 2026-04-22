@@ -1,0 +1,55 @@
+The impact on a minimum wage earner is perhaps the most critical "Proof of Concept" for the 20/7 model. To ensure this policy is fair, we have to look at the interaction between the **removal of income tax** and the **Welfare/Minimum Wage Gross-Up.**
+
+As of 2026, the New Zealand minimum wage is approximately **$24.50 per hour**. For a full-time worker (40 hours/week), the shift looks like this:
+
+### 1. The Income Math (The "Weekly Winfall")
+
+Under the current system, a minimum wage earner is taxed at 10.5% for the first $15,600 and 17.5% for the remainder. 
+
+| Metric | Current System (Weekly) | The 20/7 Model (Weekly) |
+| :--- | :--- | :--- |
+| **Gross Pay (40 hrs)** | $980.00 | $980.00 |
+| **Income Tax (PAYE)** | ($145.00) | $0.00 |
+| **Take-Home Pay** | **$835.00** | **$980.00** |
+| **Net Weekly Increase** | - | **+$145.00** |
+
+**The Result:** The worker receives an immediate **17% increase** in their weekly "cash-in-hand."
+
+---
+
+### 2. The Cost of Living Offset
+Because shelf prices are expected to rise by **14%** (due to the 20% GST and the 7% B2B pass-through), we must calculate if that $145 extra covers the hike.
+
+* **Current Weekly Spend:** If the worker spends their entire $835 on rent, food, and transport.
+* **New Cost for Same Goods:** $835 + 14% = **$951.90**.
+* **The Surplus:** $980 (New Pay) - $951.90 (New Cost) = **+$28.10 per week.**
+
+**Verdict:** Even without a wage increase, the minimum wage earner is **better off by roughly $1,460 per year.**
+
+
+
+---
+
+### 3. The "Gross-Up" Protection
+The 20/7 policy includes a mandatory **15% Gross-Up** for all government transfers (Working for Families, Accommodation Supplement, and Student Allowances).
+
+* **Scenario:** A single parent on minimum wage also receives $200/week in Working for Families tax credits.
+* **The Adjustment:** Under 20/7, that $200 is "Grossed Up" to **$230**.
+* **The Impact:** This extra $30 is pure "inflation protection," ensuring that the 20% GST doesn't erode the support they rely on for essentials like housing and childcare.
+
+---
+
+### 4. Psychological & Economic Benefits for Low Earners
+* **The "Overtime" Incentive:** Currently, if a minimum wage worker takes an extra shift, they often worry about "moving up a tax bracket" or losing their benefits (the "Abatement Trap"). Under 20/7, **every extra hour worked is 100% theirs.** If they work 5 hours of overtime at $36.75 (time-and-a-half), they keep all $183.75.
+* **The Savings Ladder:** For the first time, a minimum wage earner can see a direct path to savings. Because the tax is only paid when they *spend*, they can choose to live frugally for a year and keep 100% of their earnings in a high-interest savings account (which also earns 0% tax on interest).
+
+
+
+### 5. The Risk: Rent Inflation
+The primary risk for minimum wage earners is **Rent**. While rent is typically GST-exempt in NZ, landlords will pay the 7% "Operational Surcharge" on their own costs (rates, insurance, maintenance). 
+* **Mitigation:** The 20/7 policy assumes that the 15% Gross-Up of the **Accommodation Supplement** handles this specific pressure.
+
+### Final Assessment
+For the minimum wage earner, the 20/7 model is a **"Dignity Shift."** It moves them from being a "subsidized" citizen who pays tax only to get it back in credits, to a "productive" citizen who keeps every cent they earn and chooses how to contribute to the state through their consumption. 
+
+**Does this "Gross-Up" and "Overtime" logic feel like the right way to protect the lowest earners in your thesis?**
