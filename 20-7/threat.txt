@@ -1,0 +1,79 @@
+Canonical version: 20-7/risk.html#skeptic-rebuttals (edit the HTML to change the live series).
+
+20/7: Skeptic “Acid Tests” and Pre-emptive Rebuttals
+====================================================
+
+Moving from a theoretical framework to a published argument, economists and skeptics will stress-test the model in predictable ways. Addressing these points up front makes the case harder to dismiss. The concerns fall into four clusters: domestic compliance (cash and the informal economy), how GST-style systems can be abused at scale (carousel fraud and the border), international legitimacy (OECD minimum tax), and the transition (inflation and “sticky” prices). Carousel fraud and import policy belong in one story: both turn on who pays GST when, and whether refunds can outrun verified revenue.
+
+
+1. Informal economy (“black market”) risk
+-----------------------------------------
+
+**Weakness.** With 20% GST and 0% income tax, the incentive to deal in cash shifts: today, cash often hides *income*; under 20/7, it can also hide *consumption* and the 20% GST. If a large slice of activity goes off-books, a modeled surplus (e.g. $3.1B) can erode.
+
+**Mitigation.** The **65% business refund** gives legitimate operators a strong reason to stay registered: to recover 13% on vans, tools, materials, and other inputs, they need to be in the GST system. Registration and digital trails on expenses make claiming “zero sales” to the public much harder to sustain. The article can present this as structural alignment between compliance and self-interest, not moral lecturing.
+
+
+2. Carousel fraud, the border, and imports (one thread)
+--------------------------------------------------------
+
+**Why this is not “ordinary” evasion.** Anyone can theoretically run off with tax money, but **carousel fraud** (Missing Trader Intra-Community / MTIC-style abuse) is different: it is **fast**, and it can turn the state into an **unwitting ATM** by exploiting **refunds** on tax the government never effectively collected. A normal domestic chain is net-neutral for the state: one party remits, another claims. Carousel schemes **create** a payout from the refund machinery itself.
+
+**Anatomy of the heist (simplified).**  
+1. Company A imports goods with **no** (or effectively no) GST at the border.  
+2. A sells to buffer Company B for price + 20% GST; A disappears with the GST component and never files.  
+3. B exports (or uses export-like treatment) and claims a **full GST refund** from the government.  
+4. The state pays B but never received the matching GST from A. The same goods can be cycled repeatedly, multiplying the loss.
+
+**How the 20/7 design changes the “physics.”** The **100% refund lock** for raw materials is the policy hinge: the system avoids a standing **VAT-free acquisition** at the border that fraudsters rely on. Everyone pays **20% up front** at import; refunds follow **verification**. The government holds the tax first; the fraudster cannot “pocket” the GST before the state sees it.
+
+**Standard evasion vs carousel (at a glance).**
+
+| | Standard evasion (e.g. cash plumber) | Carousel fraud |
+| :--- | :--- | :--- |
+| Goal | Keep what you earned | Capture refunds tied to missing upstream tax |
+| Profit source | Unpaid tax | **Government refunds** |
+| Timescale | Months or years | Hours or days |
+| Scale | Often thousands | Can be millions per week |
+
+One line for readers: standard evasion is like not putting money in the till; carousel fraud is like **fake refund claims** on money that never entered the building. **Up-front border GST** locks the “customer service desk”: no verified payment in, no clean refund out.
+
+**Current New Zealand imports (status quo).** Low-value imports often use de minimis / offshore collection (e.g. 15% at checkout); high-value shipments are stopped and GST (+ duty, levies) is paid before release. GST-registered businesses generally **claim 100%** of import GST back, so the **net** cash cost of importing for business is often **zero**—which enlarges the surface for refund-driven schemes on finished goods.
+
+**20/7 import policy (directional summary).**  
+- **Commercial imports:** **20% GST** at the border on every import. **Finished goods / standard path:** claim **65%** back; **7%** remains as the operational wedge. **Raw materials (whitelist):** **100%** refund so domestic production’s first mile is not snowballed.  
+- **Consumer imports:** **20% GST** plus a **7% border equalization levy** so offshore sellers without NZ rent, power, and payroll still contribute toward the same **7% “presence”** logic as a Queen Street retailer.
+
+**Carousel risk under partial vs full refund.** Under a system where **any** import can eventually attract a **100%** refund (e.g. TVs, phones, gold), the **payout** on a fraudulent chain is huge. Under 20/7, **full** refunds are reserved for **whitelist raw materials** (bulk steel, raw timber, etc.). Carouseling container loads of low-margin bulk inputs is **logistically costly** and often **economically** unattractive compared with high-value, easy-to-move finished goods—another layer beyond “pay first, verify, then refund.”
+
+| Scenario | Current (illustrative 15% path) | 20/7 |
+| :--- | :--- | :--- |
+| Local retailer | Pays 15%, claims 15% back | Pays 20%, claims 13% back (**7%** net wedge) |
+| Offshore retailer | May charge 15% above registration thresholds | **20%** + **7%** border levy |
+| NZ manufacturer (raw inputs) | Pays 15%, claims 15% back | Pays 20%, claims **20%** back on eligible raw materials |
+
+**Cash flow vs integrity.** Most firms are **permanently out of pocket** for **7%** of operational costs—that is the core **operational surcharge** revenue story. **Tier-2 (100%)** refunds are the **exception**, aimed at the **base** of the supply chain so cascading does not crush primary production. Partial refund is the **rule**; full refund is the **narrow exception** tied to verified, whitelist inputs.
+
+
+3. OECD / “tax haven” optics (Pillar Two)
+-----------------------------------------
+
+**Weakness.** The OECD **Global Minimum Tax (Pillar Two)** targets a **15%** floor for large multinationals.
+
+**Concern.** **0%** corporate income tax could invite a **tax haven** label; treaty partners might apply **top-up** taxes, collecting revenue New Zealand chose not to take at source.
+
+**Mitigation.** Argue that the **7% operational surcharge** is, in substance, a tax on **business activity / presence**, not classical profit tax. The article can propose that negotiators seek recognition of that charge as a **qualified domestic minimum top-up**-style instrument (wording and legal form would follow OECD technical guidance). The point for a general reader: **substance over label**—NZ still extracts a predictable levy from large operational footprints.
+
+
+4. Sticky prices and the transition
+-----------------------------------
+
+**Weakness.** Removing income tax increases **take-home** pay; higher GST raises **sticker** prices. In the short run, firms might pass **more** than the mechanical offset from lower corporate tax implies, while workers press for **wage** gains on top of higher net pay—risking a **wage–price spiral** narrative.
+
+**Mitigation.** Emphasize a deliberate **national price-monitoring period** (e.g. first 12 months) in which large-firm pricing can be audited against the **arithmetic** of the 20/7 shift, with the Commerce Commission or equivalent given clear mandate and transparency. This frames transition risk as **managed**, not hand-waved.
+
+
+Closing note for the article
+----------------------------
+
+These rebuttals do not pretend away enforcement cost or legal detail at the OECD. They show that 20/7 was designed with **known GST failure modes**—cash incentives, refund fraud, border arbitrage, treaty politics, and transition inflation—in view, and that the **refund tiers**, **border treatment**, and **7% operational layer** are not afterthoughts but load-bearing parts of the architecture.
