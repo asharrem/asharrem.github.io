@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Cascading supply chains and tiered recovery — 20/7 series</title>
+    <meta
+      name="description"
+      content="Price cascading under partial GST recovery: why zero-rating is rejected, absorption tests and a statutory white list, 100% refund vs 0% invoices, tier 1 (65%) vs tier 2 (100%), and manual vs automated filing."
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="site-header__inner">
+        <p class="site-title">20/7 series</p>
+        <h1 class="doc-title">Cascading, raw materials, and tiered GST recovery</h1>
+        <p class="doc-subtitle">
+          How tax-on-tax builds through the chain under 65% recovery, why
+          zero-rating is avoided, and how a narrow B2B white list with optional
+          100% refund preserves a single 20% face rate.
+        </p>
+      </div>
+    </header>
+    <main>
+      <nav class="doc-nav" aria-label="Document navigation">
+        <a href="sectoral.html" class="nav-prev">← Previous</a>
+        <a href="index.html" class="nav-index">Contents</a>
+        <a href="risk.html" class="nav-next">Next: Risk framework →</a>
+      </nav>
+
+      <p class="lede">
+        Price cascading is the central mechanical worry when only part of GST
+        on business inputs is refundable: a non-refundable wedge can stack at
+        each stage of production, so the same economic value is touched by the
+        &quot;7% operational&quot; logic more than once. One tempting fix is to
+        <strong>zero-rate</strong> early-stage inputs&mdash;GST at 0% on the
+        invoice&mdash;so tax never attaches to timber, grain, or steel on its
+        way downstream. That does calm the snowball, but it reintroduces the
+        very thing the 20/7 design tries to leave behind:
+        <strong>fine-grained categories</strong>, border disputes, and
+        <strong>accountant&rsquo;s logic</strong> at every sale.
+      </p>
+      <p>
+        This note sets out a <strong>single coherent policy</strong>: keep a
+        <strong>uniform 20% GST</strong> on the invoice everywhere, use a
+        <strong>short statutory white list</strong> of true raw materials, and
+        apply a <strong>two-tier refund</strong>&mdash;<strong>65%
+        recovery</strong> on ordinary operational purchases (the usual 7%
+        wedge) and <strong>100% recovery</strong> on certified white-list
+        supplies only. That choice deliberately favours
+        <strong>100% refundability over zero-rating</strong> for those inputs,
+        and it can be operated either with <strong>automated e-invoicing</strong>
+        or with a <strong>light manual two-bucket</strong> filing pattern.
+      </p>
+
+      <hr />
+
+      <h2>1. What we are trying to fix</h2>
+      <p>
+        Under a flat <strong>65% recovery</strong> on all business GST, each B2B
+        stage retains a slice of the nominal 20% rate. On purely operational
+        flows that is the intended <strong>7% operational surcharge</strong>.
+        On long physical supply chains (forest &rarr; mill &rarr; frame &rarr;
+        builder &rarr; homeowner), the same &quot;first mile&quot; can be taxed
+        in effect more than once unless something gives at the
+        <strong>commodity</strong> end.
+      </p>
+      <p><strong>Illustrative story (orders of magnitude, not precise statutory arithmetic):</strong></p>
+      <ul>
+        <li>
+          <strong>Without relief on stage-one materials:</strong> The wedge can
+          bite from standing timber through sawn timber, framing, and fit-out,
+          producing a <strong>heavy cumulative</strong> burden on housing and
+          food pipelines.
+        </li>
+        <li>
+          <strong>With relief confined to a narrow white list of absorbed inputs:</strong>
+          The wedge <strong>starts later</strong>&mdash;after bulk, physically
+          identifiable feedstock&mdash;so cascade on housing and similar chains
+          is materially <strong>shallower</strong>, while value-add and services
+          still pay the <strong>7%</strong> world.
+        </li>
+      </ul>
+      <p>
+        The design question is not whether to protect that first mile, but
+        <strong>how</strong> to do it without opening a fraud hole or a
+        litigation industry.
+      </p>
+
+      <hr />
+
+      <h2>2. Qualification: the absorption test (not &quot;whatever feels strategic&quot;)</h2>
+      <p>
+        Standard economics separates <strong>intermediate goods</strong>
+        (embodied in what you sell) from <strong>operating expenses</strong> (they
+        keep the lights on but are not in the product). For 20/7, a purchase
+        should only qualify for <strong>tier-2 (100% refund) treatment</strong>
+        if it passes an <strong>absorption test</strong>: the thing bought must
+        be <strong>physically absorbed</strong> into, or permanently form part
+        of, the <strong>final sellable unit</strong> as a
+        <strong>direct raw material</strong>.
+      </p>
+      <table>
+        <tbody>
+          <tr>
+            <td>Category</td>
+            <td>Qualification</td>
+            <td>Example</td>
+            <td>Treatment under 20/7</td>
+          </tr>
+          <tr>
+            <td><strong>Direct raw materials</strong></td>
+            <td>Physically absorbed into or permanently part of the final sellable unit</td>
+            <td>Timber in a table; flour in bread; concrete in a house</td>
+            <td><strong>Tier 2:</strong> 20% GST, <strong>100%</strong> of GST refunded (no wedge on that leg)</td>
+          </tr>
+          <tr>
+            <td><strong>Indirect inputs</strong></td>
+            <td>Essential to production but not in the product</td>
+            <td>Electricity for the oven; fuel for the truck; welding gas</td>
+            <td><strong>Tier 1:</strong> 20% GST, <strong>65%</strong> refund &rarr; <strong>7%</strong> wedge</td>
+          </tr>
+          <tr>
+            <td><strong>SaaS and services</strong></td>
+            <td>Intellectual or digital tools to run or deliver the business</td>
+            <td>Cloud hosting; legal advice; accounting software</td>
+            <td><strong>Tier 1:</strong> <strong>65%</strong> refund &rarr; <strong>7%</strong> wedge</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>The SaaS grey area (and why it stays in tier 1)</h3>
+      <p>
+        A developer may argue that <strong>AWS</strong> is &quot;raw
+        material&quot; because the product cannot exist without it. For this
+        policy, <strong>SaaS is not a raw material</strong>: it fails the
+        <strong>tangible absorption</strong> test. If &quot;digital
+        inputs&quot; could hit tier 2, every firm would have an incentive to
+        <strong>re-characterise</strong> the office as a &quot;digital
+        factory,&quot; and Inland Revenue would inherit endless &quot;is this
+        code a raw material?&quot; audits. <strong>Only physical materials that
+        undergo a tangible transformation</strong> sit on the white list;
+        software remains an <strong>operational tool</strong> at
+        <strong>65%</strong> recovery.
+      </p>
+
+      <hr />
+
+      <h2>3. The white list (small, statutory, B2B-locked)</h2>
+      <p>
+        Complexity is controlled by a <strong>statutory white list</strong> of
+        <strong>categories</strong>, not ad hoc negotiation. If a good is not in
+        a listed category, the purchase stays in
+        <strong>tier 1 (65% recovery)</strong>.
+      </p>
+      <p><strong>Illustrative categories often proposed:</strong></p>
+      <ol>
+        <li><strong>Primary-sector extractive:</strong> Raw timber, unprocessed ores, quarried stone, raw wool or pelts.</li>
+        <li><strong>Bulk agricultural (B2B):</strong> Grains, seeds, raw milk, livestock <strong>sold between registered businesses</strong>.</li>
+        <li><strong>Industrial feedstocks:</strong> Raw steel, bulk resin or plastics, base chemicals in bulk.</li>
+      </ol>
+      <p>
+        <strong>B2B lock:</strong> White-list treatment applies when
+        <strong>GST-registered businesses</strong> supply
+        <strong>GST-registered businesses</strong>. A consumer buying timber at
+        retail pays the <strong>same 20%</strong> as everywhere else; there is
+        no <strong>consumer-facing 0%</strong> lane that invites impersonation of
+        a business at the counter.
+      </p>
+
+      <hr />
+
+      <h2>4. Zero-rating vs. 100% refund on the same shelf (why the invoice stays at 20%)</h2>
+      <p>
+        &quot;Zero-rating&quot; usually means a <strong>0% GST line</strong> on
+        the invoice: the buyer never pays the tax. &quot;100%
+        refundability&quot; means the invoice still shows <strong>20%
+        GST</strong>; the buyer pays it and <strong>claims it all back</strong>
+        on a return if the purchase qualifies.
+      </p>
+      <table>
+        <tbody>
+          <tr>
+            <td>Dimension</td>
+            <td>Zero-rated invoice (0% GST)</td>
+            <td>20% invoice with <strong>100% refund</strong> (tier 2)</td>
+          </tr>
+          <tr>
+            <td><strong>Cash flow</strong></td>
+            <td>Buyer never funds GST; nothing tied up waiting for a refund</td>
+            <td>Buyer temporarily funds GST until refund; weaker short-term liquidity</td>
+          </tr>
+          <tr>
+            <td><strong>Simplicity at the till</strong></td>
+            <td>Looks simple (no GST)</td>
+            <td>Same headline <strong>20%</strong> rate as the rest of the economy</td>
+          </tr>
+          <tr>
+            <td><strong>Fraud and policing</strong></td>
+            <td><strong>High:</strong> incentive to pose as a business to obtain <strong>0%</strong> prices; <strong>suppliers</strong> must police buyer status</td>
+            <td><strong>Lower:</strong> suppliers charge <strong>everyone 20%</strong>; only <strong>registered</strong> filers with evidence get refunds; <strong>IRD</strong> sits on the &quot;filter&quot;</td>
+          </tr>
+          <tr>
+            <td><strong>Audit and integrity</strong></td>
+            <td>Harder: must prove each <strong>0%</strong> sale was truly eligible B2B</td>
+            <td><strong>Strong natural trail:</strong> pay 20%, claim back; gaps between purchases, sales, and refunds surface anomalies</td>
+          </tr>
+          <tr>
+            <td><strong>Treasury &quot;float&quot;</strong></td>
+            <td>No GST collected on that leg</td>
+            <td>Crown holds GST until refund, a large <strong>interest-free float</strong> on the business sector&mdash;material in fiscal modelling</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>
+        <strong>Verdict for 20/7:</strong> <strong>Do not zero-rate</strong> raw
+        materials at the invoice. Use <strong>20% everywhere</strong> and
+        <strong>100% refund</strong> only for <strong>white-list, B2B,
+        certified</strong> tier-2 purchases. That preserves
+        <strong>one visible rate</strong>, pushes impersonation risk toward the
+        <strong>refund gate</strong> where <strong>registration and
+        evidence</strong> already live, and keeps <strong>downstream
+        arithmetic</strong> aligned with the rest of the model.
+      </p>
+
+      <hr />
+
+      <h2>5. Tiered recovery as the unified rule</h2>
+      <p>The thesis condenses to <strong>two business buckets</strong>:</p>
+      <ol>
+        <li>
+          <strong>Tier 1 &mdash; operational surcharge (default):</strong> Rent,
+          power, SaaS, legal, most goods and services. <strong>Pay 20% GST,
+          claim 65%</strong> of the GST component &rarr; <strong>7%</strong>
+          effective wedge on that spend.
+        </li>
+        <li>
+          <strong>Tier 2 &mdash; B2B raw-material lock:</strong> Purchases that
+          are <strong>on the white list</strong> and satisfy <strong>B2B and
+          evidence rules</strong>. <strong>Pay 20% GST, claim 100%</strong> of the
+          GST component &rarr; <strong>no wedge</strong> on that leg, stopping the
+          worst <strong>snowball</strong> on first-mile physical inputs.
+        </li>
+      </ol>
+      <p>
+        Optional refinement: <strong>smart invoices</strong> (industry or
+        product codes) so accounting software routes each line to tier 1 or
+        tier 2 automatically; failing that, a <strong>dual-bucket</strong>
+        return.
+      </p>
+
+      <hr />
+
+      <h2>6. Implementation: automated vs. manual (same policy, different workload)</h2>
+
+      <h3>Automated path (e-invoicing and coded lines)</h3>
+      <p>
+        When a registered business buys <strong>white-listed</strong> raw steel,
+        the invoice carries a <strong>standard code</strong>.
+        <strong>Xero, MYOB, or equivalent</strong> maps that code to the
+        <strong>100% refund bucket</strong>; everything else defaults to
+        <strong>65%</strong>. The owner does not argue grey areas at month-end&mdash;the
+        <strong>software and the supplier code</strong> carry the classification
+        burden, subject to audit on <strong>tier-2</strong> claims only.
+      </p>
+
+      <h3>Manual path (two-bucket filing without full automation)</h3>
+      <p>
+        Most firms already file <strong>GST on purchases</strong> in aggregate.
+        The return adds <strong>one conceptual split</strong>:
+      </p>
+      <ul>
+        <li>
+          <strong>Bucket A (tier 1):</strong> Surcharge inputs&mdash;rent, power,
+          SaaS, legal, general supplies. Sum GST, multiply by
+          <strong>0.65</strong>, enter in the <strong>surcharge</strong> portion
+          of the return.
+        </li>
+        <li>
+          <strong>Bucket B (tier 2):</strong> White-list raw materials from a
+          <strong>small set</strong> of regular suppliers (e.g. one or two timber
+          merchants for a builder). Sum GST, multiply by
+          <strong>1.00</strong>, enter in the <strong>lock</strong> portion.
+        </li>
+      </ul>
+      <p>
+        <strong>Default to 65%:</strong> Legislation can state that
+        <strong>all input claims are processed at 65% recovery unless the
+        taxpayer identifies the purchase as tier 2 with prescribed evidence</strong>
+        (e.g. supplier <strong>industry code</strong> on the invoice, or
+        <strong>raw-material certification</strong> on a narrow form). That makes
+        the <strong>safe default</strong> Crown-friendly: firms that want the
+        <strong>100%</strong> path must <strong>positively sort</strong> a
+        <strong>thin</strong> slice of invoices.
+      </p>
+      <p>
+        <strong>Supplier industry codes as a manual safety net:</strong>
+        <strong>Primary producer</strong> or <strong>bulk mill</strong> codes
+        nudge tier 2; <strong>telco, Microsoft, law firm</strong> default to tier
+        1. Spreadsheets and paper filers can use the same logic as large firms,
+        just slower.
+      </p>
+
+      <h3>Comparison of effort: manual vs. automated</h3>
+      <table>
+        <tbody>
+          <tr>
+            <td>Task</td>
+            <td>Manual (spreadsheet / paper)</td>
+            <td>Automated (Xero / MYOB + e-invoice)</td>
+          </tr>
+          <tr>
+            <td><strong>Sorting invoices</strong></td>
+            <td>Usually easy: a handful of recurring <strong>raw material</strong> suppliers dominate bucket B</td>
+            <td>Fast: supplier and line codes map to tier 1 or tier 2</td>
+          </tr>
+          <tr>
+            <td><strong>Computing the refund</strong></td>
+            <td>Straightforward: <strong>(GST in A &times; 0.65) + (GST in B &times; 1.00)</strong></td>
+            <td>Near <strong>one-click</strong> once bank feeds and rules are clean</td>
+          </tr>
+          <tr>
+            <td><strong>Audit exposure</strong></td>
+            <td><strong>Moderate:</strong> receipts must be kept <strong>seven years</strong>; tier-2 claims must be defensible</td>
+            <td><strong>Lower</strong> where digital trails and codes are complete; anomalies easier to spot</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>
+        For a <strong>&quot;man with a van&quot;</strong> operation, the tiered
+        model is <strong>comparable in spirit</strong> to today&rsquo;s need to
+        separate <strong>GST-inclusive</strong>, <strong>zero-rated</strong>,
+        and <strong>exempt</strong> purchases&mdash;except the
+        <strong>white list</strong> is <strong>short</strong> and tier 2 is
+        <strong>optional upside</strong>, not the default.
+      </p>
+
+      <hr />
+
+      <h2>7. Closing assessment</h2>
+      <p>
+        A <strong>tiny, physical, statutory white list</strong> plus
+        <strong>B2B-only tier 2</strong> gives most of the
+        <strong>cascade relief</strong> zero-rating promises, without splitting the
+        <strong>retail price</strong> into a maze of <strong>0% / 20%</strong>
+        lanes. <strong>100% refund on 20% invoices</strong> beats
+        <strong>0% invoices</strong> on <strong>fraud, audit trail, and uniform
+        pricing</strong>; the cost is <strong>temporary business funding</strong>
+        of GST until refund. <strong>Default to 65%</strong> protects revenue if
+        sorting fails. <strong>Automation</strong> moves effort to
+        <strong>software and standards</strong>; <strong>manual</strong> filing
+        stays viable with <strong>two buckets</strong> and a
+        <strong>small set of tier-2 suppliers</strong>. Together, that is one
+        integrated story: <strong>same 20% face to the economy, two recovery
+        rates, physical absorption as the gate, and implementation that scales
+        from spreadsheet to full e-invoicing.</strong>
+      </p>
+      <p>
+        For how this interacts with <strong>price risk, imports, and social
+        licence</strong>, continue to the
+        <a href="risk.html">risk management framework</a>.
+      </p>
+
+      <nav class="doc-nav doc-nav--footer" aria-label="End navigation">
+        <a href="sectoral.html" class="nav-prev">← Previous</a>
+        <a href="index.html" class="nav-index">Contents</a>
+        <a href="risk.html" class="nav-next">Next: Risk framework →</a>
+      </nav>
+    </main>
+  </body>
+</html>
