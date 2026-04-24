@@ -89,6 +89,13 @@ main {
   padding: 2rem 1.5rem 3.5rem;
 }
 
+/* Body copy matches .lede / .doc-subtitle; body --ink is for titles and UI. */
+main p,
+main li,
+main td {
+  color: var(--muted);
+}
+
 main > *:first-child {
   margin-top: 0;
 }
