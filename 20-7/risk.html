@@ -58,7 +58,77 @@
       </p>
       <h3 id="inflationary-shock">Inflationary shock assessment</h3>
       <p>
-        The framework must account for a projected <strong>12&ndash;14% cost-of-living jump</strong> as the 20% GST and <a href="cascading.html">cascaded</a> costs filter through the economy. To maintain economic stability, this must be balanced against the 28% increase in gross take-home pay for the average workforce. For a <strong>standard Kiwi family earning $140,000</strong>, discretionary annual savings are projected to rise from <strong>$24,000 to $43,100</strong>. The systemic risk lies in &quot;Price Creep&quot; exceeding these gains; if secondary inflationary expectations outpace the 28% income boost, consumer spending power will contract, threatening the velocity upon which the $3.1 billion surplus depends. For contrast, a <strong>full-time minimum wage</strong> worker (~$24.50/hour, ~$980/week gross) gains roughly <strong>$145/week</strong> from removing PAYE; if their entire prior take-home were spent on essentials, a +14% lift on that spend still leaves only modest weekly headroom (~$28 in the illustrative model), which is why the <strong>15% transfer gross-up</strong> is treated as co-equal with the headline PAYE win for social licence.
+        The framework must account for a projected <strong>12&ndash;14% cost-of-living jump</strong> as the 20% GST and <a href="cascading.html">cascaded</a> costs filter through the economy, with <strong>14%</strong> used as the central planning case in household illustrations. To maintain economic stability, this must be balanced against the 28% increase in gross take-home pay for the average workforce. For a <strong>standard Kiwi family earning $140,000</strong>, discretionary annual savings are projected to rise from <strong>$24,000 to $43,100</strong>. The systemic risk lies in &quot;Price Creep&quot; exceeding these gains; if secondary inflationary expectations outpace the 28% income boost, consumer spending power will contract, threatening the velocity upon which the $3.1 billion surplus depends. For contrast, a <strong>full-time minimum wage</strong> worker (~$24.50/hour, ~$980/week gross) gains roughly <strong>$145/week</strong> from removing PAYE; if their entire prior take-home were spent on essentials, a +14% lift on that spend still leaves only modest weekly headroom (~$28 in the illustrative model), which is why the <strong>15% transfer gross-up</strong> is treated as co-equal with the headline PAYE win for social licence.
+      </p>
+      <h3>Compact calibration model (reproducible inflation arithmetic)</h3>
+      <p>
+        To move from narrative to reproducible estimates, model transition
+        inflation as a weighted sum across household consumption sectors:
+      </p>
+      <p>
+        <strong>&pi; = &sum; w<sub>i</sub> &times; (((1.20 &times; (1 + &lambda;<sub>i</sub> &times; &omega;<sub>i</sub>)) / 1.15) - 1)</strong>
+      </p>
+      <ul>
+        <li><strong>w<sub>i</sub>:</strong> household expenditure weight for sector i (weights sum to 1).</li>
+        <li><strong>&omega;<sub>i</sub>:</strong> embedded business wedge on ex-tax cost in sector i (from tier mix).</li>
+        <li><strong>&lambda;<sub>i</sub>:</strong> pass-through coefficient (how much of the wedge reaches shelf prices).</li>
+      </ul>
+      <p>
+        A compact six-sector starter specification that reproduces the series
+        target band is below. These are calibration priors, not fixed statutes.
+      </p>
+      <table>
+        <tbody>
+          <tr>
+            <td>Sector</td>
+            <td>Weight (w)</td>
+            <td>Embedded wedge (&omega;)</td>
+            <td>Pass-through low / central / high (&lambda;)</td>
+          </tr>
+          <tr>
+            <td>Housing-related</td>
+            <td>0.26</td>
+            <td>0.095</td>
+            <td>0.90 / 1.05 / 1.12</td>
+          </tr>
+          <tr>
+            <td>Food and groceries</td>
+            <td>0.19</td>
+            <td>0.100</td>
+            <td>0.85 / 0.95 / 1.00</td>
+          </tr>
+          <tr>
+            <td>Transport</td>
+            <td>0.14</td>
+            <td>0.095</td>
+            <td>0.85 / 0.95 / 1.00</td>
+          </tr>
+          <tr>
+            <td>Utilities and communications</td>
+            <td>0.08</td>
+            <td>0.080</td>
+            <td>0.80 / 0.90 / 0.95</td>
+          </tr>
+          <tr>
+            <td>Health, education, and care</td>
+            <td>0.15</td>
+            <td>0.090</td>
+            <td>0.85 / 0.95 / 1.00</td>
+          </tr>
+          <tr>
+            <td>Other goods and services</td>
+            <td>0.18</td>
+            <td>0.085</td>
+            <td>0.80 / 0.90 / 0.95</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>
+        With those inputs, illustrative aggregate outcomes are approximately:
+        <strong>12.5% (low)</strong>, <strong>13.6% (central)</strong>, and
+        <strong>14.2% (high)</strong>. This anchors the policy language to a
+        transparent calculation and can be re-estimated quarterly as observed CPI,
+        margin, rent, and wage data arrive.
       </p>
       <p>While these macro-fiscal pressures define the new tax environment, the framework must now address the specific structural risks facing the domestic business ecosystem.</p>
       <h2>2. Operational &amp; market structure risks: vertical integration and specialization</h2>
@@ -238,7 +308,7 @@
       </p>
       <h3>Welfare &quot;gross-up&quot; strategy</h3>
       <p>
-        All welfare and NZ Superannuation payments must be <strong>&quot;grossed up&quot; by approximately 15%</strong> to their current gross value. This adjustment, paired with the 0% income tax on benefits, insulates vulnerable populations from the ~14% inflationary shock.
+        All welfare and NZ Superannuation payments must be <strong>&quot;grossed up&quot; by approximately 15%</strong> to their current gross value. This adjustment, paired with the 0% income tax on benefits, insulates vulnerable populations across the modeled <strong>12&ndash;14%</strong> transition inflation range (with <strong>14%</strong> as the central planning case).
       </p>
       <p>
         While these mitigations secure the border and the social floor, the focus must shift to the chronological roadmap required to prevent a &quot;Big Bang&quot; implementation failure.
