@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Housing affordability under 20/7 — 20/7 series</title>
+    <meta
+      name="description"
+      content="Detailed Auckland housing example under the 20/7 model: tier classification, build-cost uplift, mortgage impact over 20 years, and PAYE-offset comparisons."
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="site-header__inner">
+        <p class="site-title">20/7 series</p>
+        <h1 class="doc-title">Housing affordability stress-test: build cost, mortgage load, and zero-PAYE offset</h1>
+        <p class="doc-subtitle">
+          A focused Auckland-style worked example inside the tiered refund model:
+          strict tier-2 absorption, narrow tier-1E relief, and 20-year mortgage
+          arithmetic against 0% income tax.
+        </p>
+      </div>
+    </header>
+    <main>
+      <nav class="doc-nav" aria-label="Document navigation">
+        <a href="sectoral.html" class="nav-prev">← Previous</a>
+        <a href="index.html" class="nav-index">Contents</a>
+        <a href="cascading.html" class="nav-next">Next: Cascading supply chains and tiered recovery →</a>
+      </nav>
+
+      <p class="lede">
+        Housing is the most politically sensitive long-chain test. The policy
+        question is not only whether build costs rise under the 20/7 architecture,
+        but whether household cash flow improves once mortgage servicing is compared
+        with the removal of PAYE.
+      </p>
+
+      <h2>1. Tier assignment for a representative build</h2>
+      <p>
+        The example below applies the same classification logic as the
+        <a href="cascading.html">cascading note</a>: strict physical absorption
+        for tier 2, narrow essential-chain carve-out for tier 1E, and 65% default
+        recovery for all remaining business inputs.
+      </p>
+      <table>
+        <tbody>
+          <tr>
+            <td>Build line item (ex GST)</td>
+            <td>Tier</td>
+            <td>Recovery treatment</td>
+          </tr>
+          <tr>
+            <td>Structural timber, concrete, rebar, shell roofing, core cladding, core glazing, insulation, plasterboard</td>
+            <td><strong>Tier 2</strong></td>
+            <td>100% GST recovery (0% wedge on that leg)</td>
+          </tr>
+          <tr>
+            <td>Essential compliance/certification and critical logistics moves</td>
+            <td><strong>Tier 1E</strong></td>
+            <td>85% GST recovery (3% wedge)</td>
+          </tr>
+          <tr>
+            <td>Labour, site management, services, software, insurance, finishes, general overhead</td>
+            <td><strong>Tier 1</strong></td>
+            <td>65% GST recovery (7% wedge)</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>
+        Representative ex-GST build stack used in this note:
+        <strong>$258,000</strong>, split as approximately
+        <strong>$131,000 tier 2</strong>, <strong>$14,000 tier 1E</strong>, and
+        <strong>$113,000 tier 1</strong>.
+      </p>
+
+      <h2>2. Build-cost effect under refined tiering</h2>
+      <p>
+        Business wedge dollars in this stack are:
+      </p>
+      <ul>
+        <li><strong>Tier 2:</strong> $131,000 at 0% wedge = $0</li>
+        <li><strong>Tier 1E:</strong> $14,000 at 3% wedge = $420</li>
+        <li><strong>Tier 1:</strong> $113,000 at 7% wedge = $7,910</li>
+      </ul>
+      <p>
+        Total business wedge before final consumer GST is therefore
+        <strong>$8,330</strong> (about <strong>3.23%</strong> of the build base).
+        Applying 20% consumer GST gives a refined 20/7 build outturn of
+        <strong>$319,596</strong> versus <strong>$296,700</strong> under a simple
+        current-style 15% benchmark on the same base.
+      </p>
+
+      <h2>3. Auckland purchase-price translation: why build-only math matters</h2>
+      <p>
+        Applying build-chain uplift to the full house price can overstate effects
+        in markets where land is a large share. A more realistic framing is:
+        <strong>land + build</strong>, where mainly the build component carries the
+        direct chain wedge.
+      </p>
+      <table>
+        <tbody>
+          <tr>
+            <td>Scenario (current price $1,000,000)</td>
+            <td>Assumed build share</td>
+            <td>Implied new price (refined 20/7)</td>
+            <td>Total uplift</td>
+          </tr>
+          <tr>
+            <td>Lower build share</td>
+            <td>45% build / 55% land</td>
+            <td>$1,034,740</td>
+            <td>+3.47%</td>
+          </tr>
+          <tr>
+            <td>Mid case</td>
+            <td>50% build / 50% land</td>
+            <td>$1,038,600</td>
+            <td>+3.86%</td>
+          </tr>
+          <tr>
+            <td>Higher build share</td>
+            <td>60% build / 40% land</td>
+            <td>$1,046,320</td>
+            <td>+4.63%</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>4. Mortgage impact over 20 years (illustrative)</h2>
+      <p>
+        Using a 20-year term and 6% interest, the extra weekly mortgage load on
+        the $1,000,000 base case is:
+      </p>
+      <ul>
+        <li><strong>45% build share case:</strong> about <strong>+$57/week</strong></li>
+        <li><strong>50% build share case:</strong> about <strong>+$64/week</strong></li>
+        <li><strong>60% build share case:</strong> about <strong>+$77/week</strong></li>
+      </ul>
+      <p>
+        If one (less realistically) applies the full build-chain uplift to the
+        entire $1,000,000 purchase, the extra load is about
+        <strong>+$128/week</strong> at 6% over 20 years.
+      </p>
+
+      <h2>5. Zero income tax offset: the core affordability argument</h2>
+      <p>
+        Under 0% personal income tax, illustrative weekly PAYE savings are
+        materially larger than the mortgage increments above for many working
+        households:
+      </p>
+      <table>
+        <tbody>
+          <tr>
+            <td>Gross annual income</td>
+            <td>Illustrative PAYE saved annually</td>
+            <td>Weekly gain</td>
+          </tr>
+          <tr>
+            <td>$100,000</td>
+            <td>$22,878</td>
+            <td>~$440/week</td>
+          </tr>
+          <tr>
+            <td>$140,000</td>
+            <td>$36,078</td>
+            <td>~$694/week</td>
+          </tr>
+          <tr>
+            <td>$180,000</td>
+            <td>$49,278</td>
+            <td>~$948/week</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>
+        This does not remove distributional risk for every household, but it
+        explains the model&rsquo;s central claim: affordability should be judged on
+        <strong>net weekly cash flow</strong>, not sticker price alone.
+      </p>
+
+      <h2>6. Policy reading of the housing case</h2>
+      <ul>
+        <li><strong>Keep 7% as the default anchor:</strong> it remains close to the fiscal-neutral centerline in prior series arithmetic.</li>
+        <li><strong>Protect true absorbed shell inputs in tier 2:</strong> this is the largest anti-cascade lever for housing.</li>
+        <li><strong>Use tier 1E sparingly:</strong> reserve it for certified essential non-absorbed links where social pass-through is acute.</li>
+        <li><strong>Report household outcomes in weekly terms:</strong> mortgage delta vs PAYE gain is clearer than gross price narratives.</li>
+      </ul>
+
+      <nav class="doc-nav doc-nav--footer" aria-label="End navigation">
+        <a href="sectoral.html" class="nav-prev">← Previous</a>
+        <a href="index.html" class="nav-index">Contents</a>
+        <a href="cascading.html" class="nav-next">Next: Cascading supply chains and tiered recovery →</a>
+      </nav>
+    </main>
+  </body>
+</html>

@@ -24,7 +24,7 @@
     </header>
     <main>
       <nav class="doc-nav" aria-label="Document navigation">
-        <a href="sectoral.html" class="nav-prev">← Previous</a>
+        <a href="housing.html" class="nav-prev">← Previous</a>
         <a href="index.html" class="nav-index">Contents</a>
         <a href="risk.html" class="nav-next">Next: Risk management framework →</a>
       </nav>
@@ -351,7 +351,7 @@
       <hr />
 
       <h2>5. Tiered recovery as the unified rule</h2>
-      <p>The thesis condenses to <strong>two business buckets</strong>:</p>
+      <p>The thesis condenses to <strong>three business buckets</strong>:</p>
       <ol>
         <li>
           <strong>Tier 1 &mdash; operational surcharge (default):</strong> Rent,
@@ -366,12 +366,104 @@
           GST component &rarr; <strong>no wedge</strong> on that leg, stopping the
           worst <strong>snowball</strong> on first-mile physical inputs.
         </li>
+        <li>
+          <strong>Tier 1E &mdash; essential-chain enhanced recovery (narrow):</strong>
+          Certified, socially critical chain legs that are often not physically
+          absorbed (for example, regulated medicine distribution). <strong>Pay 20%
+          GST, claim 85%</strong> of the GST component &rarr; <strong>3%</strong>
+          effective wedge on that spend.
+        </li>
       </ol>
       <p>
         Optional refinement: <strong>smart invoices</strong> (industry or
         product codes) so accounting software routes each line to tier 1 or
-        tier 2 automatically; failing that, a <strong>dual-bucket</strong>
+        tier 2 automatically; failing that, a <strong>multi-bucket</strong>
         return.
+      </p>
+      <p>
+        <strong>Classification discipline matters:</strong> if a purchase is
+        physically absorbed into the final sellable unit, it should generally be
+        tier 2 rather than tier 1E. In construction, that usually means
+        structural concrete, reinforcing/structural steel, and core roof shell
+        materials sit in <strong>tier 2 (100%)</strong>; tier 1E is reserved for
+        certified essential links that fail strict absorption but where cascade
+        pressure is still socially sensitive.
+      </p>
+
+      <h3>Targeted anti-cascade relief without breaking the refund model</h3>
+      <p>
+        The policy can reduce long-chain inflation pressure while preserving one
+        visible invoice rate and refund-gate safeguards:
+      </p>
+      <ul>
+        <li>
+          <strong>Keep 20% on every invoice:</strong> avoid consumer-facing 0%
+          lanes and supplier-side eligibility policing.
+        </li>
+        <li>
+          <strong>Default to 65% unless proven otherwise:</strong> tier 2 and tier
+          1E are positive claims with evidence, not automatic entitlements.
+        </li>
+        <li>
+          <strong>Use hard gates for tier 1E:</strong> product schedule, chain
+          stage, B2B registration on both sides, and coded-evidence requirement.
+        </li>
+      </ul>
+
+      <h3>Illustrative long-chain arithmetic (same base assumptions)</h3>
+      <p>
+        Directional comparison using the same modelling frame as this note:
+        <strong>Current:</strong> base &times; 1.15. <strong>20/7 baseline:</strong>
+        base &times; (1.07^N) &times; 1.20.
+        <strong>Refined tiering:</strong> base &times; (1.07^(N-k)) &times; (1.03^k)
+        &times; 1.20, where <strong>k</strong> is the number of certified tier-1E
+        legs after strict tier-2 reclassification of absorbed inputs.
+      </p>
+      <table>
+        <tbody>
+          <tr>
+            <td>Scenario</td>
+            <td>Current policy</td>
+            <td>20/7 baseline (tier 2 only)</td>
+            <td>Refined (better tier 2 + narrow tier 1E)</td>
+          </tr>
+          <tr>
+            <td><strong>Detached house build</strong></td>
+            <td>$296,700</td>
+            <td>$323,292</td>
+            <td>$319,596</td>
+          </tr>
+          <tr>
+            <td><strong>Packaged dairy product</strong></td>
+            <td>$6.90</td>
+            <td>$13.24</td>
+            <td>$10.31</td>
+          </tr>
+          <tr>
+            <td><strong>Generic pharma blister pack</strong></td>
+            <td>$13.80</td>
+            <td>$28.33</td>
+            <td>$22.07</td>
+          </tr>
+          <tr>
+            <td><strong>Imported appliance retail chain</strong></td>
+            <td>$1,035</td>
+            <td>$1,734</td>
+            <td>$1,669</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>
+        Read directionally: tighter tier-2 classification plus a narrow tier-1E
+        lane materially reduces cascade in long domestic chains, but does not
+        erase all price pressure where many non-absorbed handoffs remain.
+      </p>
+      <p>
+        <strong>Calibration note:</strong> the detached-house row is aligned to the
+        detailed line-item build model in
+        <a href="housing.html">Housing affordability stress-test</a>. Other rows
+        remain stylized chain examples for directional comparison, not
+        sector-accounting forecasts.
       </p>
 
       <hr />
@@ -389,7 +481,7 @@
         burden, subject to audit on <strong>tier-2</strong> claims only.
       </p>
 
-      <h3>Manual path (two-bucket filing without full automation)</h3>
+      <h3>Manual path (three-bucket filing without full automation)</h3>
       <p>
         Most firms already file <strong>GST on purchases</strong> in aggregate.
         The return adds <strong>one conceptual split</strong>:
@@ -407,11 +499,17 @@
           merchants for a builder). Sum GST, multiply by
           <strong>1.00</strong>, enter in the <strong>lock</strong> portion.
         </li>
+        <li>
+          <strong>Bucket C (tier 1E):</strong> Certified essential-chain
+          non-absorbed legs (where statute allows enhanced recovery). Sum GST,
+          multiply by <strong>0.85</strong>, enter in the
+          <strong>enhanced</strong> portion.
+        </li>
       </ul>
       <p>
         <strong>Default to 65%:</strong> Legislation can state that
         <strong>all input claims are processed at 65% recovery unless the
-        taxpayer identifies the purchase as tier 2 with prescribed evidence</strong>
+        taxpayer identifies the purchase as tier 2 or tier 1E with prescribed evidence</strong>
         (e.g. supplier <strong>industry code</strong> on the invoice, or
         <strong>raw-material certification</strong> on a narrow form). That makes
         the <strong>safe default</strong> Crown-friendly: firms that want the
@@ -441,7 +539,7 @@
           </tr>
           <tr>
             <td><strong>Computing the refund</strong></td>
-            <td>Straightforward: <strong>(GST in A &times; 0.65) + (GST in B &times; 1.00)</strong></td>
+            <td>Straightforward: <strong>(GST in A &times; 0.65) + (GST in B &times; 1.00) + (GST in C &times; 0.85)</strong></td>
             <td>Near <strong>one-click</strong> once bank feeds and rules are clean</td>
           </tr>
           <tr>
@@ -474,10 +572,11 @@
         of GST until refund. <strong>Default to 65%</strong> protects revenue if
         sorting fails. <strong>Automation</strong> moves effort to
         <strong>software and standards</strong>; <strong>manual</strong> filing
-        stays viable with <strong>two buckets</strong> and a
+        stays viable with <strong>three buckets</strong> and a
         <strong>small set of tier-2 suppliers</strong>. Together, that is one
-        integrated story: <strong>same 20% face to the economy, two recovery
-        rates, physical absorption as the gate, and implementation that scales
+        integrated story: <strong>same 20% face to the economy, recovery
+        tiers anchored by physical absorption plus a narrow essential-chain lane,
+        and implementation that scales
         from spreadsheet to full e-invoicing.</strong>
       </p>
       <p>
@@ -487,7 +586,7 @@
       </p>
 
       <nav class="doc-nav doc-nav--footer" aria-label="End navigation">
-        <a href="sectoral.html" class="nav-prev">← Previous</a>
+        <a href="housing.html" class="nav-prev">← Previous</a>
         <a href="index.html" class="nav-index">Contents</a>
         <a href="risk.html" class="nav-next">Next: Risk management framework →</a>
       </nav>
