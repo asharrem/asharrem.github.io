@@ -1,0 +1,7 @@
+[Unit]
+Description=Nx snaphot timelapse
+[Timer]
+Unit=timelapse.service
+OnCalendar=mon..fri *-*-* 07..18:0/15:00
+[Install]
+WantedBy=timers.target

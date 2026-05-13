@@ -1,0 +1,4 @@
+[Unit]
+Description=Nx snaphot timelapse
+[Service]
+ExecStart=/opt/nxos/timelapse.sh
