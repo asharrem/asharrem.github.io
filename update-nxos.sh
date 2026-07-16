@@ -20,6 +20,9 @@ WebHostFiles="https://$WebAddress"
 NxMajVer="6.1.1"
 NxBuild="42624"
 
+MilesightDebVer="2.0.14"
+MilesightDebFile="milesight_analytics_plugin_amd64_V${MilesightDebVer}.deb"
+
 SU_PASS="nxw1tness"
 
 NxUrl="https://updates.networkoptix.com/default"
@@ -372,30 +375,25 @@ function choice_08 {
         sleep 1
         ;;
       milesight)
-        TERM=ansi whiptail --title "$TITLE" --infobox "\n Installing Milesight Analytics..." 19 68
+        TERM=ansi whiptail --title "$TITLE" --infobox "\n Installing Milesight Analytics ${MilesightDebVer}..." 19 68
         sleep 0.5
-        rm -rf milesight_analytics_plugin
-        MS_FILES="libmilesight_analytics_plugin.so libMSBase.so libMSRTSP.so"
-        for f in $MS_FILES; do
-          mkdir -p milesight_analytics_plugin
-          if ! wget -q --show-progress -O "milesight_analytics_plugin/$f" "$WebHostFiles/nx_plugins/milesight/milesight_analytics_plugin/$f"; then
-            TERM=ansi whiptail --title "$TITLE" --infobox "\n Failed to download Milesight $f..." 19 68
-            sleep 2
-            continue 2
-          fi
-        done
-        if [[ -d "$NxPluginsDir/milesight_analytics_plugin" ]]; then
-          sudo rm -rf "$NxPluginsDir/milesight_analytics_plugin"
-        fi
+        # Keep legacy prompt before apt so vendor postinst never hits interactive read -p
         if [[ -f "$NxPluginsDir/libmilesight_analytics_plugin.so" ]]; then
           if whiptail --title "$TITLE" --yesno "\n Detected original Milesight v1.0.1 plugin.\nCoexistence may affect performance.\nMove it to plugins_optional?" 12 68; then
             sudo mkdir -p "$NxPluginsOptional"
             sudo mv "$NxPluginsDir/libmilesight_analytics_plugin.so" "$NxPluginsOptional/"
           fi
         fi
-        sudo mkdir -p "$NxPluginsDir/milesight_analytics_plugin"
-        sudo cp milesight_analytics_plugin/* "$NxPluginsDir/milesight_analytics_plugin/"
-        rm -rf milesight_analytics_plugin
+        if ! download "$WebHostFiles/nx_plugins/milesight/milesight_analytics_plugin/$MilesightDebFile"; then
+          TERM=ansi whiptail --title "$TITLE" --infobox "\n Failed to download Milesight plugin..." 19 68
+          sleep 2
+          continue
+        fi
+        if ! install_deb "$MilesightDebFile"; then
+          TERM=ansi whiptail --title "$TITLE" --infobox "\n Failed to install Milesight plugin..." 19 68
+          sleep 2
+          continue
+        fi
         PLUGINS_INSTALLED=1
         TERM=ansi whiptail --title "$TITLE" --infobox "\n Milesight installed successfully." 19 68
         sleep 1
