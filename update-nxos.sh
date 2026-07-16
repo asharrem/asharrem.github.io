@@ -384,7 +384,7 @@ function choice_08 {
             sudo mv "$NxPluginsDir/libmilesight_analytics_plugin.so" "$NxPluginsOptional/"
           fi
         fi
-        if ! download "$WebHostFiles/nx_plugins/milesight/milesight_analytics_plugin/$MilesightDebFile"; then
+        if ! download "$WebHostFiles/nx_plugins/milesight/$MilesightDebFile"; then
           TERM=ansi whiptail --title "$TITLE" --infobox "\n Failed to download Milesight plugin..." 19 68
           sleep 2
           continue
