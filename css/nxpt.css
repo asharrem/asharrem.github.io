@@ -68,6 +68,15 @@ body {
     padding: 0;
 }
 
+/* Optional photo backdrop (home page); solid chrome remains default for reference pages */
+body[data-backdrop="photo"] {
+    background-color: var(--color-bg);
+    background-image: url(../images/background.jpg);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+}
+
 footer,
 header {
     cursor: auto;
@@ -83,6 +92,13 @@ main {
     margin: 0 auto;
     max-width: var(--width-content);
     padding: 3rem 1rem;
+}
+
+body:not([data-backdrop="photo"]) main {
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--color-text-secondary);
+    border-radius: var(--border-radius);
 }
 
 hr {
@@ -723,4 +739,70 @@ li {
 ol>li:before {
     content: counters(item, ".") ". ";
     counter-increment: item;
+}
+
+/* Theme switcher — after header nav rules so it wins specificity */
+header > nav[aria-label="Theme"] {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    margin: 0 auto;
+    max-width: var(--width-content);
+    padding: 0.5rem 1rem 0;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    font-weight: normal;
+    color: var(--color-text);
+}
+
+header > nav[aria-label="Theme"] label {
+    margin: 0;
+    color: var(--color-text);
+    font-size: 0.85rem;
+    font-weight: bold;
+}
+
+header > nav[aria-label="Theme"] select {
+    display: inline-block;
+    width: auto;
+    max-width: none;
+    margin: 0;
+    padding: 0.25rem 0.5rem;
+    background: var(--color-bg);
+    color: var(--color-text);
+    border: 1px solid var(--color-text-secondary);
+    border-radius: var(--border-radius);
+    font-weight: normal;
+}
+
+/* Card / callout tones previously set via inline styles */
+section aside[data-tone="primary"] {
+    background-color: var(--color-link);
+    color: var(--color-bg);
+    border-color: var(--color-link);
+    text-align: center;
+}
+
+section aside[data-tone="primary"] strong {
+    color: var(--color-bg);
+}
+
+section aside[data-tone="inverse"] {
+    background-color: #000;
+    color: var(--color-bg);
+    border-color: #000;
+}
+
+section aside[data-tone="inverse"] img {
+    transform: rotate(-12deg);
+}
+
+section aside[data-tone="accent"] {
+    background-color: var(--color-highlight);
+}
+
+fieldset[data-tone="accent"] {
+    background-color: var(--color-highlight);
 }

@@ -1,18 +1,26 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" data-theme="nxpt">
 
 <head>
-  <title>nxpt.css2</title>
-  <link rel="stylesheet" href="css/nxpt.css">
+  <title>Classless CSS — layout composition</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta charset='UTF-8'>
+  <link id="theme-stylesheet" rel="stylesheet" href="css/nxpt.css">
+  <script src="js/theme-switch.js"></script>
 </head>
 
-<body style="cursor: auto; background-color: var(--color-text)">
+<body>
   <p>&nbsp;</p>
-  <main
-    style="background-color: var(--color-bg); border-radius: var(--border-radius); border: 1px solid var(--color-text);">
+  <main>
+    <header>
+      <nav aria-label="Theme">
+        <label for="theme-select">Theme</label>
+        <select id="theme-select" name="theme">
+          <option value="nxpt">nxpt</option>
+          <option value="material">material</option>
+        </select>
+      </nav>
+    </header>
     Basic Website Structure
     <ol>
       <li>Header</li>
@@ -64,9 +72,6 @@
             <ul>
               <li>Menu_Item_3</li>
             </ul>
-            <!-- <ul>
-              <li>Menu_Item_4</a></li>
-            </ul> -->
           </nav>
           <h1>H1 Header</h1>
         </header>
@@ -159,11 +164,10 @@
         Unwrapped Fieldset.
       </fieldset>
       <li>Blockquote</li>
-      <!-- <blockquote style="border-radius: var(--border-radius); border: 1px var(--color-table) solid; background-color: var(--color-highlight);"> -->
-        <blockquote>
-          <q>I am a blockquote</q>
-          <footer>blockquote footer</footer>
-        </blockquote>
+      <blockquote>
+        <q>I am a blockquote</q>
+        <footer>blockquote footer</footer>
+      </blockquote>
       <article>
         <aside>
           <section>
@@ -183,12 +187,9 @@
         </aside>
       </article>
       <li>Footer example wrapped in a Nav to justify
-        <!-- <br>Hell, lets wrap it in an Article Aside too just for fun -->
       </li>
     </ol>
     <footer>
-      <!-- <article>
-        <aside> -->
       <nav>
         <ul>
           Developers <a href="http://asharrem.github.io" target="_blank" rel="noopener noreferrer">asharrem
@@ -199,8 +200,6 @@
           &copy; Nx Powertoys 2024
         </ul>
       </nav>
-      <!-- </aside>
-      </article> -->
     </footer>
   </main>
 </body>

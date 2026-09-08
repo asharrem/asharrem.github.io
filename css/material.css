@@ -1,0 +1,984 @@
+/* Classless Material-inspired theme (light, classic indigo)
+   Mirrors nxpt nested-tag contracts (see css.html) with Material surfaces + roomier spacing. */
+
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500&display=swap");
+
+:root {
+    --md-primary: #3f51b5;
+    --md-primary-dark: #303f9f;
+    --md-primary-light: #c5cae9;
+    --md-on-primary: #ffffff;
+    --md-secondary: #ff4081;
+    --md-bg: #eceff1;
+    --md-surface: #ffffff;
+    --md-surface-2: #f5f5f5;
+    --md-surface-inset: #e8eaf6;
+    --md-text: rgba(0, 0, 0, 0.87);
+    --md-text-secondary: rgba(0, 0, 0, 0.6);
+    --md-divider: rgba(0, 0, 0, 0.12);
+    --md-highlight: #fff59d;
+    --md-radius: 4px;
+    --md-content: 1080px;
+    --md-card: 285px;
+    --md-card-wide: 800px;
+    --md-shadow-1: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    --md-shadow-2: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    --md-shadow-4: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+    --md-font: "Roboto", system-ui, sans-serif;
+    --md-mono: "Roboto Mono", ui-monospace, monospace;
+    --md-line: 1.65;
+    --md-space: 1.25rem;
+    --md-space-lg: 2rem;
+    --md-space-xl: 3rem;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* —— Page chrome —— */
+body {
+    margin: 0;
+    padding: 0;
+    background: var(--md-bg);
+    color: var(--md-text);
+    font-family: var(--md-font);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: var(--md-line);
+    letter-spacing: 0.015em;
+    overflow-x: hidden;
+}
+
+main {
+    margin: var(--md-space-lg) auto;
+    max-width: var(--md-content);
+    padding: var(--md-space-xl) var(--md-space-lg);
+    background: var(--md-surface);
+    border-radius: var(--md-radius);
+    box-shadow: var(--md-shadow-1);
+}
+
+/* —— Theme switcher —— */
+header > nav[aria-label="Theme"] {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    margin: 0 0 var(--md-space);
+    padding: 0.75rem 0;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    font-weight: 500;
+    color: var(--md-text);
+}
+
+header > nav[aria-label="Theme"] label {
+    margin: 0;
+    color: var(--md-text-secondary);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+header > nav[aria-label="Theme"] select {
+    display: inline-block;
+    width: auto;
+    max-width: none;
+    margin: 0;
+    padding: 0.45rem 2rem 0.45rem 0.85rem;
+    border: 1px solid var(--md-divider);
+    border-radius: var(--md-radius);
+    background: var(--md-surface);
+    color: var(--md-text);
+    font-family: var(--md-font);
+    font-size: 0.875rem;
+    font-weight: 500;
+    box-shadow: var(--md-shadow-1);
+    cursor: pointer;
+}
+
+header > nav[aria-label="Theme"] select:hover,
+header > nav[aria-label="Theme"] select:focus {
+    border-color: var(--md-primary);
+    outline: none;
+}
+
+/* —— Nested article contract (css.html: article / article>article) —— */
+article {
+    margin: var(--md-space) auto;
+    max-width: var(--md-content);
+    padding: var(--md-space);
+    background: var(--md-surface);
+    border-radius: var(--md-radius);
+    box-shadow: var(--md-shadow-1);
+}
+
+article > article {
+    margin-top: 0;
+    margin-bottom: 0;
+    box-shadow: none;
+    background: var(--md-surface-2);
+}
+
+article header,
+div header,
+main > header {
+    padding: 0;
+}
+
+header {
+    text-align: left;
+    margin: 0 auto;
+    max-width: var(--md-content);
+    padding: var(--md-space) 0;
+}
+
+section header {
+    padding-top: 0;
+    width: 100%;
+}
+
+/* —— article aside = text callout —— */
+article aside {
+    margin: var(--md-space) 0;
+    padding: var(--md-space) var(--md-space) var(--md-space) 1.35rem;
+    background: var(--md-surface-inset);
+    border: none;
+    border-left: 4px solid var(--md-primary);
+    border-radius: 0 var(--md-radius) var(--md-radius) 0;
+    color: var(--md-text);
+    box-shadow: none;
+}
+
+article aside a {
+    color: var(--md-primary);
+}
+
+/* —— article>fieldset = shaded inset —— */
+article > fieldset {
+    margin: 0 var(--md-space-lg);
+    padding: var(--md-space);
+    background: var(--md-surface-inset);
+    border: none;
+    border-radius: var(--md-radius);
+    box-shadow: none;
+}
+
+/* —— article>section>header = title bar —— */
+article > section > header:nth-child(1) {
+    background: var(--md-primary-dark);
+    color: var(--md-on-primary);
+    border: none;
+    border-radius: var(--md-radius) var(--md-radius) 0 0;
+    padding: var(--md-space) var(--md-space-lg);
+    margin: 0;
+}
+
+article > section > header:nth-child(1) h1,
+article > section > header:nth-child(1) h2,
+article > section > header:nth-child(1) h3 {
+    margin: 0;
+    color: var(--md-on-primary);
+}
+
+/* —— section>header>fieldset = promo / description block —— */
+section > header > fieldset {
+    margin: var(--md-space);
+    padding: var(--md-space-xl);
+    border: none;
+    border-radius: var(--md-radius);
+    background: var(--md-surface);
+    box-shadow: var(--md-shadow-2);
+}
+
+section > header > fieldset[data-tone="accent"],
+fieldset[data-tone="accent"] {
+    background: var(--md-surface);
+    border-left: 4px solid var(--md-secondary);
+    box-shadow: var(--md-shadow-2);
+    padding: var(--md-space-xl);
+}
+
+/* —— section article = inverted accent panel —— */
+section article {
+    background: var(--md-primary);
+    color: var(--md-on-primary);
+    border-radius: var(--md-radius);
+    padding: var(--md-space);
+}
+
+section article a {
+    color: var(--md-on-primary);
+    border-bottom-color: rgba(255, 255, 255, 0.4);
+}
+
+/* —— fieldset (standalone) —— */
+fieldset {
+    margin: 0 0 var(--md-space-lg);
+    padding: var(--md-space-lg);
+    border: 1px solid var(--md-divider);
+    border-radius: var(--md-radius);
+    background: var(--md-surface);
+    box-shadow: var(--md-shadow-1);
+}
+
+legend {
+    padding: 0 0.35rem;
+    color: var(--md-primary);
+    font-weight: 500;
+}
+
+legend h1 {
+    margin: 0;
+    padding: 0.35rem 0.5rem;
+    color: var(--md-primary);
+    font-size: 2.15rem;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    line-height: 1.25;
+}
+
+/* —— Cards: section aside —— */
+section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0;
+    margin: var(--md-space) 0;
+}
+
+section img,
+article img {
+    max-width: 100%;
+    height: auto;
+}
+
+section pre {
+    overflow: auto;
+}
+
+section aside {
+    width: var(--md-card);
+    margin: var(--md-space);
+    padding: 1.5rem;
+    background: var(--md-surface);
+    border: none;
+    border-radius: var(--md-radius);
+    box-shadow: var(--md-shadow-1);
+    color: var(--md-text);
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+section aside:hover {
+    box-shadow: var(--md-shadow-2);
+    transform: translateY(-2px);
+}
+
+section aside[data-tone="primary"] {
+    background: var(--md-primary);
+    color: var(--md-on-primary);
+    text-align: center;
+}
+
+section aside[data-tone="primary"] strong {
+    color: var(--md-on-primary);
+}
+
+section aside[data-tone="inverse"] {
+    background: #212121;
+    color: #fff;
+}
+
+section aside[data-tone="inverse"] img {
+    transform: rotate(-12deg);
+}
+
+section aside[data-tone="accent"] {
+    background: var(--md-highlight);
+    color: var(--md-text);
+}
+
+section aside a {
+    display: flex;
+    justify-content: center;
+    color: inherit;
+    border-bottom: none;
+}
+
+/* —— Typography —— */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: var(--md-text);
+    font-weight: 500;
+    line-height: 1.3;
+    text-wrap: balance;
+    margin: 1.5rem 0 0.75rem;
+}
+
+h1 {
+    font-size: 2.15rem;
+}
+
+h2 {
+    font-size: 1.75rem;
+}
+
+h3 {
+    font-size: 1.4rem;
+}
+
+h4 {
+    margin: 1.5rem 0 0.65rem;
+    color: var(--md-primary-dark);
+    font-size: 1.15rem;
+}
+
+p {
+    margin: 1rem 0;
+    padding: 0;
+    width: 100%;
+}
+
+hr {
+    margin: var(--md-space-xl) 0;
+    border: none;
+    height: 1px;
+    background: var(--md-divider);
+    width: 100%;
+}
+
+small {
+    color: var(--md-text-secondary);
+}
+
+mark {
+    padding: 0.2rem 0.4rem;
+    background: var(--md-highlight);
+    border-radius: var(--md-radius);
+}
+
+sup {
+    background: var(--md-secondary);
+    border-radius: var(--md-radius);
+    color: var(--md-on-secondary);
+    font-size: xx-small;
+    font-weight: 700;
+    margin: 0.2rem;
+    padding: 0.2rem 0.35rem;
+    position: relative;
+    top: -2px;
+}
+
+/* —— Links & button-like anchors (nxpt: a b / a strong / a i / a em) —— */
+a {
+    color: var(--md-primary);
+    display: inline-block;
+    font-weight: 500;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.15s ease, color 0.15s ease, filter 0.15s ease;
+}
+
+a:hover {
+    color: var(--md-primary-dark);
+    border-bottom-color: var(--md-primary-light);
+}
+
+a:active {
+    filter: brightness(0.9);
+}
+
+a b,
+a em,
+a i,
+a strong,
+button,
+input {
+    border-radius: var(--md-radius);
+    display: inline-block;
+    font-size: 0.95rem;
+    font-weight: 500;
+    line-height: var(--md-line);
+    margin: 0.65rem 0.35rem 0.65rem 0;
+    padding: 0.55rem 1rem;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    border-bottom: none;
+}
+
+a b,
+a strong,
+button,
+input[type="submit"],
+input[type="reset"],
+input[type="button"],
+input:not([type]) {
+    background: var(--md-primary);
+    border: none;
+    box-shadow: var(--md-shadow-1);
+    color: var(--md-on-primary);
+}
+
+a em,
+a i {
+    background: transparent;
+    border: 1px solid var(--md-primary);
+    color: var(--md-primary);
+    box-shadow: none;
+}
+
+button,
+input {
+    font-family: var(--md-font);
+}
+
+button:hover,
+input:hover,
+a b:hover,
+a strong:hover {
+    cursor: pointer;
+    filter: brightness(1.08);
+    box-shadow: var(--md-shadow-2);
+}
+
+button:active,
+input:active {
+    filter: brightness(0.92);
+}
+
+button:disabled,
+input:disabled {
+    background: var(--md-surface-2);
+    color: var(--md-text-secondary);
+    box-shadow: none;
+    cursor: not-allowed;
+    filter: none;
+}
+
+/* —— Details / figures —— */
+details {
+    margin: 1.5rem 0;
+}
+
+details summary {
+    cursor: pointer;
+    padding: 1rem 0;
+    color: var(--md-primary);
+    font-weight: 500;
+    font-size: 1.15rem;
+}
+
+details summary:hover {
+    color: var(--md-primary-dark);
+}
+
+details[open] summary {
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--md-divider);
+}
+
+figure {
+    margin: var(--md-space) 0;
+    padding: 0;
+}
+
+fieldset > details > figure {
+    margin: var(--md-space);
+    padding: var(--md-space);
+    background: var(--md-surface);
+    border: 1px solid var(--md-divider);
+    border-radius: var(--md-radius);
+    box-shadow: var(--md-shadow-1);
+}
+
+figure img {
+    display: block;
+    max-width: 100%;
+    border-radius: var(--md-radius);
+}
+
+figure figcaption,
+figure legend {
+    margin-top: 0.75rem;
+    color: var(--md-text-secondary);
+    font-size: 0.875rem;
+}
+
+figcaption > ul > li {
+    padding: 0.75rem 0;
+}
+
+/* —— Code —— */
+code,
+samp,
+kbd,
+pre {
+    font-family: var(--md-mono);
+}
+
+code,
+samp {
+    display: inline-block;
+    margin: 0 0.15rem;
+    padding: 0.15rem 0.45rem;
+    background: var(--md-surface-inset);
+    border-radius: var(--md-radius);
+    color: var(--md-primary-dark);
+    font-size: 0.9em;
+}
+
+pre {
+    margin: var(--md-space) 0;
+    padding: 0;
+    max-width: var(--md-card-wide);
+    overflow: auto;
+}
+
+pre code,
+pre samp {
+    display: block;
+    max-width: var(--md-card-wide);
+    padding: 1.15rem 1.5rem;
+    background: #263238;
+    color: #eceff1;
+    border-radius: var(--md-radius);
+    white-space: pre-wrap;
+    box-shadow: var(--md-shadow-1);
+}
+
+kbd {
+    display: inline-block;
+    min-width: 1.5em;
+    margin: 0 0.2rem;
+    padding: 0.2rem 0.45rem;
+    border: 1px solid var(--md-divider);
+    border-bottom-width: 2px;
+    border-radius: 3px;
+    background: var(--md-surface);
+    box-shadow: none;
+    font-size: 0.8em;
+    font-weight: 500;
+    line-height: 1.2;
+    text-align: center;
+    position: relative;
+    top: -1px;
+    text-transform: none;
+}
+
+/* —— Nav (behavior mirrors nxpt; Material colors) —— */
+nav {
+    align-items: center;
+    display: flex;
+    font-weight: 500;
+    justify-content: space-between;
+    padding: 0 0.75rem;
+    background: var(--md-surface);
+    border-radius: 0 0 var(--md-radius) var(--md-radius);
+    box-shadow: var(--md-shadow-1);
+}
+
+nav a {
+    color: var(--md-primary);
+    border-bottom: none;
+    font-weight: 500;
+    text-transform: none;
+    letter-spacing: normal;
+    margin: 0;
+    padding: 0.75rem 0.15rem;
+}
+
+nav a:hover {
+    border-bottom: none;
+    filter: brightness(1.1);
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li {
+    display: inline-block;
+    margin: 0 0.5rem;
+    position: relative;
+    text-align: left;
+}
+
+/* Dropdowns — same show/hide + hover bridge as nxpt */
+nav ul li ul {
+    display: none;
+    position: absolute;
+    top: 2rem;
+    left: -2px;
+    z-index: 1;
+    height: auto;
+    width: auto;
+    padding: 0.5rem 1rem;
+    white-space: nowrap;
+    background: var(--md-surface);
+    border: 1px solid var(--md-divider);
+    border-radius: var(--md-radius);
+    box-shadow: var(--md-shadow-2);
+}
+
+nav ul li ul::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -0.5rem;
+    height: 0.5rem;
+}
+
+nav ul li:hover > ul {
+    display: block;
+    background: var(--md-surface);
+}
+
+nav ul li ul li,
+nav ul li ul li a {
+    display: block;
+}
+
+nav ul li ul li a {
+    padding: 0.45rem 0.25rem;
+    color: var(--md-primary);
+}
+
+/* header nav = inverted bar (exclude Theme switcher) */
+header nav:not([aria-label="Theme"]) {
+    background: var(--md-primary);
+    color: var(--md-on-primary);
+    border: none;
+    box-shadow: var(--md-shadow-1);
+}
+
+header nav:not([aria-label="Theme"]),
+header nav:not([aria-label="Theme"]) a {
+    color: var(--md-on-primary);
+}
+
+header nav:not([aria-label="Theme"]) a:hover {
+    filter: brightness(0.9);
+}
+
+header nav:not([aria-label="Theme"]) ul li:hover > ul {
+    background: var(--md-primary-dark);
+    border-color: var(--md-primary-dark);
+}
+
+header nav:not([aria-label="Theme"]) ul li ul li a {
+    color: var(--md-on-primary);
+}
+
+header nav img {
+    margin: 0;
+}
+
+form nav {
+    background: transparent;
+    justify-content: flex-start;
+    gap: 0.5rem;
+    padding: 0;
+    box-shadow: none;
+    border-radius: 0;
+}
+
+form nav a,
+form nav input {
+    margin-right: 0.35rem;
+}
+
+/* —— Forms —— */
+form {
+    border: 1px solid var(--md-divider);
+    border-radius: var(--md-radius);
+    box-shadow: var(--md-shadow-1);
+    display: block;
+    margin: var(--md-space) auto;
+    max-width: var(--md-content);
+    min-width: var(--md-card);
+    padding: var(--md-space-lg);
+    background: var(--md-surface);
+}
+
+form header {
+    margin: 0 0 var(--md-space);
+    padding: var(--md-space) 0;
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--md-primary-dark);
+}
+
+input,
+label,
+select,
+textarea {
+    display: block;
+    font-size: inherit;
+    max-width: var(--md-card-wide);
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+    display: inline-block;
+    margin: 0.5rem;
+    width: auto;
+    text-transform: none;
+    box-shadow: none;
+    background: transparent;
+    padding: 0;
+}
+
+input[type="checkbox"] + label,
+input[type="radio"] + label {
+    display: inline-block;
+    font-weight: 400;
+    text-transform: none;
+    margin: 0;
+    padding: 0 0.35rem;
+}
+
+input,
+select,
+textarea {
+    border: 1px solid var(--md-divider);
+    border-radius: var(--md-radius);
+    margin-bottom: 1rem;
+    padding: 0.55rem 0.85rem;
+    background: var(--md-surface);
+    color: var(--md-text);
+    font-family: var(--md-font);
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: normal;
+    box-shadow: none;
+}
+
+input:hover,
+select:hover,
+textarea:hover {
+    border-color: var(--md-primary-light);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: var(--md-primary);
+    outline: 2px solid var(--md-primary-light);
+    outline-offset: 0;
+}
+
+input:not([type="button"]):not([type="submit"]):not([type="reset"]):not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="hidden"]),
+textarea {
+    width: calc(100% - 1.7rem);
+}
+
+label {
+    font-weight: 500;
+    margin-bottom: 0.35rem;
+    text-transform: none;
+    letter-spacing: normal;
+}
+
+/* —— Tables —— */
+table {
+    border: 1px solid var(--md-divider);
+    border-radius: var(--md-radius);
+    border-spacing: 0;
+    max-width: 100%;
+    width: 100%;
+    margin: var(--md-space) 0;
+    overflow: hidden;
+    box-shadow: var(--md-shadow-1);
+}
+
+table td,
+table th,
+table tr {
+    padding: 0.75rem 1rem;
+    text-align: left;
+}
+
+table thead {
+    background: var(--md-primary);
+    color: var(--md-on-primary);
+}
+
+table tr:nth-child(even) {
+    background: var(--md-surface-inset);
+}
+
+/* —— Quotes —— */
+blockquote {
+    display: block;
+    font-size: 1.35rem;
+    font-weight: 400;
+    line-height: var(--md-line);
+    margin: var(--md-space-lg) auto;
+    max-width: 28rem;
+    padding: var(--md-space-lg) var(--md-space);
+    text-align: center;
+    color: var(--md-primary-dark);
+    border-left: 4px solid var(--md-primary);
+    background: var(--md-surface-inset);
+    border-radius: 0 var(--md-radius) var(--md-radius) 0;
+}
+
+blockquote footer {
+    color: var(--md-text-secondary);
+    display: block;
+    font-size: 0.875rem;
+    padding: var(--md-space) 0 0;
+    border: none;
+    margin: 0;
+}
+
+/* —— Lists —— */
+ul,
+ol {
+    margin: 1rem 0;
+    padding-left: 1.5rem;
+}
+
+ul li,
+ol li {
+    display: list-item;
+    padding: 0.35rem 0;
+}
+
+/* —— Dialog —— */
+dialog {
+    border: none;
+    border-radius: var(--md-radius);
+    box-shadow: var(--md-shadow-4);
+    padding: var(--md-space-lg);
+    max-width: 32rem;
+}
+
+dialog::backdrop {
+    background: rgba(0, 0, 0, 0.4);
+}
+
+/* —— Footer —— */
+footer,
+header {
+    cursor: auto;
+}
+
+main > footer,
+article > footer {
+    margin: var(--md-space-xl) auto 0;
+    max-width: var(--md-content);
+    padding: var(--md-space) 0 0;
+    border-top: 1px solid var(--md-divider);
+}
+
+footer nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 0;
+    background: transparent;
+    border-radius: 0;
+    font-weight: 400;
+    color: var(--md-text-secondary);
+    font-size: 0.875rem;
+    box-shadow: none;
+}
+
+/* —— TOC on css.html (injected nav#table-of-contents) —— */
+nav#table-of-contents {
+    display: block;
+    margin: 0 0 var(--md-space-xl);
+    padding: var(--md-space-lg);
+    background: var(--md-surface-2);
+    border: 1px solid var(--md-divider);
+    border-radius: var(--md-radius);
+    box-shadow: none;
+}
+
+nav#table-of-contents h2 {
+    margin-top: 0;
+    color: var(--md-primary-dark);
+}
+
+nav#table-of-contents ul {
+    columns: 2;
+    margin: var(--md-space) 0 0;
+    padding-left: 1.25rem;
+}
+
+nav#table-of-contents li {
+    display: list-item;
+    margin: 0.25rem 0;
+}
+
+@media screen and (max-width: 768px) {
+    main {
+        margin: var(--md-space);
+        padding: var(--md-space-lg) var(--md-space);
+    }
+
+    legend h1,
+    h1 {
+        font-size: 1.65rem;
+    }
+
+    section aside {
+        width: 100%;
+        max-width: var(--md-card);
+    }
+
+    article > fieldset {
+        margin: 0 var(--md-space);
+    }
+
+    nav#table-of-contents ul {
+        columns: 1;
+    }
+
+    nav {
+        flex-direction: column;
+        min-width: 100%;
+    }
+}
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--md-primary-light) transparent;
+}
+
+*::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+*::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: var(--md-primary-light);
+    border-radius: 3px;
+}
