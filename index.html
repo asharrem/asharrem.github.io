@@ -1,23 +1,29 @@
 <!doctype html>
-<html>
+<html lang="en" data-theme="nxpt">
 
 <head>
   <title>Andrew Sharrem</title>
-  <link rel="stylesheet" href="css/nxpt.css">
-  <link rel="canonical" href="https://asharrem.github.io/" />
   <meta charset="utf-8">
-  <meta name=”robots” content="index, follow" />
+  <meta name="robots" content="index, follow" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="canonical" href="https://asharrem.github.io/" />
+  <link id="theme-stylesheet" rel="stylesheet" href="css/nxpt.css">
+  <script src="js/theme-switch.js"></script>
 </head>
 
-<body
-  style="cursor: auto; background-color: var(--color-bg); background-image: url(images/background.jpg); background-repeat: no-repeat; background-position: center center; background-attachment: fixed; opacity: 1;">
-  <!-- <p>&nbsp;</p> -->
+<body data-backdrop="photo">
   <main>
 
     <!-- Main Header Blurb -->
     <article>
       <header>
+        <nav aria-label="Theme">
+          <label for="theme-select">Theme</label>
+          <select id="theme-select" name="theme">
+            <option value="nxpt">nxpt</option>
+            <option value="material">material</option>
+          </select>
+        </nav>
         <fieldset>
           <legend>
             <h1>Andrew Sharrem</h1>
@@ -35,22 +41,23 @@
       <section>
         <aside>
           <div><a href="https://www.networkoptix.com/nx-witness/" rel="nofollow"><img
-                src="./images/Nx Witness Logo_Color.png" width="256"></a></div>
+                src="./images/Nx Witness Logo_Color.png" width="256" alt="Nx Witness"></a></div>
         </aside>
-        <aside style="background-color: var(--color-link);">
-          <div><a href="https://nxpt.io" rel="nofollow"><img src="./images/NxPowertoys_logo_white.svg" width="96"></a>
+        <aside data-tone="primary">
+          <div><a href="https://nxpt.io" rel="nofollow"><img src="./images/NxPowertoys_logo_white.svg" width="96"
+                alt="Nx Powertoys"></a>
           </div>
-          <div style="text-align: center; color: white"><strong>Nx Powertoys</strong></div>
+          <div><strong>Nx Powertoys</strong></div>
         </aside>
-        <aside style="background-color: black;">
-          <div style="transform: rotate(-12deg);"><a href="https://support.nfs.co.nz/menu/nxwitness/nxos-versions"
-              rel="nofollow"><img src="./images/NxOS.png" width="256"></a></div>
+        <aside data-tone="inverse">
+          <div><a href="https://support.nfs.co.nz/menu/nxwitness/nxos-versions" rel="nofollow"><img
+                src="./images/NxOS.png" width="256" alt="NxOS"></a></div>
         </aside>
         <aside>
           <div><a href="./contactflow/index.html" rel="nofollow"><img src="./contactflow/images/ContactFlow_Splash.png"
-                width="256"></a></div>
+                width="256" alt="ContactFlow"></a></div>
         </aside>
-        <aside style="background-color: var(--color-highlight);">
+        <aside data-tone="accent">
           <div><a href="./20-7/index.html" rel="nofollow"><img src="./images/20-7-tile.svg" width="256"
                 alt="20/7 Fiscal Series"></a></div>
         </aside>
@@ -62,7 +69,7 @@
     <!-- Site Description -->
     <section>
       <header>
-        <fieldset style="background-color: var(--color-highlight);">
+        <fieldset data-tone="accent">
           <p>This public github hosts various files &amp; scripts specific to NxOS, as well as some code that aids
             various
             projects I work on.
@@ -81,7 +88,7 @@
         <fieldset>
           <details>
             <summary>NxOS Screenshots</summary>
-            <figure><img src="./images/03_nxos.png">
+            <figure><img src="./images/03_nxos.png" alt="NxOS components">
               <figcaption>
                 <ul>
                   <li>
@@ -91,7 +98,7 @@
               </figcaption>
             </figure>
             <figure>
-              <img src="./images/NxOS_promo_2.jpg">
+              <img src="./images/NxOS_promo_2.jpg" alt="NxOS Live USB Installer">
               <figcaption>
                 <ul>
                   <li>
@@ -102,7 +109,7 @@
             </figure>
 
             <figure>
-              <img src="./images/NxOS_promo.jpg">
+              <img src="./images/NxOS_promo.jpg" alt="NxOS Main Menu">
               <figcaption>
                 <ul>
                   <li>
@@ -113,7 +120,7 @@
             </figure>
 
             <figure>
-              <img src="./images/NxOS_promo_1.jpg">
+              <img src="./images/NxOS_promo_1.jpg" alt="NxOS running Nx client">
               <figcaption>
                 <ul>
                   <li>
@@ -197,7 +204,7 @@
                   &nearr;</a></li>
             </ul>
             <aside>
-              This site is styled with a customized mvp.css <br>
+              This site is styled with classless themes (nxpt / material). Use the Theme control in the header to switch.
               In chrome press <kbd>ctrl</kbd> + <kbd>u</kbd> to view the source.
             </aside>
             <div align="right"><a href="#css"><strong>&uparrow;</strong></a></div>

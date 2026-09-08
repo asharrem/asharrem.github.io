@@ -1,0 +1,45 @@
+---
+description: Classless CSS theme contracts — css.html is the source of truth
+globs: css/**/*.css,css.html,css2.html,index.html,js/theme-switch.js
+alwaysApply: false
+---
+
+# Classless themes
+
+## Source of truth
+
+- **`css.html`** — catalog of nested-tag contracts. Every new theme must style these demos and be checked by flipping the Theme control.
+- **`css2.html`** — composed layout examples (full page structure). Use it to verify nesting still works when patterns are combined; keep it theme-switchable.
+- Do **not** invent presentational classes. Prefer element selectors and nesting. Thin hooks OK: `data-theme`, `data-tone`, `data-backdrop`, `aria-label="Theme"`.
+
+## Nesting contracts (must differ by parent)
+
+| Selector | Role |
+| --- | --- |
+| `article` | Padded surface + vertical margin |
+| `article > article` | Nested surface, **no** extra vertical margin |
+| `article aside` | Text callout (accent edge) — **not** a card |
+| `section aside` | Fixed-width **card** (links centered) |
+| `article > fieldset` | Shaded inset |
+| `article > section > header:first-child` | Title bar only on the **first** header |
+| `section > header > fieldset` | Full-width blurb / badge |
+| `section article` | Inverted / primary accent panel |
+| `fieldset > details > figure` | Bordered, padded figure |
+| `header nav` vs `nav` | Inverted bar vs surface bar; same dropdown behavior |
+| `form nav` | Inline actions — not a site menu |
+| `footer nav` | Space-between meta row (often two `ul`s) |
+
+## Shared behavior across themes
+
+- **Nav dropdowns**: hidden nested `ul`, show on `li:hover`, absolute position, `::before` hover bridge (match `nxpt.css` behavior; theme only colors/elevation).
+- **`data-tone`**: `primary` \| `inverse` \| `accent` on cards/fieldsets — themes own colors (no inline style).
+- **`body[data-backdrop="photo"]`**: optional photo chrome (home); solid body otherwise.
+- **Links**: `a` text; `a b`/`a strong` filled buttons; `a i`/`a em` outline buttons.
+- Register new themes in `js/theme-switch.js` and both Theme `<select>`s (`index.html`, `css.html`; keep `css2.html` in sync).
+
+## When adding a theme
+
+1. Add `css/<name>.css` covering **all** `css.html` fieldset demos (TOC names).
+2. Wire the switcher; default remains `nxpt` until the new theme is ready.
+3. A/B on `css.html`, then spot-check composition on `css2.html` and `index.html`.
+4. If you discover a new nest worth documenting, **add it to `css.html` first** — then implement it in every theme.

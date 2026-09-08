@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="nxpt">
 
 <head>
-  <title>nxpt.css - CSS Reference</title>
-  <link rel="stylesheet" href="css/nxpt.css">
+  <title>Classless CSS Reference</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link id="theme-stylesheet" rel="stylesheet" href="css/nxpt.css">
+  <script src="js/theme-switch.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const main = document.querySelector("main");
@@ -37,35 +38,38 @@
     });
   </script>
 </head>
-<meta charset='UTF-8'>
-<!-- <script src='js/nxpt_script.js'></script> -->
 
-<body style="background-color: var(--color-link);">
-  <p>&nbsp;</p>
-  <main
-    style="background-color: var(--color-bg); border: 1px solid var(--color-text-secondary); border-radius: var(--border-radius);">
+<body>
+  <main>
     <header>
-      <h1>nxpt.css - CSS Reference doc</h1>
+      <nav aria-label="Theme">
+        <label for="theme-select">Theme</label>
+        <select id="theme-select" name="theme">
+          <option value="nxpt">nxpt</option>
+          <option value="material">material</option>
+        </select>
+      </nav>
+      <h1>Classless CSS Reference</h1>
     </header>
     <!-- <div align="right"><b>&uarr;</b></div> -->
-    <header><a href="./css2.html"><b>Example layout</b></a></header>
+    <header><a href="./css2.html"><b>Example layout</b></a> · composed page for theme spot-checks</header>
     <fieldset name="a">
       <article>
         <aside>
           <dl>
             <dt><code>&lt;a&gt;</code></dt>
             <dd>Text links</dd>
-            <dl>
-              <dt><code>&lt;a&gt;&ltb&gt;,&lta&gt;&ltstrong&gt;</code></dt>
-              <dd>Solid buttons</dd>
-            </dl>
+            <dt><code>&lt;a&gt;&lt;b&gt;</code> / <code>&lt;a&gt;&lt;strong&gt;</code></dt>
+            <dd>Filled button-style links</dd>
+            <dt><code>&lt;a&gt;&lt;i&gt;</code> / <code>&lt;a&gt;&lt;em&gt;</code></dt>
+            <dd>Outline button-style links</dd>
           </dl>
         </aside>
         <a href="#">Link</a>
-        <a href="#"><b>&ltb&gtbutton</b></a>
-        <a href="#"><strong>&ltstrong&gtbutton</strong></a>
-        <a href="#"><i>&lti&gtbutton</i></a>
-        <a href="#"><em>&ltem&gtbutton</em></a>
+        <a href="#"><b>&lt;b&gt; button</b></a>
+        <a href="#"><strong>&lt;strong&gt; button</strong></a>
+        <a href="#"><i>&lt;i&gt; button</i></a>
+        <a href="#"><em>&lt;em&gt; button</em></a>
       </article>
     </fieldset>
     <p></p>
@@ -74,17 +78,23 @@
         <aside>
           <dl>
             <dt><code>&lt;article&gt;</code></dt>
-            <dd>First level article has top &amp; bottom margin</dd>
+            <dd>Padded surface with top &amp; bottom margin (first-level content block)</dd>
+          </dl>
+        </aside>
+        <p>I am an Article. I am a very good article.</p>
+      </article>
+    </fieldset>
+    <p></p>
+    <fieldset name="article>article">
+      <article>
+        <aside>
+          <dl>
+            <dt><code>&lt;article&gt;&lt;article&gt;</code></dt>
+            <dd>Nested child article — no extra top/bottom margin (flush nesting)</dd>
           </dl>
         </aside>
         <article>
-          I am an Article. I am a very good article
-          <aside>
-            <dl>
-              <dt><code>&lt;article&gt;&ltarticle&gt;</code></dt>
-              <dd>Child &ltarticle&gt has no top &amp bottom margin</dd>
-            </dl>
-          </aside>
+          Nested article content sits flush inside the parent article surface.
         </article>
       </article>
     </fieldset>
@@ -94,23 +104,24 @@
         <aside>
           <dl>
             <dt><code>&lt;article&gt;&lt;aside&gt;</code></dt>
-            <dd>[This] I am a text callout</dd>
+            <dd>Text callout (left accent) — not a card</dd>
           </dl>
         </aside>
       </article>
     </fieldset>
     <p></p>
-    <fieldset name="article fieldset">
+    <fieldset name="article>fieldset">
       <article>
         <aside>
           <dl>
             <dt><code>&lt;article&gt;&lt;fieldset&gt;</code></dt>
-            <dd>Shaded Fieldset</dd>
+            <dd>Shaded inset fieldset inside an article</dd>
           </dl>
         </aside>
         <article>
           <fieldset>
             <legend>fieldset</legend>
+            <p>Shaded inset content.</p>
           </fieldset>
         </article>
       </article>
@@ -120,14 +131,17 @@
       <article>
         <aside>
           <dl>
-            <dt><code>&lt;article&gt;&lt;section&gt;&lt;header&gt; &</code></dt>
-            <dd>Title bar</dd>
+            <dt><code>&lt;article&gt;&lt;section&gt;&lt;header&gt;</code></dt>
+            <dd>Title bar on the <strong>first</strong> header only (<code>:nth-child(1)</code> / first-child). Later headers stay plain. Prefer &lt;h1&gt;–&lt;h3&gt; in the bar.</dd>
           </dl>
         </aside>
         <article>
           <section>
             <header>
-              <h3>A title bar best enclosed in a &ltH1-3&gt;</h3>
+              <h3>H3 Article Section Header</h3>
+            </header>
+            <header>
+              Only the first header has the title-bar style
             </header>
           </section>
         </article>
@@ -154,10 +168,12 @@
         <aside>
           <dl>
             <dt><code>&lt;body&gt;</code></dt>
-            <dd>Default parent element</dd>
-            <dd>Sets background, fonts etc</dd>
+            <dd>Page chrome — background, fonts, base text color (see page behind this &lt;main&gt;)</dd>
+            <dt><code>&lt;body data-backdrop="photo"&gt;</code></dt>
+            <dd>Optional photo backdrop (home page). Without it, themes use solid chrome — as on this reference page.</dd>
           </dl>
         </aside>
+        <p>This document’s &lt;body&gt; has no <code>data-backdrop</code>. Compare with <a href="./index.html">index.html</a>.</p>
       </article>
     </fieldset>
     <p></p>
@@ -179,10 +195,12 @@
           <dl>
             <dt><code>&lt;code&gt;</code></dt>
             <dd>Inline code highlighting</dd>
+            <dt><code>&lt;samp&gt;</code></dt>
+            <dd>Inline sample / computer output (same surface family as code)</dd>
           </dl>
         </aside>
-        <code>ctrl + c</code>
-        <code>sudo bash some-command</code>
+        <p>Code: <code>ctrl + c</code> <code>sudo bash some-command</code></p>
+        <p>Samp: <samp>permission denied</samp> <samp>exit code 1</samp></p>
       </article>
     </fieldset>
     <p></p>
@@ -226,14 +244,43 @@
       </article>
     </fieldset>
     <p></p>
+    <fieldset name="data-tone">
+      <article>
+        <aside>
+          <dl>
+            <dt><code>data-tone="primary|inverse|accent"</code></dt>
+            <dd>Theme-owned color variants for cards / callouts (replaces old inline styles). Switch Theme above to compare.</dd>
+          </dl>
+        </aside>
+        <section>
+          <aside>
+            <p>default card</p>
+          </aside>
+          <aside data-tone="primary">
+            <p><strong>primary</strong></p>
+          </aside>
+          <aside data-tone="inverse">
+            <p><strong>inverse</strong></p>
+          </aside>
+          <aside data-tone="accent">
+            <p><strong>accent</strong></p>
+          </aside>
+        </section>
+        <fieldset data-tone="accent">
+          <p>Also used on fieldsets (e.g. home description blurb).</p>
+        </fieldset>
+      </article>
+    </fieldset>
+    <p></p>
     <fieldset name="div">
       <article>
         <aside>
           <dl>
             <dt><code>&lt;div&gt;</code></dt>
-            <dd>Unstyled element</dd>
+            <dd>Unstyled hook — no theme surface of its own (contrast with article / aside / fieldset)</dd>
           </dl>
         </aside>
+        <div>I am a bare &lt;div&gt; — no card, callout, or inset styling.</div>
       </article>
     </fieldset>
     <p></p>
@@ -275,10 +322,21 @@
         <aside>
           <dl>
             <dt><code>&lt;footer&gt;</code></dt>
-            <dd>Padded footer area not exceeding container width</dd>
+            <dd>Padded footer area within content width</dd>
+            <dt><code>&lt;footer&gt;&lt;nav&gt;</code></dt>
+            <dd>Meta row — two &lt;ul&gt; groups justify to opposite ends (see css2 composition)</dd>
           </dl>
         </aside>
-        <footer>I am a footer</footer>
+        <footer>
+          <nav>
+            <ul>
+              <li><a href="#">Left meta</a></li>
+            </ul>
+            <ul>
+              <li>&copy; Example</li>
+            </ul>
+          </nav>
+        </footer>
       </article>
     </fieldset>
     <p></p>
@@ -340,7 +398,25 @@
               <input type="button" value="Button">
             </nav>
           </fieldset>
-          <sup>Protip: use &ltnav&gt to inline justify content</sup>
+        </form>
+      </article>
+    </fieldset>
+    <p></p>
+    <fieldset name="form>nav">
+      <article>
+        <aside>
+          <dl>
+            <dt><code>&lt;form&gt;&lt;nav&gt;</code></dt>
+            <dd>Inline action row inside a form (flex; not a site menu bar)</dd>
+          </dl>
+        </aside>
+        <form>
+          <label>Name <input type="text" value="Example"></label>
+          <nav>
+            <input type="submit" value="Submit">
+            <input type="reset" value="Reset">
+            <input type="button" value="Button">
+          </nav>
         </form>
       </article>
     </fieldset>
@@ -379,12 +455,9 @@
         <aside>
           <dl>
             <dt><code>header nav [ul] [li]</code></dt>
-            <dd>Color inverted <mark>var(--color-link);</mark> menu bar where each first level &ltul&gt is a flexbox
-              container with
-              justify on
-            </dd>
+            <dd>Inverted / primary menu bar — each first-level &lt;ul&gt; is a flex row with space-between justify</dd>
             <dt><code>nav [ul] [li] [ul] [li]</code></dt>
-            <dd>Menu bar sub menu</dd>
+            <dd>Hover submenu</dd>
           </dl>
           <p></p>
         </aside>
@@ -403,6 +476,42 @@
             </ul>
             <ul>
               <li><a href="#">Login</a></li>
+            </ul>
+          </nav>
+        </header>
+      </article>
+    </fieldset>
+    <p></p>
+    <fieldset name="header nav img">
+      <article>
+        <aside>
+          <dl>
+            <dt><code>header nav img</code></dt>
+            <dd>Logo in the menu bar (often first &lt;ul&gt;). Multiple &lt;ul&gt; groups share space-between.</dd>
+          </dl>
+        </aside>
+        <header>
+          <nav>
+            <ul>
+              <img src="./images/NxPowertoys_logo_white.svg" alt="logo" width="48" height="48">
+              <li>Menu_Item_1 &downarrow;
+                <ul>
+                  <li><a href="#">Sub_menu_1</a></li>
+                  <li><a href="#">Sub_menu_2</a></li>
+                </ul>
+              </li>
+              <li>Menu Item 1.1</li>
+            </ul>
+            <ul>
+              <li>Menu_Item_2 &downarrow;
+                <ul>
+                  <li><a href="#">Sub_menu_21</a></li>
+                  <li><a href="#">Sub_menu_22</a></li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>Menu_Item_3</li>
             </ul>
           </nav>
         </header>
@@ -439,7 +548,7 @@
         <aside>
           <dl>
             <dt><code>&lt;main&gt;</code></dt>
-            <dd>Padded margined content area</dd>
+            <dd>Primary content column — padded, max-width constrained. You are inside &lt;main&gt; now; page chrome is &lt;body&gt; behind it.</dd>
           </dl>
         </aside>
       </article>
@@ -462,9 +571,9 @@
         <aside>
           <dl>
             <dt><code>nav [ul] [li]</code></dt>
-            <dd>var(--color-bg); menu bar where each &ltul&gt is a flexbox container with justity on</dd>
+            <dd>Surface menu bar — each &lt;ul&gt; is a flex row with space-between justify</dd>
             <dt><code>nav [ul] [li] [ul] [li]</code></dt>
-            <dd>var(--color-bg); menu bar sub menu</dd>
+            <dd>Hover submenu</dd>
           </dl>
           <p></p>
         </aside>
@@ -558,54 +667,87 @@ Computer output block 2
         <aside>
           <dl>
             <dt><code>&lt;section&gt;</code></dt>
-            <dd>Special centered content - inline flexbox</dd>
-            <dt><code>&lt;section&gt;&lt;aside&gt; &lt;a&gt;</code></dt>
-            <dd>Content card - inline flexbox, hyperlinks are centered</dd>
-            <dt><code>&lt;section&gt;&lt;header&gt;</code></dt>
-            <dd>Centered header</dd>
-            <dt><code>&lt;section&gt;&lt;header&gt;&lt;fieldset&gt;</code></dt>
-            <dd>Full size blurb badge</dd>
+            <dd>Centered flex wrap container for cards and blurbs</dd>
+          </dl>
+        </aside>
+        <section>
+          <p>Section children lay out in a wrapping flex row (see dedicated card / header examples below).</p>
+          <header>
+            I am a Section Header
+          </header>
+        </section>
+      </article>
+    </fieldset>
+    <p></p>
+    <fieldset name="section aside">
+      <article>
+        <aside>
+          <dl>
+            <dt><code>&lt;section&gt;&lt;aside&gt;</code></dt>
+            <dd>Content card — fixed card width, elevation; links inside are centered. Distinct from <code>article aside</code> callouts.</dd>
           </dl>
         </aside>
         <section>
           <aside>
-            <h3>I am a &lt;h3&gt; in a content card</h3>
-            <p>Other things will wrap in the card area when they are long.
+            <h3>Card with &lt;h3&gt;</h3>
+            <p>Longer text wraps inside the card.
               <br><mark>I do not grow beyond my set width</mark>.
             </p>
           </aside>
           <aside>
             <ol>
-              An Ordered List in a Card
+              Ordered list in a card
               <li>List item 1</li>
               <li>List item 2</li>
               <li>List item 3</li>
             </ol>
           </aside>
-          <fieldset>
-            <legend>Fieldset</legend>
-            <ul>
-              An Unordered List in a fieldset in the section. I can grow.
-              <li>List item 1</li>
-              <li>List item 2</li>
-              <li>List item 3</li>
-            </ul>
-          </fieldset>
-          <fieldset>
-            <legend>Fieldset</legend>
-            <ol>
-              An ordered List in a fieldset in the section.
-              <li>List item 1</li>
-              <li>List item 2</li>
-              <li>List item 3</li>
-            </ol>
-          </fieldset>
-          <p>Most container elements in the section have no margins or padding so are best suited for cards.</p>
+          <aside>
+            <a href="#"><img src="./images/20-7-tile.svg" width="180" alt="example card link"></a>
+          </aside>
+        </section>
+      </article>
+    </fieldset>
+    <p></p>
+    <fieldset name="section article">
+      <article>
+        <aside>
+          <dl>
+            <dt><code>&lt;section&gt;&lt;article&gt;</code></dt>
+            <dd>Inverted / primary accent panel inside a section. Cards nested inside still use <code>section aside</code>.</dd>
+          </dl>
+        </aside>
+        <section>
+          <article>
+            <p>Section article — accent panel. Nested section asides remain cards:</p>
+            <section>
+              <aside>Nested section aside</aside>
+              <aside>Nested section aside</aside>
+              <aside>Nested section aside</aside>
+            </section>
+          </article>
+        </section>
+      </article>
+    </fieldset>
+    <p></p>
+    <fieldset name="section>header>fieldset">
+      <article>
+        <aside>
+          <dl>
+            <dt><code>&lt;section&gt;&lt;header&gt;&lt;fieldset&gt;</code></dt>
+            <dd>Full-width blurb / badge under a section header</dd>
+          </dl>
+        </aside>
+        <section>
           <header>
-            I am a Section Header
+            <fieldset>
+              <p>Full size blurb / badge — often used for site description blocks.</p>
+            </fieldset>
           </header>
           <header>
-            <fieldset>Full size blurb / badge</fieldset>
+            <fieldset data-tone="accent">
+              <p>Same pattern with <code>data-tone="accent"</code>.</p>
+            </fieldset>
           </header>
         </section>
       </article>
