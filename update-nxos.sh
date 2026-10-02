@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # shellcheck disable=SC2317,SC2329
-# Functions are called dynamically via $func mechanism (choice_01 .. choice_14)
+# Functions are called dynamically via $func mechanism (choice_01 .. choice_15)
 
 ############################################
 # This script is for post install of NxOS
@@ -186,7 +186,7 @@ case $key in
     sudo rm /opt/nxos/new_install
 
     # Display Checklist (whiptail)
-    CHOICES=$(whiptail --title "$TITLE" --separate-output --checklist "Choose options \n" 20 68 13 \
+    CHOICES=$(whiptail --title "$TITLE" --separate-output --checklist "Choose options \n" 22 68 14 \
       "01" "Download & Run DWService.net Agent " ON \
       "02" "Update Hostname to MAC address syntax " OFF \
       "03" "Purge Nx & Google .deb's from Downloads Folder " OFF \
@@ -200,7 +200,8 @@ case $key in
       "11" "Un-Install Nx Witness Server & Client " OFF \
       "12" "Install a specific Nx Witness Client & or Server " OFF \
       "13" "Run Updates " OFF \
-      "14" "Install DS-WSELI-T2/8p PoE Drivers " OFF 3>&1 1>&2 2>&3)
+      "14" "Install DS-WSELI-T2/8p PoE Drivers " OFF \
+      "15" "Install NxOS desktop stack from Ubuntu " OFF 3>&1 1>&2 2>&3)
     ;;
   *)
     # update cockpit
@@ -519,6 +520,27 @@ function choice_14 {
   if ! install_deb "$file_name"; then
     return
   fi
+}
+
+function choice_15 {
+  # Install NxOS desktop stack from a stock Ubuntu system
+  RELEASE_ARGS=()
+  if whiptail --title "$TITLE" --yesno "\n Also schedule a Ubuntu release upgrade at the end?\n\nThe script will confirm again before it starts." 12 68; then
+    RELEASE_ARGS=(--release-upgrade)
+  fi
+  file_name="ubuntu-nxos.sh"
+  if ! download "$WebHostFiles/$file_name"; then
+    TERM=ansi whiptail --title "$TITLE" --infobox "\n Failed to download ubuntu-nxos.sh" 19 68
+    sleep 2
+    return
+  fi
+  if ! bash "./$file_name" "${RELEASE_ARGS[@]}"; then
+    TERM=ansi whiptail --title "$TITLE" --infobox "\n Ubuntu to NxOS setup failed." 19 68
+    sleep 2
+    return
+  fi
+  TERM=ansi whiptail --title "$TITLE" --infobox "\n Ubuntu to NxOS setup finished." 19 68
+  sleep 1
 }
 
 for CHOICE in $CHOICES; do
