@@ -220,17 +220,23 @@ rm "$HOME/.local/share/applications/NxOS_Clock.desktop"
 # Release upgrade at end (background) when requested and confirmed
 if [[ $DO_RELEASE_UPGRADE == true && $CONFIRM_RELEASE_UPGRADE == true ]]; then
   UPGRADE_LOG="${UPGRADE_LOG:-/tmp/do-release-upgrade-$(date +%Y%m%d-%H%M%S).log}"
-  # Redirect before nohup so stdout/stderr are not a terminal; nohup then does not create nohup.out
-  nohup sudo do-release-upgrade --frontend=DistUpgradeViewNonInteractive >> "$UPGRADE_LOG" 2>&1 &
+  # Redirect before nohup so stdout/stderr are not a terminal; nohup then does not create nohup.out.
+  # Monitor mode puts the upgrade in its own process group so Ctrl+C does not kill it.
+  set -m
+  nohup sudo do-release-upgrade --frontend=DistUpgradeViewNonInteractive >> "$UPGRADE_LOG" 2>&1 < /dev/null &
   UPGRADE_PID=$!
+  set +m
   echo "Release upgrade started in background (PID $UPGRADE_PID). Log: $UPGRADE_LOG (see also /var/log/dist-upgrade/)"
   if [[ $TAIL_UPGRADE_LOG == true ]]; then
     echo "Tailing upgrade log (Ctrl+C to stop tailing; upgrade continues in background)..."
     tail -f "$UPGRADE_LOG" &
     TAIL_PID=$!
+    trap 'kill "$TAIL_PID" 2>/dev/null; echo; echo "Stopped watching. Upgrade continues in background (PID $UPGRADE_PID). Log: $UPGRADE_LOG"; exit 0' INT
     wait $UPGRADE_PID 2>/dev/null
-    kill $TAIL_PID 2>/dev/null
-    wait $TAIL_PID 2>/dev/null
+    trap - INT
+    kill "$TAIL_PID" 2>/dev/null
+    wait "$TAIL_PID" 2>/dev/null
+    echo "Release upgrade process exited. Log: $UPGRADE_LOG"
   fi
 fi
 

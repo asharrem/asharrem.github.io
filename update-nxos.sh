@@ -525,8 +525,8 @@ function choice_14 {
 function choice_15 {
   # Install NxOS desktop stack from a stock Ubuntu system
   RELEASE_ARGS=()
-  if whiptail --title "$TITLE" --yesno "\n Also schedule a Ubuntu release upgrade at the end?\n\nThe script will confirm again before it starts." 12 68; then
-    RELEASE_ARGS=(--release-upgrade)
+  if whiptail --title "$TITLE" --yesno "\n Also schedule a Ubuntu release upgrade at the end?\n\nThe log stays on screen until the upgrade finishes.\nCtrl+C only stops watching; the upgrade keeps running.\n\nThe script will confirm again before it starts." 16 68; then
+    RELEASE_ARGS=(--release-upgrade --tail)
   fi
   file_name="ubuntu-nxos.sh"
   if ! download "$WebHostFiles/$file_name"; then
