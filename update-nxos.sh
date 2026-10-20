@@ -20,7 +20,7 @@ WebHostFiles="https://$WebAddress"
 NxMajVer="6.1.2"
 NxBuild="42921"
 
-MilesightDebVer="2.0.14"
+MilesightDebVer="2.0.15"
 MilesightDebFile="milesight_analytics_plugin_amd64_V${MilesightDebVer}.deb"
 
 SU_PASS="nxw1tness"
